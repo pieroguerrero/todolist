@@ -23,24 +23,12 @@ export function createUser(id, strName, strLastName, strNickName, strEmail, idUs
 
     return {
         getId: objUser.getId.bind(objUser),
-        getIdTodo: objNote.getIdTodo.bind(objNote),
-        getTitle: objNote.getTitle.bind(objNote),
-        getAuthorNickName: objNote.getAuthorNickName.bind(objNote),
-        getDescription: objNote.getDescription.bind(objNote),
-        getCreationDate: objNote.getCreationDate.bind(objNote)
+        getName: objUser.getName.bind(objUser),
+        getLastName: objUser.getLastName.bind(objUser),
+        getAuthorNickName: objUser.getAuthorNickName.bind(objUser),
+        getEmail: objUser.getEmail.bind(objUser),
+        getIdUserCreator: objUser.getIdUserCreator.bind(objUser),
+        getCreationDate: objUser.getCreationDate.bind(objUser),
     }
 
 }
-
-// function bindActionProperties(actions, context) {
-
-//     const bindedActions = {};
-
-//     actions.keys().array.forEach(key => {
-
-//         bindedActions[key] = actions[key].bind(context);
-//     });
-
-//     return bindedActions;
-
-// }
