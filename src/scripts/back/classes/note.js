@@ -11,17 +11,17 @@ const noteActions = {
     setDescription: function (value) { this.strDescription = value },
 };
 
-export function createNote(idTodo, strTitle, strDescription, idUserAuthor, strAuthorNickName) {
+export function shapeº1Note(id, idTodo, strTitle, strDescription, idUserAuthor, strAuthorNickName, dtCreatedOn) {
 
     const objNote = Object.create(noteActions);
 
-    objNote.id = Date.now() + ((Math.random() * 100000).toFixed());
+    objNote.id = id;
     objNote.idTodo = idTodo;
     objNote.strTitle = strTitle;
     objNote.strDescription = strDescription;
     objNote.idAuthor = idUserAuthor;
     objNote.strAuthorNickName = strAuthorNickName;
-    objNote.dtCreatedOn = new Date();
+    objNote.dtCreatedOn = dtCreatedOn;
 
     return {
         getId: objNote.getId.bind(objNote),

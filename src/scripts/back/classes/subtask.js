@@ -1,5 +1,20 @@
 import { STATUS } from "./status.js";
 
+// function bindActionProperties(actions, context) {
+
+//     const bindedActions = {};
+
+//     Object.keys(actions).forEach(key => {
+
+//         bindedActions[key] = actions[key].bind(context);
+//     });
+
+//     return bindedActions;
+
+// }
+
+
+
 const subTaskActions = {
 
     getId: function () { return this.id },
@@ -20,11 +35,13 @@ const subTaskActions = {
 
 };
 
-export function createSubTask(idTodo, strTitle, strDescription, dtDueDate, idUserOwner, strOwnerNickName, idUserCreator, strCreatorNickName, idStatus) {
+//Object.defineProperty(subTaskActions, 'getUserOwnerId', { enumerable: false });
+
+export function shapeSubTask(id, dtCreatedOn, idTodo, strTitle, strDescription, dtDueDate, idUserOwner, strOwnerNickName, idUserCreator, strCreatorNickName, idStatus) {
 
     const objSubTask = Object.create(subTaskActions);
 
-    objSubTask.id = Date.now() + ((Math.random() * 100000).toFixed());
+    objSubTask.id = id;
     objSubTask.idTodo = idTodo;
     objSubTask.strTitle = strTitle;
     objSubTask.strDescription = strDescription;
@@ -34,9 +51,12 @@ export function createSubTask(idTodo, strTitle, strDescription, dtDueDate, idUse
     objSubTask.idUserCreator = idUserCreator;
     objSubTask.strCreatorNickName = strCreatorNickName;
     objSubTask.idStatus = idStatus;
-    objSubTask.dtCreatedOn = new Date();
+    objSubTask.dtCreatedOn = dtCreatedOn;
+
+    //return Object.assign({}, bindActionProperties(subTaskActions, objSubTask))
 
     return {
+
         getId: objSubTask.getId.bind(objSubTask),
         getIdTodo: objSubTask.idTodo.bind(objSubTask),
         getTitle: objSubTask.getTitle.bind(objSubTask),

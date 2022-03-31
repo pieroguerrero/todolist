@@ -1,7 +1,7 @@
 import "./styles.css";
 //import { createNote } from "./scripts/back/note.js";
-import { createSubTask } from "./scripts/back/subtask";
-import { STATUS } from "./scripts/back/status";
+import { shapeSubTask } from "./scripts/back/classes/subtask.js";
+import { STATUS } from "./scripts/back/classes/status.js";
 
 console.log("its alive!");
 const para = document.createElement("p");
@@ -21,8 +21,12 @@ main.appendChild(para);
 // console.log("getDescription()= " + objNote.getDescription());
 
 
-const objSubTask = createSubTask("Tarea 1", "Descripcion de la tarea 1", new Date(), 11, "pepigue", 11, "pepigue", STATUS.PENDING.id);
+const objSubTask = shapeSubTask(null, null, 10, "Tarea 1", "Descripcion de la tarea 1", new Date(), 1, "pepigue", 1, "pepigue", STATUS.PENDING.id);
+
 console.log(objSubTask);
 console.log("getTitle()= " + objSubTask.getTitle());
 console.log("getDescription()= " + objSubTask.getDescription());
 console.log("getStatusName()= " + objSubTask.getStatusName());
+
+objSubTask.setDescription("new desc");
+console.log("getDescription()= " + objSubTask.getDescription());
