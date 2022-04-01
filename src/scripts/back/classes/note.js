@@ -11,7 +11,7 @@ const noteActions = {
     setDescription: function (value) { this.strDescription = value },
 };
 
-export function shapeº1Note(id, idTodo, strTitle, strDescription, idUserAuthor, strAuthorNickName, dtCreatedOn) {
+export function shapeNote(id, idTodo, strTitle, strDescription, idUserAuthor, strAuthorNickName, dtCreatedOn) {
 
     const objNote = Object.create(noteActions);
 

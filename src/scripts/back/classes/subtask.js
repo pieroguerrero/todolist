@@ -1,5 +1,3 @@
-import { STATUS } from "./status.js";
-
 // function bindActionProperties(actions, context) {
 
 //     const bindedActions = {};
@@ -18,7 +16,7 @@ import { STATUS } from "./status.js";
 const subTaskActions = {
 
     getId: function () { return this.id },
-    getIdTodo: function () { return this.idTodo },
+    getIdTodo: function () { return this.intTodoId },
     getTitle: function () { return this.strTitle },
     getOwnerNickName: function () { return this.strOwnerNickName },
     getUserOwnerId: function () { return this.idUserOwner },
@@ -26,7 +24,7 @@ const subTaskActions = {
     getCreationDate: function () { return this.dtCreatedOn },
     getDueDate: function () { return this.dtDueDate },
     getStatusId: function () { return this.idStatus },
-    getStatusName: function () { return Object.values(STATUS).filter(element => element.id === this.idStatus)[0].name },
+    //getStatusName: function () { return Object.values(STATUS).filter(element => element.id === this.idStatus)[0].name },
 
     setTitle: function (value) { this.strTitle = value },
     setDescription: function (value) { this.strDescription = value },
@@ -37,12 +35,13 @@ const subTaskActions = {
 
 //Object.defineProperty(subTaskActions, 'getUserOwnerId', { enumerable: false });
 
-export function shapeSubTask(id, dtCreatedOn, idTodo, strTitle, strDescription, dtDueDate, idUserOwner, strOwnerNickName, idUserCreator, strCreatorNickName, idStatus) {
+
+export function shapeSubTask(id, dtCreatedOn, intTodoId, strTitle, strDescription, dtDueDate, idUserOwner, strOwnerNickName, idUserCreator, strCreatorNickName, idStatus) {
 
     const objSubTask = Object.create(subTaskActions);
 
     objSubTask.id = id;
-    objSubTask.idTodo = idTodo;
+    objSubTask.intTodoId = intTodoId;
     objSubTask.strTitle = strTitle;
     objSubTask.strDescription = strDescription;
     objSubTask.dtDueDate = dtDueDate;
@@ -58,7 +57,7 @@ export function shapeSubTask(id, dtCreatedOn, idTodo, strTitle, strDescription, 
     return {
 
         getId: objSubTask.getId.bind(objSubTask),
-        getIdTodo: objSubTask.idTodo.bind(objSubTask),
+        getIdTodo: objSubTask.getIdTodo.bind(objSubTask),
         getTitle: objSubTask.getTitle.bind(objSubTask),
         getOwnerNickName: objSubTask.getOwnerNickName.bind(objSubTask),
         getUserOwnerId: objSubTask.getUserOwnerId.bind(objSubTask),
@@ -66,7 +65,7 @@ export function shapeSubTask(id, dtCreatedOn, idTodo, strTitle, strDescription, 
         getCreationDate: objSubTask.getCreationDate.bind(objSubTask),
         getDueDate: objSubTask.getDueDate.bind(objSubTask),
         getStatusId: objSubTask.getStatusId.bind(objSubTask),
-        getStatusName: objSubTask.getStatusName.bind(objSubTask),
+        //getStatusName: objSubTask.getStatusName.bind(objSubTask),
 
         setTitle: objSubTask.setTitle.bind(objSubTask),
         setDescription: objSubTask.setDescription.bind(objSubTask),

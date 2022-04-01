@@ -9,7 +9,7 @@ const userActions = {
     getCreationDate: function () { return this.dtCreatedOn },
 };
 
-export function createUser(id, strName, strLastName, strNickName, strEmail, idUserCreator, dtCreatedOn) {
+export function shapeUser(id, strName, strLastName, strNickName, strEmail, idUserCreator, dtCreatedOn) {
 
     const objUser = Object.create(userActions);
 
