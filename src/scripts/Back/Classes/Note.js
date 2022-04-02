@@ -3,7 +3,7 @@ const noteActions = {
     getId: function () { return this.id },
     getIdTodo: function () { return this.idTodo },
     getTitle: function () { return this.strTitle },
-    getAuthorNickName: function () { return this.strAuthorNickName },
+    //getAuthorNickName: function () { return this.strAuthorNickName },
     getDescription: function () { return this.strDescription },
     getCreationDate: function () { return this.dtCreatedOn },
 
@@ -11,7 +11,26 @@ const noteActions = {
     setDescription: function (value) { this.strDescription = value },
 };
 
-export function shapeNote(id, idTodo, strTitle, strDescription, idUserAuthor, strAuthorNickName, dtCreatedOn) {
+/**
+ * 
+ * @param {number} id 
+ * @param {number} idTodo 
+ * @param {string} strTitle 
+ * @param {string} strDescription 
+ * @param {number} idUserAuthor 
+ * @param {Date} dtCreatedOn 
+ * @returns {{
+ *       getId: function(): number,
+ *       getIdTodo: function(): number,
+ *       getTitle: function(): string,
+ *       getDescription: function(): string,
+ *       getCreationDate: function(): Date,
+ *       setTitle: function(string):void,
+ *       setDescription: function(string):void,
+ * }}
+ */
+
+export function shapeNote(id, idTodo, strTitle, strDescription, idUserAuthor, dtCreatedOn) {
 
     const objNote = Object.create(noteActions);
 
@@ -20,14 +39,14 @@ export function shapeNote(id, idTodo, strTitle, strDescription, idUserAuthor, st
     objNote.strTitle = strTitle;
     objNote.strDescription = strDescription;
     objNote.idAuthor = idUserAuthor;
-    objNote.strAuthorNickName = strAuthorNickName;
+    //objNote.strAuthorNickName = strAuthorNickName;
     objNote.dtCreatedOn = dtCreatedOn;
 
     return {
         getId: objNote.getId.bind(objNote),
         getIdTodo: objNote.getIdTodo.bind(objNote),
         getTitle: objNote.getTitle.bind(objNote),
-        getAuthorNickName: objNote.getAuthorNickName.bind(objNote),
+        //getAuthorNickName: objNote.getAuthorNickName.bind(objNote),
         getDescription: objNote.getDescription.bind(objNote),
         getCreationDate: objNote.getCreationDate.bind(objNote),
 

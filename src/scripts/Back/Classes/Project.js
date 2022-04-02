@@ -9,8 +9,8 @@ const projectActions = {
     getUserOwnerId: function () { return this.intUserOwnerId },
     getUserCreatorId: function () { return this.intUserCreatorId },
     getCreationDate: function () { return this.dtCreatedOn },
-    getOwnerNickName: function () { return this.strOwnerNickName },
-    getToDosList: function () { return this.arrToDos },
+    //getOwnerNickName: function () { return this.strOwnerNickName },
+    //getToDosList: function () { return this.arrToDos },
 
     setTitle: function (value) { this.strTitle = value },
     setDescription: function (value) { this.strDescription = value },
@@ -18,8 +18,8 @@ const projectActions = {
     setEndDate: function (value) { this.dtEndDate = value },
     setStatusId: function (value) { this.intStatusId = value },
 
-    setToDos: function (value) { this.arrToDos = value },
-    addToDo: function (value) { this.arrSubTasks.push(value) },
+    //setToDos: function (value) { this.arrToDos = value },
+    //addToDo: function (value) { this.arrSubTasks.push(value) },
 
 };
 
@@ -32,13 +32,27 @@ const projectActions = {
  * @param {Date} dtEndDate 
  * @param {number} intStatusId 
  * @param {number} intUserOwnerId 
- * @param {string} strOwnerNickName 
  * @param {number} intUserCreatorId 
  * @param {Date} dtCreatedOn 
- * @returns 
+ * @returns {{
+ * getId: function(): number, 
+ * getStatusId: function(): number,
+ * getTitle: function(): string,
+ * getDescription: function(): string,
+ * getStartDate: function(): Date,
+ * getEndDate: function(): Date,
+ * getUserOwnerId: function(): number,
+ * getUserCreatorId: function(): number,
+ * getCreationDate: function(): Date,
+ * setTitle: function(string):void,
+ * setDescription: function(string):void,
+ * setStartDate: function(Date):void,
+ * setEndDate: function(Date):void,
+ * setStatusId: function(number):void
+ * }}
  */
 
-export function shapeProject(dblId, strTitle, strDescription, dtStartDate, dtEndDate, intStatusId, intUserOwnerId, strOwnerNickName, intUserCreatorId, dtCreatedOn) {
+export function shapeProject(dblId, strTitle, strDescription, dtStartDate, dtEndDate, intStatusId, intUserOwnerId, intUserCreatorId, dtCreatedOn) {
 
     const objProject = Object.create(projectActions);
 
@@ -49,10 +63,10 @@ export function shapeProject(dblId, strTitle, strDescription, dtStartDate, dtEnd
     objProject.dtEndDate = dtEndDate;
     objProject.intStatusId = intStatusId;
     objProject.intUserOwnerId = intUserOwnerId;
-    objProject.strOwnerNickName = strOwnerNickName;
+    //objProject.strOwnerNickName = strOwnerNickName;
     objProject.intUserCreatorId = intUserCreatorId;
     objProject.dtCreatedOn = dtCreatedOn;
-    objProject.arrToDos = [];
+    //objProject.arrToDos = [];
 
     return {
 
@@ -65,13 +79,7 @@ export function shapeProject(dblId, strTitle, strDescription, dtStartDate, dtEnd
         getUserOwnerId: objProject.getUserOwnerId.bind(objProject),
         getUserCreatorId: objProject.getUserCreatorId.bind(objProject),
         getCreationDate: objProject.getCreationDate.bind(objProject),
-        getOwnerNickName: objProject.getOwnerNickName.bind(objProject),
-
-        /**
-         * returns an array with basic information about Todos:
-         * * Array< {intId, strTitle, dtDueDate} >
-         */
-        getToDosList: objProject.getToDosList.bind(objProject),
+        //getOwnerNickName: objProject.getOwnerNickName.bind(objProject),
 
         setTitle: objProject.setTitle.bind(objProject),
         setDescription: objProject.setDescription.bind(objProject),
@@ -79,7 +87,7 @@ export function shapeProject(dblId, strTitle, strDescription, dtStartDate, dtEnd
         setEndDate: objProject.setEndDate.bind(objProject),
         setStatusId: objProject.setStatusId.bind(objProject),
 
-        setToDos: objProject.setToDos.bind(objProject),
-        addToDo: objProject.addToDo.bind(objProject),
+        //setToDos: objProject.setToDos.bind(objProject),
+        //addToDo: objProject.addToDo.bind(objProject),
     }
 }

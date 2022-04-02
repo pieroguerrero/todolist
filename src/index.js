@@ -1,9 +1,9 @@
 import "./styles.css";
 //import { createNote } from "./scripts/back/note.js";
-import { shapeSubTask } from "./scripts/back/classes/subtask.js";
-import { STATUS } from "./scripts/back/classes/status.js";
-import { shapeProject } from "./scripts/back/classes/project";
-import { createProjectDataConnexion } from "./scripts/back/data-access/project-data";
+import { shapeSubTask } from "./scripts/Back/Classes/SubTask.js";
+import { STATUS } from "./scripts/Back/Classes/Status.js";
+import { shapeProject } from "./scripts/Back/Classes/Project";
+import { createProjectDataConnexion } from "./scripts/Back/DataAccess/ProjectDataAccess";
 
 console.log("its alive!");
 const para = document.createElement("p");
@@ -23,34 +23,28 @@ main.appendChild(para);
 // console.log("getDescription()= " + objNote.getDescription());
 
 
-const objSubTask = shapeSubTask(null, null, 10, "Tarea 1", "Descripcion de la tarea 1", new Date(), 1, "pepigue", 1, "pepigue", STATUS.PENDING.id);
+const objSubTask = shapeSubTask(null, null, 10, "Tarea 1", "Descripcion de la tarea 1", new Date(), 1, 1, STATUS.PENDING.id);
 
 console.log(objSubTask);
-console.log("getTitle()= " + objSubTask.getTitle());
+console.log("getTitle()= " + objSubTask.getTitle);
 console.log("getDescription()= " + objSubTask.getDescription());
-//console.log("getStatusName()= " + objSubTask.getStatusName());
-
 objSubTask.setDescription("new desc");
 console.log("getDescription()= " + objSubTask.getDescription());
 
 console.log("----------------------");
 console.log("----------------------");
 
-const objProject = shapeProject(null, "Proyecto 1", "Descripcion del Proyecto jaja :)", new Date(2020, 10, 11), new Date(2022, 10, 30), STATUS.INPROGRESS.id, 1, "pepigue", 1, null);
-
-objProject.setToDos([
-    { intId: 111, strTitle: "Primer todo", dtDueDate: new Date(2019, 10, 10) },
-    { intId: 222, strTitle: "Segundo todo", dtDueDate: new Date(2021, 11, 11) }
-]);
+const objProject = shapeProject(null, "Proyecto 1", "Descripcion del Proyecto jaja :)", new Date(2020, 10, 11), new Date(2022, 10, 30), STATUS.INPROGRESS.id, 1, 1, null);
 
 const objProjectData = createProjectDataConnexion();
-const intProjectId = objProjectData.insertObj(objProject);
+const intProjectId = objProjectData.dbInsert(objProject);
 console.log(intProjectId);
 
 if (intProjectId) {
-    const objProject2 = objProjectData.readObj(intProjectId);
+    const objProject2 = objProjectData.dbSelect(intProjectId);
     console.log(objProject2);
-
+    console.log("from database...");
     console.log("objProject2.getTitle()= " + objProject2.getTitle());
-    console.log("objProject2.getToDosList()= " + objProject2.getToDosList());
+    //console.log("objProject2.getToDosList()= " + objProject2.getToDosList());
+    console.log("objProject2.getStartDate()= " + objProject2.getStartDate());
 }
