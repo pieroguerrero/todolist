@@ -1,6 +1,6 @@
 //https://dev.to/j471n/how-to-use-web-storage-api-3o28
 
-import { shapeProject } from "../Classes/Project";
+import { shapeProject } from "../Model/Project";
 /**
  * @param {{
  * getId: function(): number, 

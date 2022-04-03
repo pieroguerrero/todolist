@@ -1,8 +1,8 @@
 import "./styles.css";
 //import { createNote } from "./scripts/back/note.js";
-import { shapeSubTask } from "./scripts/Back/Classes/SubTask.js";
-import { STATUS } from "./scripts/Back/Classes/Status.js";
-import { shapeProject } from "./scripts/Back/Classes/Project";
+import { shapeSubTask } from "./scripts/Back/Model/SubTask.js";
+import { STATUS } from "./scripts/Back/Model/Status.js";
+import { shapeProject } from "./scripts/Back/Model/Project.js";
 import { createProjectDataConnexion } from "./scripts/Back/DataAccess/ProjectDataAccess";
 
 console.log("its alive!");
@@ -26,7 +26,7 @@ main.appendChild(para);
 const objSubTask = shapeSubTask(null, null, 10, "Tarea 1", "Descripcion de la tarea 1", new Date(), 1, 1, STATUS.PENDING.id);
 
 console.log(objSubTask);
-console.log("getTitle()= " + objSubTask.getTitle);
+console.log("getTitle()= " + objSubTask.getTitle());
 console.log("getDescription()= " + objSubTask.getDescription());
 objSubTask.setDescription("new desc");
 console.log("getDescription()= " + objSubTask.getDescription());
