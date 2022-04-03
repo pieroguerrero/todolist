@@ -38,7 +38,7 @@ const subTaskActions = {
 
 /**
  * 
- * @param {number} id 
+ * @param {number} dblId 
  * @param {Date} dtCreatedOn 
  * @param {number} intTodoId 
  * @param {string} strTitle 
@@ -64,11 +64,11 @@ const subTaskActions = {
  * }}
   */
 
-export function shapeSubTask(id, dtCreatedOn, intTodoId, strTitle, strDescription, dtDueDate, idUserOwner, idUserCreator, idStatus) {
+export function shapeSubTask(dblId, dtCreatedOn, intTodoId, strTitle, strDescription, dtDueDate, idUserOwner, idUserCreator, idStatus) {
 
     const objSubTask = Object.create(subTaskActions);
 
-    objSubTask.id = id;
+    objSubTask.id = dblId;
     objSubTask.intTodoId = intTodoId;
     objSubTask.strTitle = strTitle;
     objSubTask.strDescription = strDescription;

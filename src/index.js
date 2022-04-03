@@ -3,7 +3,7 @@ import "./styles.css";
 import { shapeSubTask } from "./scripts/Back/Model/SubTask.js";
 import { STATUS } from "./scripts/Back/Model/Status.js";
 import { shapeProject } from "./scripts/Back/Model/Project.js";
-import { createProjectDataConnexion } from "./scripts/Back/DataAccess/ProjectDataAccess";
+import { createProjectDAO } from "./scripts/Back/DataAccess/ProjectDAO";
 
 console.log("its alive!");
 const para = document.createElement("p");
@@ -34,10 +34,10 @@ console.log("getDescription()= " + objSubTask.getDescription());
 console.log("----------------------");
 console.log("----------------------");
 
-const objProject = shapeProject(null, "Proyecto 1", "Descripcion del Proyecto jaja :)", new Date(2020, 10, 11), new Date(2022, 10, 30), STATUS.INPROGRESS.id, 1, 1, null);
+// const objProject = shapeProject(null, "Proyecto 1", "Descripcion del Proyecto jaja :)", new Date(2020, 10, 11), new Date(2022, 10, 30), STATUS.INPROGRESS.id, 1, 1, null);
 
-const objProjectData = createProjectDataConnexion();
-const intProjectId = objProjectData.dbInsert(objProject);
+const objProjectData = createProjectDAO();
+const intProjectId = objProjectData.dbInsert("Proyecto 1", "Descripcion del Proyecto jaja :)", new Date(2020, 10, 11), new Date(2022, 10, 30), STATUS.INPROGRESS.id, 1, 1);
 console.log(intProjectId);
 
 if (intProjectId) {
