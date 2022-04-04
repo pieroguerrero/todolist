@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.div-menu-expanded {
+    background: #212529;
+    max-width: 0px;
+    opacity: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease 0s;
+    overflow: hidden;
+    position: absolute;
+}
+
+.change {
+    max-width: 270px;
+    opacity: 1;
+}

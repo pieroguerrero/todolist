@@ -9,8 +9,8 @@ const todoActions = {
     getDueDate: function () { return this.dtDueDate },
     getPriority: function () { return this.intPriority },
     getTag: function () { return this.strTag },
-    //getNotesList: function () { return this.arrNotes },
-    //getSubTasksList: function () { return this.arrSubTasks },
+    getNotesIdList: function () { return this.arrNoteId },
+    getSubTasksIdList: function () { return this.arrSubTaskId },
     getUserOwnerId: function () { return this.intUserOwnerId },
     getUserCreatorId: function () { return this.intUserCreatorId },
     getCreationDate: function () { return this.dtCreatedOn },
@@ -44,6 +44,8 @@ const todoActions = {
  * @param {number} intUserCreatorId 
  * @param {Date} dtCreatedOn 
  * @param {boolean} booIsClosed 
+ * @param {number[]} arrNoteId
+ * @param {number[]} arrSubTaskId
  * @returns {{
  *      getId: function(): number,
  *       getProjectId: function(): number,
@@ -52,6 +54,8 @@ const todoActions = {
  *       getDescription: function(): string,
  *       getDueDate: function(): Date,
  *       getPriority: function(): number,
+ *       getNotesIdList: function(): number[],
+ *       getSubTasksIdList: function(): number[],
  *       getTag: function(): string,
  *       getUserOwnerId: function(): number,
  *       getUserCreatorId: function(): number,
@@ -65,7 +69,7 @@ const todoActions = {
  *       setStatusId: function(number):void,
  * }}
  */
-export function shapeToDo(fltId, dblProjectId, intStatusId, strTitle, strDescription, dtDueDate, intPriority, strTag, intUserOwnerId, intUserCreatorId, dtCreatedOn, booIsClosed) {
+export function shapeToDo(fltId, dblProjectId, intStatusId, strTitle, strDescription, dtDueDate, intPriority, strTag, intUserOwnerId, intUserCreatorId, dtCreatedOn, booIsClosed, arrNoteId, arrSubTaskId) {
 
     const objToDo = Object.create(todoActions);
 
@@ -77,8 +81,8 @@ export function shapeToDo(fltId, dblProjectId, intStatusId, strTitle, strDescrip
     objToDo.dtDueDate = dtDueDate;
     objToDo.intPriority = intPriority;
     objToDo.strTag = strTag;
-    //objToDo.arrNotes = arrNotes;
-    //objToDo.arrSubTasks = arrSubTasks;
+    objToDo.arrNoteId = arrNoteId;
+    objToDo.arrSubTaskId = arrSubTaskId;
     objToDo.intUserOwnerId = intUserOwnerId;
     objToDo.intUserCreatorId = intUserCreatorId;
     objToDo.dtCreatedOn = dtCreatedOn;
@@ -94,8 +98,8 @@ export function shapeToDo(fltId, dblProjectId, intStatusId, strTitle, strDescrip
         getDueDate: objToDo.getDueDate.bind(objToDo),
         getPriority: objToDo.getPriority.bind(objToDo),
         getTag: objToDo.getTag.bind(objToDo),
-        //getNotesList: objToDo.getNotesList.bind(objToDo),
-        //getSubTasksList: objToDo.getNotesList.bind(objToDo),
+        getNotesIdList: objToDo.getNotesIdList.bind(objToDo),
+        getSubTasksIdList: objToDo.getSubTasksIdList.bind(objToDo),
         getUserOwnerId: objToDo.getUserOwnerId.bind(objToDo),
         getUserCreatorId: objToDo.getUserOwnerId.bind(objToDo),
         getCreationDate: objToDo.getCreationDate.bind(objToDo),

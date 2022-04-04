@@ -4,7 +4,13 @@ module.exports = {
     './src/index.js',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        todoist_red: '#DB4C3F',
+        todoist_green: '#8BC9C8',
+        // ...
+      },
+    },
   },
   plugins: [],
 }

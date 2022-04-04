@@ -27,6 +27,7 @@ function dbInsert(strTitle, strDescription, dtStartDate, dtEndDate, intStatusId,
         intUserOwnerId: intUserOwnerId,
         intUserCreatorId: intUserCreatorId,
         dtCreatedOn: new Date(),
+        arrToDoIds: []
     };
 
     localStorage.setItem("project-" + objProjectData.dblId, JSON.stringify(objProjectData));
@@ -60,6 +61,7 @@ function dbUpdate(dblId, strTitle, strDescription, dtStartDate, dtEndDate, intSt
         intUserOwnerId: intUserOwnerId,
         intUserCreatorId: objProject.getUserCreatorId(),
         dtCreatedOn: objProject.getCreationDate(),
+        arrToDoIds: objProject.getToDosIdList()
     };
 
     localStorage.setItem("project-" + objProjectData.dblId, JSON.stringify(objProjectData));
@@ -85,10 +87,9 @@ function dbSelect(intProjectId) {
         objProjectData.intStatusId,
         objProjectData.intUserOwnerId,
         objProjectData.intUserCreatorId,
-        objProjectData.dtCreatedOn
+        objProjectData.dtCreatedOn,
+        objProjectData.arrToDoIds
     );
-
-    //objProject.setToDos(objProjectData.arrToDosIDs);
 
     return objProject;
 }

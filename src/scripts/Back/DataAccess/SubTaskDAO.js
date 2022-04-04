@@ -81,13 +81,26 @@ function dbSelect(intSubTaskId) {
     return objSubTask;
 }
 
-const objData = { dbInsert: null, dbUpdate: null, dbSelect: null };
+/**
+ * 
+ * @param {number[]} arrSubTaskId 
+ * @returns 
+ */
+
+function dbSelectAll(arrSubTaskId) {
+
+    const arrSubTasks = arrSubTaskId.map(subTaskId => dbSelect(subTaskId));
+    return arrSubTasks;
+}
+
+const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null };
 
 /**
  * 
  * @returns {{
  * dbInsert: dbInsert, 
  * dbSelect: dbSelect,
+ * dbSelectAll: dbSelectAll,
  * dbUpdate: dbUpdate
  * }}
  */
@@ -97,6 +110,7 @@ export function createSubTaskDAO() {
 
         objData.dbInsert = dbInsert;
         objData.dbSelect = dbSelect;
+        objData.dbSelectAll = dbSelectAll;
         objData.dbUpdate = dbUpdate;
     }
 

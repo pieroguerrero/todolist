@@ -61,13 +61,26 @@ function dbUpdate(dblId, strTitle, strDescription) {
     return objNoteData.dblId;
 }
 
-const objData = { dbInsert: null, dbUpdate: null, dbSelect: null };
+/**
+ * 
+ * @param {number[]} arrNoteId 
+ * @returns 
+ */
+
+function dbSelectAll(arrNoteId) {
+
+    const arrNotes = arrNoteId.map(noteId => dbSelect(noteId));
+    return arrNotes;
+}
+
+const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null };
 
 /**
  * 
  * @returns {{
  * dbInsert: dbInsert, 
  * dbSelect: dbSelect,
+ * dbSelectAll: dbSelectAll,
  * dbUpdate: dbUpdate
  * }}
  */
@@ -77,6 +90,7 @@ export function createNoteDAO() {
 
         objData.dbInsert = dbInsert;
         objData.dbSelect = dbSelect;
+        objData.dbSelectAll = dbSelectAll;
         objData.dbUpdate = dbUpdate;
     }
 
