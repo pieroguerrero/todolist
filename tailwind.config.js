@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         todoist_red: '#DB4C3F',
+        todoist_gray: '#FAFAFA',
         todoist_green: '#8BC9C8',
         // ...
       },
