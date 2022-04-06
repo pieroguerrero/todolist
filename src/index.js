@@ -1,4 +1,5 @@
-import { headerListeners } from "./scripts/Front/Listeners/headerListener";
+import { headerListener } from "./scripts/Front/Listeners/headerListener";
+import { headerRender } from "./scripts/Front/Renders/headerRender";
 import "./styles.css";
 //import { createNote } from "./scripts/back/note.js";
 // import { shapeSubTask } from "./scripts/Back/Model/SubTask.js";
@@ -10,7 +11,7 @@ import "./styles.css";
 
 
 console.log("its alive!");
-headerListeners.attachHamburguerMenuClick();
+headerListener.onPageLoad();
 console.log("its alive 2!");
 
 

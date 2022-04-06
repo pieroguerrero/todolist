@@ -1,14 +1,19 @@
-import { headerRenders } from "../Renders/headerRender";
+import { headerRender } from "../Renders/headerRender";
 
-const headerListeners = (function () {
+const headerListener = (function () {
 
     return {
-        attachHamburguerMenuClick: function () {
+        onPageLoad: function () {
 
-            const btnHamburguerMenu = document.getElementById("button-hamburguer-menu");
-            btnHamburguerMenu.onclick = headerRenders.hamburguerMenuClicked;
+            headerRender.load();
+            //pubsub.notify(it's headers loading time)
+        },
+        onClickHamburguerMenu: function () {
+
+            headerRender.onClickHamburguerMenu(this);
+            //pubsub.notify(time to show the menu)
         },
     }
 })();
 
-export { headerListeners };
+export { headerListener };

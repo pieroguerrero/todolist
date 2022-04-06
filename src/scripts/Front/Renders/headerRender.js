@@ -1,7 +1,24 @@
-const headerRenders = (function () {
+import { headerListener } from "../Listeners/headerListener";
+
+const headerRender = (function () {
+
+    const loadHamburguerMenuButton = function () {
+
+        const btnHamburguerMenu = document.getElementById("button-hamburguer-menu");
+        btnHamburguerMenu.onclick = headerListener.onClickHamburguerMenu.bind(btnHamburguerMenu);
+    };
 
     return {
-        hamburguerMenuClicked: function () {
+        load: function () {
+
+            loadHamburguerMenuButton();
+        },
+        onClickHamburguerMenu: function (btnHamburguerMenu) {
+
+            btnHamburguerMenu.querySelector(".menu_icon").classList.toggle("hidden");
+            btnHamburguerMenu.querySelector(".close_icon").classList.toggle("hidden");
+
+            document.getElementById("div-shade-bg").classList.toggle("hidden");
 
             const divMenuExpanded = document.querySelector(".div-menu-expanded");
             divMenuExpanded.classList.toggle("change");
@@ -9,4 +26,4 @@ const headerRenders = (function () {
     }
 })();
 
-export { headerRenders };
+export { headerRender };
