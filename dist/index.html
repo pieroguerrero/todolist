@@ -8,7 +8,7 @@
     <title>To-do List</title>
 </head>
 
-<body class="flex flex-col h-full overflow-x-hidden">
+<body class="flex flex-col h-full overflow-x-hidden relative">
     <header class="bg-todoist_red h-[44px] w-full flex justify-between items-center">
         <ul id="left-menu" class="flex items-center gap-4 pl-[12px]">
             <li class="flex items-center">
@@ -482,6 +482,60 @@
         </nav>
     </main>
     <footer></footer>
+    <div id="div-popup-register-project"
+        class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-slate-900 bg-opacity-40">
+        <form id="form-popup-register-project" onsubmit="return false"
+            class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4">
+            <div
+                class="px-6 py-[14px] border-b-[#dddd] border-b-[1px] rounded-tl-[10px] rounded-tr-[10px] bg-[#FAFAFA] border-solid flex items-center">
+                <p class="text-lg font-bold">Add Project</p>
+            </div>
+            <div class="px-6 flex flex-col gap-3">
+                <div class="flex flex-col gap-2">
+                    <label class="font-bold" for="input-register-project-name">Name</label>
+                    <input class="peer rounded-md border-[1px] border-solid shadow-inner text-[100%] p-1 pl-2"
+                        type="text" id="input-register-project-name" name="input-register-project-name"
+                        autocomplete="off" placeholder=" " required>
+                    <span class="relative peer-required:after:absolute peer-required:after:text-white peer-required:after:bg-bar-text peer-required:after:content-['required'] peer-required:after:text-xs peer-required:after:top-[-65px] peer-required:after:left-[215px] peer-required:after:py-[4px] peer-required:after:px-2
+                        peer-required:after:rounded-md"></span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="font-bold" for="textarea-register-project-description">Description</label>
+                    <textarea name="textarea-register-project-description" id="textarea-register-project-description"
+                        rows="3" placeholder=" " autocomplete="off"
+                        class="peer rounded-md border-[1px] border-solid shadow-inner text-[100%] p-1 pl-2"
+                        required></textarea>
+                    <span class="relative peer-required:after:absolute peer-required:after:text-white peer-required:after:bg-bar-text peer-required:after:content-['required'] peer-required:after:text-xs peer-required:after:top-[-65px] peer-required:after:left-[215px] peer-required:after:py-[4px] peer-required:after:px-2
+                        peer-required:after:rounded-md"></span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="font-bold" for="date-register-project-startdate">Start date</label>
+                    <input type="date" name="date-register-project-startdate" id="date-register-project-startdate"
+                        class="peer w-[min-content] rounded-md border-[1px] border-solid shadow-inner text-[100%] p-1 pl-2"
+                        required>
+                    <span class="relative peer-required:after:absolute peer-required:after:text-white peer-required:after:bg-bar-text peer-required:after:content-['required'] peer-required:after:text-xs peer-required:after:top-[-65px] peer-required:after:left-[215px] peer-required:after:py-[4px] peer-required:after:px-2
+                    peer-required:after:rounded-md"></span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="font-bold" for="date-register-project-endtdate">End date</label>
+                    <input type="date" name="date-register-project-endtdate" id="date-register-project-enddate"
+                        class="peer w-[min-content] rounded-md border-[1px] border-solid shadow-inner text-[100%] p-1 pl-2"
+                        required>
+                    <span class="relative peer-required:after:absolute peer-required:after:text-white peer-required:after:bg-bar-text peer-required:after:content-['required'] peer-required:after:text-xs peer-required:after:top-[-65px] peer-required:after:left-[215px] peer-required:after:py-[4px] peer-required:after:px-2
+                    peer-required:after:rounded-md"></span>
+                </div>
+
+            </div>
+            <div
+                class="px-6 py-4 border-t-[#dddd] border-t-[1px] rounded-bl-[10px] rounded-br-[10px] bg-[#FAFAFA] border-solid flex items-center justify-end gap-3">
+                <button id="button-form-register-project-cancel"
+                    class="button-register-todo-cancel border-slate-300 border-solid border-[1px] h-8 px-[10px] rounded-[5px]">Cancel</button>
+                <button id="button-form-register-project-add"
+                    class="button-register-todo-add bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]">Add</button>
+            </div>
+        </form>
+
+    </div>
     <script src="./bundle.js"></script>
 </body>
 
