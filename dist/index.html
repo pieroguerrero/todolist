@@ -80,8 +80,8 @@
                 <p id="p-todolist-description" class="font-light">Tue Apr 5</p>
             </div>
             <div class="div-content w-full grid grid-rows-2 grid-cols-1">
-                <div class="px-12">
-                    <div class="div-welcome-section flex flex-col gap-6">
+                <div class="div-welcome-section flex px-12">
+                    <div class="flex-col gap-6">
                         <button id="button-welcome-section-addtask" class="flex items-center gap-2">
                             <svg width="13" height="13">
                                 <path
@@ -363,16 +363,23 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="div-add-todo-form">
-                    <div class="div-form-register-todo flex flex-col justify-center items-center px-12 gap-4">
+                    <form onsubmit="return false"
+                        class="form-form-register-todo flex flex-col justify-center items-center px-12 gap-4">
                         <div
                             class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3">
+                            <select name="select-register-todo-project" id="select-register-todo-project"
+                                class="py-[10px] pl-[10px] bg-white border-[1px] border-solid border-slate-300 rounded-[10px]">
+                                <option value="">--Choose a project--</option>
+                                <option value="1">Personal Tasks jhbjkh j bjh jh bh jh hh hg g </option>
+                                <option value="-1" class="italic border-slate-400 font-light">Create new Project
+                                </option>
+                            </select>
                             <input id="input-register-todo-title" type="text"
                                 placeholder="☝️ e.g., Family Lunch on Sunday...">
                             <textarea name="textarea-register-todo-description" id="textarea-register-todo-description"
                                 class="w-full overflow-hidden" rows="3" placeholder="📄 Description"></textarea>
-                            <input id="input-register-todo-tag" type="text" placeholder="🏷 Label">
+
 
                             <input type="date" name="input-register-todo-date" min="2022-04-05" list="days"
                                 id="input-register-todo-date" class="self-start">
@@ -380,7 +387,16 @@
                                 <option value="2022-04-05">Today</option>
                                 <option value="2022-04-06">Tomorrow</option>
                             </datalist>
+
+                            <select name="select-register-todo-priority" id="select-register-todo-priority"
+                                class="w-[min-content] py-[10px] pl-[10px] bg-white border-[1px] border-solid border-slate-300 rounded-[10px]">
+                                <option value="4">⚪ No Priority</option>
+                                <option value="3">🟡 Low Priority</option>
+                                <option value="2">🟠 Medium Priority</option>
+                                <option value="1">🔴 High Priority</option>
+                            </select>
                             <!-- <select name="select-register-todo-project" id="select-register-todo-project"></select> -->
+                            <input id="input-register-todo-tag" type="text" placeholder="🏷 Label">
                         </div>
                         <div class="w-full flex justify-start gap-4">
                             <button id="button-form-register-todo-add"
@@ -389,7 +405,7 @@
                             <button id="button-form-register-todo-cancel"
                                 class="button-register-todo-cancel border-slate-300 border-solid border-[1px] h-8 px-[10px] rounded-[5px]">Cancel</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

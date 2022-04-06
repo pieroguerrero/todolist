@@ -13,7 +13,7 @@ const headerRender = (function () {
 
             loadHamburguerMenuButton();
         },
-        onClickHamburguerMenu: function (btnHamburguerMenu) {
+        loadMenuTray: function (btnHamburguerMenu) {
 
             btnHamburguerMenu.querySelector(".menu_icon").classList.toggle("hidden");
             btnHamburguerMenu.querySelector(".close_icon").classList.toggle("hidden");
@@ -22,6 +22,8 @@ const headerRender = (function () {
 
             const divMenuExpanded = document.querySelector(".div-menu-expanded");
             divMenuExpanded.classList.toggle("change");
+
+            //pubsub.notify(time to load data and in the menu tray)
         },
     }
 })();

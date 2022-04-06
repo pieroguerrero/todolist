@@ -1,4 +1,5 @@
 import { headerListener } from "./scripts/Front/Listeners/headerListener";
+import { mainLanding_Listener } from "./scripts/Front/Listeners/mainLanding_Listener";
 import { headerRender } from "./scripts/Front/Renders/headerRender";
 import "./styles.css";
 //import { createNote } from "./scripts/back/note.js";
@@ -12,6 +13,8 @@ import "./styles.css";
 
 console.log("its alive!");
 headerListener.onPageLoad();
+mainLanding_Listener.onPageLoad();
+
 console.log("its alive 2!");
 
 

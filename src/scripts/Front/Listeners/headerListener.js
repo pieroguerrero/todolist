@@ -10,8 +10,8 @@ const headerListener = (function () {
         },
         onClickHamburguerMenu: function () {
 
-            headerRender.onClickHamburguerMenu(this);
-            //pubsub.notify(time to show the menu)
+            headerRender.loadMenuTray(this);
+
         },
     }
 })();
