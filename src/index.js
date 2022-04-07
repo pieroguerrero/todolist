@@ -1,19 +1,19 @@
-import { headerListener } from "./scripts/Front/Listeners/headerListener";
-import { mainLanding_Listener } from "./scripts/Front/Listeners/mainLanding_Listener";
-import { headerRender } from "./scripts/Front/Renders/headerRender";
+import { header } from "./scripts/Front/header";
+//import { headerListener } from "./scripts/Front/Listeners/headerListener";
+import { mainLanding } from "./scripts/Front/mainLanding";
+import { popUpProject } from "./scripts/Front/popUpProject";
+//import { headerRender } from "./scripts/Front/Renders/headerRender";
+//import { popUpProject_Render } from "./scripts/Front/Renders/popUpProject_Render";
 import "./styles.css";
-//import { createNote } from "./scripts/back/note.js";
-// import { shapeSubTask } from "./scripts/Back/Model/SubTask.js";
-// import { STATUS } from "./scripts/Back/Model/Status.js";
-// import { shapeProject } from "./scripts/Back/Model/Project.js";
-// import { createProjectDAO } from "./scripts/Back/DataAccess/ProjectDAO";
-
 
 
 
 console.log("its alive!");
-headerListener.onPageLoad();
-mainLanding_Listener.onPageLoad();
+//headerListener.onPageLoad();
+header.onPageLoad();
+mainLanding.onPageLoad();
+popUpProject.close();
+
 
 console.log("its alive 2!");
 
