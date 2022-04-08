@@ -1,15 +1,33 @@
+import { mainLandingWelcome_Controller } from "./scripts/Back/BusinessLogic/mainLandingWelcome_Controller";
+import { menuTray_Controller } from "./scripts/Back/BusinessLogic/menuTray_Controller";
+import { popUpProject_Controller } from "./scripts/Back/BusinessLogic/popUpPoject_Controller";
 import { header } from "./scripts/Front/header";
-//import { headerListener } from "./scripts/Front/Listeners/headerListener";
 import { mainLanding } from "./scripts/Front/mainLanding";
 import { popUpProject } from "./scripts/Front/popUpProject";
-//import { headerRender } from "./scripts/Front/Renders/headerRender";
-//import { popUpProject_Render } from "./scripts/Front/Renders/popUpProject_Render";
 import "./styles.css";
 
 
 
 console.log("its alive!");
 //headerListener.onPageLoad();
+
+const dblUserId = 1;
+localStorage.clear();
+
+//#region subscriptions from business objects
+
+popUpProject_Controller.subscribeEvents(dblUserId);
+mainLandingWelcome_Controller.subscribeEvents(dblUserId);
+menuTray_Controller.subscribeEvents(dblUserId);
+
+//#endregion
+
+//#region subscriptions from ui modules
+
+popUpProject.subscribeEvents();
+
+//#endregion
+
 header.onPageLoad();
 mainLanding.onPageLoad();
 popUpProject.close();

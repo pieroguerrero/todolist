@@ -88,6 +88,32 @@ function dbUpdate(dblId, intStatusId, strTitle, strDescription, dtDueDate, intPr
     return objTodoData.dblId;
 }
 
+/**
+ * 
+ * @param {number[]} arrTodoId 
+ * @returns {{
+ *      getId: function(): number,
+ *       getProjectId: function(): number,
+ *       getStatusId: function(): number,
+ *       getTitle: function(): string,
+ *       getDescription: function(): string,
+ *       getDueDate: function(): Date,
+ *       getPriority: function(): number,
+ *       getNotesIdList: function(): number[],
+ *       getSubTasksIdList: function(): number[],
+ *       getTag: function(): string,
+ *       getUserOwnerId: function(): number,
+ *       getUserCreatorId: function(): number,
+ *       getCreationDate: function(): Date,
+ *       setPriority: function(number):void,
+ *       setTag: function(string):void,
+ *       closeToDo: function(): void,
+ *       setTitle: function(string):void,
+ *       setDescription: function(string):void,
+ *       setDueDate: function(Date):void,
+ *       setStatusId: function(number):void,
+ * }[]}
+ */
 function dbSelectAll(arrTodoId) {
 
     const arrTodos = arrTodoId.map(todoId => dbSelect(todoId));

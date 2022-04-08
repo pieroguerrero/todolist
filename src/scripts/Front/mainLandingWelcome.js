@@ -3,6 +3,7 @@ import { mainLandingAddTaskPoUp } from "./mainLandingAddTaskPoUp";
 const mainLandingWelcome = (function () {
 
     const divLandingWelcome = document.querySelector(".div-welcome-section");
+    let dblOWnerUserIdkeep;
 
     const loadAddTaskPopUp = function () {
 
@@ -17,10 +18,13 @@ const mainLandingWelcome = (function () {
     };
 
     return {
-        load: function () {
+        load: function (dblOWnerUserId) {
+
+            dblOWnerUserIdkeep = dblOWnerUserId;
 
             loadAddTaskButton();
-            //load the list of projects if any
+
+            PubSub.publish("MainLandingWelcome-Load-GetProjectsList", { dblOWnerUserId });
         },
         show: function () {
 

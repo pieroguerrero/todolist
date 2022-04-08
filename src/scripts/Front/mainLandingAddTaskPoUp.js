@@ -15,6 +15,10 @@ const mainLandingAddTaskPoUp = (function () {
         mainLandingWelcome.show();
     };
 
+    const loadProjectsList = function () {
+
+    };
+
     return {
         /**
          * 
@@ -28,14 +32,19 @@ const mainLandingAddTaskPoUp = (function () {
             btnCancel.onclick = onPopUp ? onCancelPopUpTrue.bind(btnCancel) : onCancelPopUpFalse.bind(btnCancel);
 
             //pubsub.notify(time to all the data from the modal popup:projects and dates)
-            PubSub.publish("main-landing-addtask-load", { clientCurrentDate: new Date() });
+            PubSub.publish("MainLandingAddTaskLoad", { clientCurrentDate: new Date() });
         },
         hide: function () {
 
             if (!divAddTask.classList.contains("hidden")) {
                 divAddTask.classList.add("hidden");
             }
-        }
+        },
+        isOpen: function () {
+
+            return !divAddTask.classList.contains("hidden");
+        },
+        loadProjectsList: loadProjectsList,
     }
 })();
 

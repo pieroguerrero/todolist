@@ -32,6 +32,11 @@ function dbInsert(strTitle, strDescription, dtStartDate, dtEndDate, intStatusId,
 
     localStorage.setItem("project-" + objProjectData.dblId, JSON.stringify(objProjectData));
 
+    const projectsListRaw = localStorage.getItem("projects-list");
+    const arrProjectsList = projectsListRaw ? JSON.parse(projectsListRaw) : [];
+    arrProjectsList.push(objProjectData.dblId);
+    localStorage.setItem("projects-list", JSON.stringify(arrProjectsList));
+
     return objProjectData.dblId;
 }
 
@@ -48,7 +53,7 @@ function dbInsert(strTitle, strDescription, dtStartDate, dtEndDate, intStatusId,
  */
 function dbUpdate(dblId, strTitle, strDescription, dtStartDate, dtEndDate, intStatusId, intUserOwnerId) {
 
-    const objProject = dbSelect(dblId);
+    const objProject = dbSelect(dblId, intUserOwnerId);
 
     const objProjectData = {
 
@@ -70,37 +75,70 @@ function dbUpdate(dblId, strTitle, strDescription, dtStartDate, dtEndDate, intSt
 }
 /**
  * 
- * @param {number} intProjectId 
+ * @param {number} dblProjectId 
+ * @param {number} dblOWnerUserId 
  * @returns 
  */
-function dbSelect(intProjectId) {
+function dbSelect(dblProjectId, dblOWnerUserId) {
 
-    const objProjectData = JSON.parse(localStorage.getItem("project-" + intProjectId));
+    const objProjectData = JSON.parse(localStorage.getItem("project-" + dblProjectId));
 
-    const objProject = shapeProject(
+    if (objProjectData) {
 
-        objProjectData.dblId,
-        objProjectData.strTitle,
-        objProjectData.strDescription,
-        objProjectData.dtStartDate,
-        objProjectData.dtEndDate,
-        objProjectData.intStatusId,
-        objProjectData.intUserOwnerId,
-        objProjectData.intUserCreatorId,
-        objProjectData.dtCreatedOn,
-        objProjectData.arrToDoIds
-    );
+        const objProject = shapeProject(
 
-    return objProject;
+            objProjectData.dblId,
+            objProjectData.strTitle,
+            objProjectData.strDescription,
+            objProjectData.dtStartDate,
+            objProjectData.dtEndDate,
+            objProjectData.intStatusId,
+            objProjectData.intUserOwnerId,
+            objProjectData.intUserCreatorId,
+            objProjectData.dtCreatedOn,
+            objProjectData.arrToDoIds
+        );
+
+        return objProject;
+    }
 }
 
-const objData = { dbInsert: null, dbUpdate: null, dbSelect: null };
+/**
+ * @param {number} dblOWnerUserId
+ * @returns {{
+ * getId: function(): number, 
+ * getStatusId: function(): number,
+ * getTitle: function(): string,
+ * getDescription: function(): string,
+ * getStartDate: function(): Date,
+ * getEndDate: function(): Date,
+ * getUserOwnerId: function(): number,
+ * getUserCreatorId: function(): number,
+ * getCreationDate: function(): Date,
+ * getToDosIdList: function(): number[],
+ * setTitle: function(string):void,
+ * setDescription: function(string):void,
+ * setStartDate: function(Date):void,
+ * setEndDate: function(Date):void,
+ * setStatusId: function(number):void
+ * }[]}
+ */
+function dbSelectAll(dblOWnerUserId) {
+
+    const arrProjectsId = JSON.parse(localStorage.getItem("projects-list"));
+
+    const arrProjects = arrProjectsId.map(projectId => dbSelect(projectId, dblOWnerUserId));
+    return arrProjects;
+}
+
+const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null };
 
 /**
  * 
  * @returns {{
  * dbInsert: dbInsert, 
  * dbSelect: dbSelect,
+ * dbSelectAll:dbSelectAll,
  * dbUpdate: dbUpdate
  * }}
  */
@@ -110,6 +148,7 @@ export function createProjectDAO() {
 
         objData.dbInsert = dbInsert;
         objData.dbSelect = dbSelect;
+        objData.dbSelectAll = dbSelectAll;
         objData.dbUpdate = dbUpdate;
     }
 
