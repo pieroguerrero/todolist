@@ -30,9 +30,9 @@ const mainLandingWelcome_Controller = (function () {
     };
 
     return {
-        subscribeEvents: function (dblOWnerUserId) {
+        subscribeEvents: function (dblCurrentUserId) {
 
-            dblOWnerUserIdkeep = dblOWnerUserId;
+            dblOWnerUserIdkeep = dblCurrentUserId;
             PubSub.subscribe("MainLandingWelcome-Load-GetProjectsList", loadProjectsList);
         },
 

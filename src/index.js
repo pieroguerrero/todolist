@@ -1,3 +1,4 @@
+import { mainLandingAddTaskPoUp_Controller } from "./scripts/Back/BusinessLogic/mainLandingAddTaskPoUp_Controller";
 import { mainLandingWelcome_Controller } from "./scripts/Back/BusinessLogic/mainLandingWelcome_Controller";
 import { menuTray_Controller } from "./scripts/Back/BusinessLogic/menuTray_Controller";
 import { popUpProject_Controller } from "./scripts/Back/BusinessLogic/popUpPoject_Controller";
@@ -19,6 +20,7 @@ localStorage.clear();
 popUpProject_Controller.subscribeEvents(dblUserId);
 mainLandingWelcome_Controller.subscribeEvents(dblUserId);
 menuTray_Controller.subscribeEvents(dblUserId);
+mainLandingAddTaskPoUp_Controller.subscribeEvents(dblUserId);
 
 //#endregion
 
@@ -28,9 +30,11 @@ popUpProject.subscribeEvents();
 
 //#endregion
 
+
 header.onPageLoad();
 mainLanding.onPageLoad();
 popUpProject.close();
+
 
 
 console.log("its alive 2!");

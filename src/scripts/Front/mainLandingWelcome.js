@@ -8,7 +8,7 @@ const mainLandingWelcome = (function () {
     const loadAddTaskPopUp = function () {
 
         divLandingWelcome.classList.add("hidden");
-        mainLandingAddTaskPoUp.load();
+        mainLandingAddTaskPoUp.load(dblOWnerUserIdkeep);
     };
 
     const loadAddTaskButton = function () {
