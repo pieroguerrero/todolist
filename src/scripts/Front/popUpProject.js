@@ -15,9 +15,8 @@ const popUpProject = (function () {
     /**
          * 
          * @param {number} intProjectID If -1 it will register a new Project, otherwise will update the correspondant Project based on the Project ID.
-         * @param {Function} laterFunction If different than null, it will be executed at the end of the main function.
          */
-    const saveProject = function (intProjectID, laterFunction = null) {
+    const saveProject = function (intProjectID) {
 
         const frmPopUpProject = divPopUpProject.querySelector("#form-popup-register-project");
 
@@ -34,10 +33,10 @@ const popUpProject = (function () {
             PubSub.publish("PopupProjectSave", objProjectUI);
         }
 
-        if (laterFunction) {
+        // if (laterFunction) {
 
-            laterFunction();
-        }
+        //     laterFunction();
+        // }
 
     };
 
@@ -51,48 +50,63 @@ const popUpProject = (function () {
     /**
      * 
      * @param {string} strMessage 
-     * @param {string} strResult 
+     * @param {{strResult:string, dblResultId:number}} objResult 
      */
-    const saveProjectResult = function (strMessage, strResult) {
+    const saveProjectResult = function (strMessage, objResult) {
 
-        alert(strResult);
+        alert(objResult.strResult);
 
-        if (strResult !== "error") {
+        if (objResult.strResult !== "error") {
 
             if (menuTray.isOpen()) {
 
                 menuTray.loadProjectsList();
             } else if (mainLandingAddTaskPoUp.isOpen()) {
 
-                mainLandingAddTaskPoUp.loadProjectsList();
+                mainLandingAddTaskPoUp.loadProjectsList(objResult.dblResultId);
             }
 
             close();
         }
     };
 
+    /**
+     * 
+     * @param {Function} fnLaterExecution 
+     */
+    const cancelPopUp = function (fnLaterExecution) {
+
+        close();
+
+        if (fnLaterExecution) {
+
+            fnLaterExecution();
+        }
+
+    };
+
     return {
         /**
          * 
          * @param {number} intProjectID If -1 it will load the PopUp in registration mode, otherwise will use the Project Id passed to load the correspondant Project data.
-         * @param {Function} laterSaveFunction If different than null, it will be executed at the end of the Save function.
+         * @param {Function} fnCancelLaterExecution To be 
          */
-        load: function (intProjectID, laterSaveFunction = null) {
+        load: function (intProjectID, fnCancelLaterExecution = null) {
 
             divPopUpProject.classList.remove("hidden");
 
             const btnCancel = divPopUpProject.querySelector("#button-form-register-project-cancel");
-            btnCancel.onclick = close.bind(btnCancel);
+            btnCancel.onclick = cancelPopUp.bind(btnCancel, fnCancelLaterExecution);
 
             const btnAdd = divPopUpProject.querySelector("#button-form-register-project-add");
-            btnAdd.onclick = saveProject.bind(null, intProjectID, laterSaveFunction);
+            btnAdd.onclick = saveProject.bind(null, intProjectID);
             btnAdd.textContent = intProjectID === -1 ? "Add" : "Update";
         },
         subscribeEvents: function () {
 
             PubSub.subscribe("PopupProjectSaveResult", saveProjectResult);
         },
-        //close: close,
+        close: close,
     }
 })();
 

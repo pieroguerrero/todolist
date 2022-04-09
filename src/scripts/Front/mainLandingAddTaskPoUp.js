@@ -15,7 +15,7 @@ const mainLandingAddTaskPoUp = (function () {
 
     const opChooseProject = document.createElement("option");
     opChooseProject.value = "";
-    opChooseProject.label = "--Choose a project--";
+    opChooseProject.label = "-- Choose a project --";
     opChooseProject.classList.add("border-slate-400", "font-light");
 
     const onCancelPopUpTrue = function () {
@@ -31,7 +31,8 @@ const mainLandingAddTaskPoUp = (function () {
     const onChangeSelect = function () {
 
         if (this.value === "-1") {
-            popUpProject.load(-1, loadProjectsDropDownList);
+            popUpProject.load(-1, () => (divAddTask.querySelector("#select-register-todo-project").value = ""));
+
         }
     };
 
@@ -64,6 +65,7 @@ const mainLandingAddTaskPoUp = (function () {
         fragment.appendChild(opNewProject);
 
         selProjectsList.appendChild(fragment);
+        selProjectsList.value = "";
         selProjectsList.onchange = onChangeSelect.bind(selProjectsList);
     };
 
@@ -104,7 +106,11 @@ const mainLandingAddTaskPoUp = (function () {
 
             return !divAddTask.classList.contains("hidden");
         },
-        //loadProjectsList: loadProjectsList,
+        /**
+         * 
+         * @param {number} dblResultId 
+         */
+        loadProjectsList: loadProjectsDropDownList,
     }
 })();
 

@@ -61,7 +61,7 @@ const menuTray = (function () {
         },
         isOpen: function () {
 
-            return !divMenuExpanded.classList.contains("hidden");
+            return divMenuExpanded.classList.contains("change");
         },
     }
 })();
