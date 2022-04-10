@@ -436,10 +436,11 @@
                             <p class="text-xl text-center">Get a clear view of the day ahead.</p>
                             <p class=" font-light text-center">All your tasks that are due today will show up here.</p>
                         </div>
-                        <div class="div-todo-list ">
-                            <ul class="todo-1">
+                        <div class="div-todo-list">
+                            <ul>
                                 <template id="tmp-tasks-item">
                                     <li class="flex gap-5 items-start">
+                                        <input type="hidden" class="hidden-task-item-id">
                                         <div class="div-check-complete">
                                             <input
                                                 class="chk-todo-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"

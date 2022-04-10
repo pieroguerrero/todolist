@@ -1,4 +1,6 @@
 import { shapeToDo } from "../Model/Todo";
+import { createProjectDAO } from "./ProjectDAO";
+import format from "date-fns/format";
 
 /**
  * 
@@ -119,7 +121,47 @@ function dbSelectAll(arrTodoId) {
     return arrTodos;
 }
 
-const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null };
+/**
+ * 
+ * @param {Date} dtDate 
+ * @param {number} dblOWnerUserId 
+ * @returns {{
+ *      getId: function(): number,
+ *       getProjectId: function(): number,
+ *       getStatusId: function(): number,
+ *       getTitle: function(): string,
+ *       getDescription: function(): string,
+ *       getDueDate: function(): Date,
+ *       getPriority: function(): number,
+ *       getNotesIdList: function(): number[],
+ *       getSubTasksIdList: function(): number[],
+ *       getTag: function(): string,
+ *       getUserOwnerId: function(): number,
+ *       getUserCreatorId: function(): number,
+ *       getCreationDate: function(): Date,
+ *       setPriority: function(number):void,
+ *       setTag: function(string):void,
+ *       closeToDo: function(): void,
+ *       setTitle: function(string):void,
+ *       setDescription: function(string):void,
+ *       setDueDate: function(Date):void,
+ *       setStatusId: function(number):void,
+ * }[]}
+ */
+function dbSelectByDate(dtDate, dblOWnerUserId) {
+
+    const arrProjects = createProjectDAO().dbSelectAll(dblOWnerUserId);
+
+    const arrAllTasks = arrProjects.reduce((prev, curr) => {
+
+        const arrTodoList = dbSelectAll(curr.getToDosIdList());
+        return prev.concat(arrTodoList);
+    }, []);
+
+    return arrAllTasks.filter(tasks => (format(tasks.getDueDate(), "yyyy/MM/dd") === format(dtDate, "yyyy/MM/dd")));
+}
+
+const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbSelectByDate: null };
 
 /**
  * 
@@ -127,10 +169,11 @@ const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: n
  * dbInsert: dbInsert, 
  * dbSelect: dbSelect,
  * dbSelectAll: dbSelectAll,
- * dbUpdate: dbUpdate
+ * dbUpdate: dbUpdate,
+ * dbSelectByDate:dbSelectByDate
  * }}
  */
-export function createTodoDAO() {
+function createTodoDAO() {
 
     if (!objData.dbInsert) {
 
@@ -138,7 +181,10 @@ export function createTodoDAO() {
         objData.dbSelect = dbSelect;
         objData.dbSelectAll = dbSelectAll;
         objData.dbUpdate = dbUpdate;
+        objData.dbSelectByDate = dbSelectByDate;
     }
 
     return objData;
 }
+
+export { createTodoDAO };

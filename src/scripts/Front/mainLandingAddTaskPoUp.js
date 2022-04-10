@@ -1,4 +1,6 @@
 import PubSub, { publish } from 'pubsub-js'
+import { mainLandingAddTaskPoUp_Controller } from '../Back/BusinessLogic/mainLandingAddTaskPoUp_Controller';
+import { mainLandingWelcome_Controller } from '../Back/BusinessLogic/mainLandingWelcome_Controller';
 import { mainLandingWelcome } from './mainLandingWelcome';
 import { popUpProject } from './popUpProject';
 
@@ -84,17 +86,9 @@ const mainLandingAddTaskPoUp = (function () {
 
     /**
      * 
-     * @param {string} strMessage 
-     * @param {{ dblId: number, strResult:string }} objResult 
+     * @param {Function} fnSuccessLaterExecution 
      */
-    const createNewTaskResult = function (strMessage, objResult) {
-
-        alert(objResult.strResult);
-
-        //load the tasks list and, in canse needed, close the popup
-    }
-
-    const createNewTask = function () {
+    const createNewTask = function (fnSuccessLaterExecution = null) {
 
         const frmRegisterTask = divAddTask.querySelector(".form-register-todo");
 
@@ -112,13 +106,17 @@ const mainLandingAddTaskPoUp = (function () {
                 dblUserOwnerId: dblOWnerUserIdkeep,
             };
 
+            const objResult = mainLandingAddTaskPoUp_Controller.registerNewTask(objTaskBasic.dblProjectId, objTaskBasic.strName, objTaskBasic.strDescription, objTaskBasic.dtDueDate, objTaskBasic.intPriorityId, objTaskBasic.strLabel, objTaskBasic.dblUserOwnerId, objTaskBasic.dblUserCreatorId);
 
-            if (PubSub.getSubscriptions("MainLandingAddTaskPopUpController-RegisterNewTask-Render").length === 0) {
+            if (objResult.dblId > 0) {
 
-                PubSub.subscribe("MainLandingAddTaskPopUpController-RegisterNewTask-Render", createNewTaskResult);
+                alert(objResult.strResult);
+                //load the tasks list and, in case needed, close the popup
+                if (fnSuccessLaterExecution) {
+
+                    fnSuccessLaterExecution();
+                }
             }
-
-            PubSub.publish("MainLandinAddTaskPopUp-CreateNewTask-Register", objTaskBasic);
         }
     };
 
@@ -127,8 +125,9 @@ const mainLandingAddTaskPoUp = (function () {
          * 
          * @param {boolean} onPopUp If true, the form will be shown in a popup, otherwhise will be shown in the main element
          * @param {number} dblCurrentUserId
+         * @param {Function} fnNewTasksLaterExecution
          */
-        load: function (dblCurrentUserId, onPopUp = false) {
+        load: function (dblCurrentUserId, fnNewTasksLaterExecution, onPopUp = false) {
 
             dblOWnerUserIdkeep = dblCurrentUserId;
 
@@ -138,7 +137,7 @@ const mainLandingAddTaskPoUp = (function () {
             btnCancel.onclick = onPopUp ? onCancelPopUpTrue.bind(btnCancel) : onCancelPopUpFalse.bind(btnCancel);
 
             const btnSave = divAddTask.querySelector("#button-form-register-todo-add");
-            btnSave.onclick = createNewTask.bind(btnSave);
+            btnSave.onclick = createNewTask.bind(btnSave, fnNewTasksLaterExecution);
 
             loadProjectsDropDownList();
         },

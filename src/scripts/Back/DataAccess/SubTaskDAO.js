@@ -1,4 +1,6 @@
+import { STATUS } from "../Model/Status";
 import { shapeSubTask } from "../Model/SubTask";
+import { createTodoDAO } from "./TodoDAO";
 
 
 /**
@@ -93,7 +95,25 @@ function dbSelectAll(arrSubTaskId) {
     return arrSubTasks;
 }
 
-const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null };
+/**
+ * 
+ * @param {number} dblTodoId 
+ * @returns 
+ */
+function dbSelectByTodo(dblTodoId) {
+
+    const arrSubTasksId = createTodoDAO().dbSelect(dblTodoId).getSubTasksIdList();
+
+    return dbSelectAll(arrSubTasksId);
+}
+
+function dbSelectActiveByTodo(dblTodoId, dblUserOwnerId) {
+
+    return dbSelectByTodo(dblTodoId).filter(objSubTasks => ((objSubTasks.getStatusId() !== STATUS.CLOSED.id) && (objSubTasks.getStatusId() !== STATUS.COMPLETED.id)));
+
+}
+
+const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbSelectActiveByTodo: null };
 
 /**
  * 
@@ -101,10 +121,11 @@ const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: n
  * dbInsert: dbInsert, 
  * dbSelect: dbSelect,
  * dbSelectAll: dbSelectAll,
- * dbUpdate: dbUpdate
+ * dbUpdate: dbUpdate,
+ * dbSelectActiveByTodo:dbSelectActiveByTodo
  * }}
  */
-export function createSubTaskDAO() {
+function createSubTaskDAO() {
 
     if (!objData.dbInsert) {
 
@@ -112,7 +133,10 @@ export function createSubTaskDAO() {
         objData.dbSelect = dbSelect;
         objData.dbSelectAll = dbSelectAll;
         objData.dbUpdate = dbUpdate;
+        objData.dbSelectActiveByTodo = dbSelectActiveByTodo;
     }
 
     return objData;
 }
+
+export { createSubTaskDAO };
