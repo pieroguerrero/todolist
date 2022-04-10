@@ -63,7 +63,7 @@ const popUpProject = (function () {
                 menuTray.loadProjectsList();
             } else if (mainLandingAddTaskPoUp.isOpen()) {
 
-                mainLandingAddTaskPoUp.loadProjectsList(objResult.dblResultId);
+                mainLandingAddTaskPoUp.loadProjectsList();
             }
 
             close();

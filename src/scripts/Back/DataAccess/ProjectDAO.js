@@ -45,6 +45,42 @@ function dbInsert(strTitle, strDescription, dtStartDate, dtEndDate, intStatusId,
  * @param {number} dblId 
  * @param {string} strTitle 
  * @param {string} strDescription 
+ * @param {number} intStatusId 
+ * @param {number} intUserOwnerId 
+ * @param {number} intUserCreatorId 
+ * @returns 
+ */
+function dbInsertDefaultProject(dblId, strTitle, strDescription, intStatusId, intUserOwnerId, intUserCreatorId) {
+
+    const objProjectData = {
+
+        dblId: dblId,
+        intStatusId: intStatusId,
+        strTitle: strTitle,
+        strDescription: strDescription,
+        dtStartDate: new Date(),
+        dtEndDate: new Date(8640000000000000),
+        intUserOwnerId: intUserOwnerId,
+        intUserCreatorId: intUserCreatorId,
+        dtCreatedOn: new Date(),
+        arrToDoIds: []
+    };
+
+    localStorage.setItem("project-" + objProjectData.dblId, JSON.stringify(objProjectData));
+
+    const projectsListRaw = localStorage.getItem("projects-list");
+    const arrProjectsList = projectsListRaw ? JSON.parse(projectsListRaw) : [];
+    arrProjectsList.push(objProjectData.dblId);
+    localStorage.setItem("projects-list", JSON.stringify(arrProjectsList));
+
+    return objProjectData.dblId;
+}
+
+/**
+ * 
+ * @param {number} dblId 
+ * @param {string} strTitle 
+ * @param {string} strDescription 
  * @param {Date} dtStartDate 
  * @param {Date} dtEndDate 
  * @param {number} intStatusId 
@@ -131,7 +167,7 @@ function dbSelectAll(dblOWnerUserId) {
     return arrProjects;
 }
 
-const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null };
+const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbInsertDefaultProject: null };
 
 /**
  * 
@@ -139,7 +175,8 @@ const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: n
  * dbInsert: dbInsert, 
  * dbSelect: dbSelect,
  * dbSelectAll:dbSelectAll,
- * dbUpdate: dbUpdate
+ * dbUpdate: dbUpdate,
+ * dbInsertDefaultProject:dbInsertDefaultProject,
  * }}
  */
 export function createProjectDAO() {
@@ -150,6 +187,7 @@ export function createProjectDAO() {
         objData.dbSelect = dbSelect;
         objData.dbSelectAll = dbSelectAll;
         objData.dbUpdate = dbUpdate;
+        objData.dbInsertDefaultProject = dbInsertDefaultProject;
     }
 
     return objData;

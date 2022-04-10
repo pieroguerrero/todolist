@@ -90,7 +90,7 @@
                             </svg>
                             <p>Add Task</p>
                         </button>
-                        <div class="div-welcome-image flex flex-col gap-3 items-center hidden">
+                        <div class="div-welcome-image flex flex-col gap-3 items-center">
                             <svg data-svgs-path="theme_todoist/today_new.svg" viewBox="0 0 220 200"
                                 xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"
                                 stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5">
@@ -438,24 +438,27 @@
                         </div>
                         <div class="div-todo-list ">
                             <ul class="todo-1">
-                                <li class="flex gap-5 items-start">
-                                    <div class="div-check-complete">
-                                        <input
-                                            class="chk-todo-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
-                                            type="checkbox" name="" id="chk-todo-complete-1">
-                                    </div>
-                                    <button type="button" id="button-todo-list-item" class="flex-1 flex flex-col">
-                                        <p class="p-todo-title font-bold">aasdasd</p>
-                                        <p class="p-todo-description text-sm font-light">sdfsdfsdf</p>
-                                    </button>
-                                </li>
+                                <template id="tmp-tasks-item">
+                                    <li class="flex gap-5 items-start">
+                                        <div class="div-check-complete">
+                                            <input
+                                                class="chk-todo-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
+                                                type="checkbox" name="" id="chk-todo-complete-1">
+                                        </div>
+                                        <button type="button" id="button-todo-list-item" class="flex-1 flex flex-col">
+                                            <p class="p-todo-title font-bold">aasdasd</p>
+                                            <p class="p-todo-description text-sm font-light">sdfsdfsdf</p>
+                                        </button>
+                                        <p class="p-cant-subtasks self-center text-sm font-light text-slate-500">4</p>
+                                    </li>
+                                </template>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="div-add-todo-form">
                     <form onsubmit="return false"
-                        class="form-form-register-todo flex flex-col justify-center items-center px-12 gap-4">
+                        class="form-register-todo flex flex-col justify-center items-center px-12 gap-4">
                         <div
                             class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3">
                             <select name="select-register-todo-project" id="select-register-todo-project" required

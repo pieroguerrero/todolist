@@ -8,19 +8,18 @@ const mainLandingWelcome_Controller = (function () {
     const createDefatultProject = function () {
 
         const objProjectDAO = createProjectDAO();
-        const objDefaultProject = objProjectDAO.dbSelect(1, dblOWnerUserIdkeep);
 
-        if (!objDefaultProject) {
+        if (!objProjectDAO.dbSelect(1, dblOWnerUserIdkeep)) {
 
-            objProjectDAO.dbInsert("Personal Tasks", "This is the default project where you can log personal and private tasks.", new Date(), new Date(), STATUS.INPROGRESS.id, dblOWnerUserIdkeep, dblOWnerUserIdkeep);
+            objProjectDAO.dbInsertDefaultProject(1, "Personal Tasks", "This is the default project where you can log personal and private tasks.", STATUS.INPROGRESS.id, dblOWnerUserIdkeep, dblOWnerUserIdkeep);
         }
     };
 
     /**
-     * 
-     * @param {object} obj 
+     * @param {string} strMessage
+     * @param {{ dblCurrentUserId: number, dtDate: Date, dblProjectId: number }} objCriteria 
      */
-    const loadProjectsList = function (obj) {
+    const loadTasksList = function (strMessage, objCriteria) {
 
 
 
@@ -33,7 +32,7 @@ const mainLandingWelcome_Controller = (function () {
         subscribeEvents: function (dblCurrentUserId) {
 
             dblOWnerUserIdkeep = dblCurrentUserId;
-            PubSub.subscribe("MainLandingWelcome-Load-GetProjectsList", loadProjectsList);
+            PubSub.subscribe("MainLandingWelcome-Load-GetTasksList", loadTasksList);
         },
 
     }

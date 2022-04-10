@@ -24,7 +24,7 @@ const mainLandingWelcome = (function () {
 
             loadAddTaskButton();
 
-            PubSub.publish("MainLandingWelcome-Load-GetProjectsList", { dblOWnerUserId });
+            PubSub.publish("MainLandingWelcome-Load-GetTasksList", { dblCurrentUserId: dblOWnerUserId, dtDate: new Date(), dblProjectId: -1 });
         },
         show: function () {
 

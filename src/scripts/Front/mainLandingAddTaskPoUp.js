@@ -1,4 +1,4 @@
-import PubSub from 'pubsub-js'
+import PubSub, { publish } from 'pubsub-js'
 import { mainLandingWelcome } from './mainLandingWelcome';
 import { popUpProject } from './popUpProject';
 
@@ -31,6 +31,7 @@ const mainLandingAddTaskPoUp = (function () {
     const onChangeSelect = function () {
 
         if (this.value === "-1") {
+            // @ts-ignore
             popUpProject.load(-1, () => (divAddTask.querySelector("#select-register-todo-project").value = ""));
 
         }
@@ -65,7 +66,9 @@ const mainLandingAddTaskPoUp = (function () {
         fragment.appendChild(opNewProject);
 
         selProjectsList.appendChild(fragment);
+        // @ts-ignore
         selProjectsList.value = "";
+        // @ts-ignore
         selProjectsList.onchange = onChangeSelect.bind(selProjectsList);
     };
 
@@ -77,6 +80,46 @@ const mainLandingAddTaskPoUp = (function () {
         }
 
         PubSub.publish("MainLandingAddTaskPoUp-Load-GetProjectsDropDownList", { dblCurrentUserId: dblOWnerUserIdkeep });
+    };
+
+    /**
+     * 
+     * @param {string} strMessage 
+     * @param {{ dblId: number, strResult:string }} objResult 
+     */
+    const createNewTaskResult = function (strMessage, objResult) {
+
+        alert(objResult.strResult);
+
+        //load the tasks list and, in canse needed, close the popup
+    }
+
+    const createNewTask = function () {
+
+        const frmRegisterTask = divAddTask.querySelector(".form-register-todo");
+
+        if (frmRegisterTask.checkValidity()) {
+
+            const objTaskBasic = {
+                // @ts-ignore
+                dblProjectId: Number(frmRegisterTask.querySelector("#select-register-todo-project").value),
+                strName: frmRegisterTask.querySelector("#input-register-todo-title").value,
+                strDescription: frmRegisterTask.querySelector("#textarea-register-todo-description").value,
+                dtDueDate: new Date(frmRegisterTask.querySelector("#input-register-todo-date").valueAsNumber),
+                intPriorityId: Number(frmRegisterTask.querySelector("#select-register-todo-priority").value),
+                strLabel: frmRegisterTask.querySelector("#input-register-todo-tag").value,
+                dblUserCreatorId: dblOWnerUserIdkeep,
+                dblUserOwnerId: dblOWnerUserIdkeep,
+            };
+
+
+            if (PubSub.getSubscriptions("MainLandingAddTaskPopUpController-RegisterNewTask-Render").length === 0) {
+
+                PubSub.subscribe("MainLandingAddTaskPopUpController-RegisterNewTask-Render", createNewTaskResult);
+            }
+
+            PubSub.publish("MainLandinAddTaskPopUp-CreateNewTask-Register", objTaskBasic);
+        }
     };
 
     return {
@@ -93,6 +136,9 @@ const mainLandingAddTaskPoUp = (function () {
 
             const btnCancel = divAddTask.querySelector("#button-form-register-todo-cancel");
             btnCancel.onclick = onPopUp ? onCancelPopUpTrue.bind(btnCancel) : onCancelPopUpFalse.bind(btnCancel);
+
+            const btnSave = divAddTask.querySelector("#button-form-register-todo-add");
+            btnSave.onclick = createNewTask.bind(btnSave);
 
             loadProjectsDropDownList();
         },

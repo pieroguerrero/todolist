@@ -11,10 +11,9 @@ import { shapeToDo } from "../Model/Todo";
  * @param {string} strTag 
  * @param {number} intUserOwnerId 
  * @param {number} intUserCreatorId 
- * @param {boolean} booIsClosed 
  * @returns {number}
  */
-function dbInsert(dblProjectId, intStatusId, strTitle, strDescription, dtDueDate, intPriority, strTag, intUserOwnerId, intUserCreatorId, booIsClosed) {
+function dbInsert(dblProjectId, intStatusId, strTitle, strDescription, dtDueDate, intPriority, strTag, intUserOwnerId, intUserCreatorId) {
 
     const objTodoData = {
         dblId: Number(Date.now() + ((Math.random() * 100000).toFixed())),
@@ -28,7 +27,7 @@ function dbInsert(dblProjectId, intStatusId, strTitle, strDescription, dtDueDate
         intUserOwnerId: intUserOwnerId,
         intUserCreatorId: intUserCreatorId,
         dtCreatedOn: new Date(),
-        booIsClosed: booIsClosed,
+        booIsClosed: false,
         arrNoteId: [],
         arrSubTaskId: []
     }
