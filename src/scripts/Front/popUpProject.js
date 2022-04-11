@@ -1,5 +1,5 @@
 import format from "date-fns/format";
-import PubSub from 'pubsub-js';
+import { popUpProject_Controller } from "../Back/BusinessLogic/popUpPoject_Controller";
 import { mainLandingAddTaskPoUp } from "./mainLandingAddTaskPoUp";
 import { menuTray } from "./menuTray";
 
@@ -30,43 +30,29 @@ const popUpProject = (function () {
                 dtEndDate: new Date(divPopUpProject.querySelector("#date-register-project-enddate").valueAsNumber),
             };
 
-            PubSub.publish("PopupProjectSave", objProjectUI);
+            const objResult = popUpProject_Controller.saveProject(objProjectUI.dblId, objProjectUI.strName, objProjectUI.strDescription, objProjectUI.dtStartDate, objProjectUI.dtEndDate);
+
+            if (objResult.strResult !== "error") {
+
+                if (menuTray.isOpen()) {
+
+                    menuTray.loadProjectsList();
+                } else if (mainLandingAddTaskPoUp.isOpen()) {
+
+                    mainLandingAddTaskPoUp.loadProjectsList();
+                }
+
+                close();
+            }
+
+            alert(objResult.strResult);
         }
-
-        // if (laterFunction) {
-
-        //     laterFunction();
-        // }
-
     };
 
     const close = function () {
 
         if (!divPopUpProject.classList.contains("hidden")) {
             divPopUpProject.classList.add("hidden");
-        }
-    };
-
-    /**
-     * 
-     * @param {string} strMessage 
-     * @param {{strResult:string, dblResultId:number}} objResult 
-     */
-    const saveProjectResult = function (strMessage, objResult) {
-
-        alert(objResult.strResult);
-
-        if (objResult.strResult !== "error") {
-
-            if (menuTray.isOpen()) {
-
-                menuTray.loadProjectsList();
-            } else if (mainLandingAddTaskPoUp.isOpen()) {
-
-                mainLandingAddTaskPoUp.loadProjectsList();
-            }
-
-            close();
         }
     };
 
@@ -101,10 +87,6 @@ const popUpProject = (function () {
             const btnAdd = divPopUpProject.querySelector("#button-form-register-project-add");
             btnAdd.onclick = saveProject.bind(null, intProjectID);
             btnAdd.textContent = intProjectID === -1 ? "Add" : "Update";
-        },
-        subscribeEvents: function () {
-
-            PubSub.subscribe("PopupProjectSaveResult", saveProjectResult);
         },
         close: close,
     }

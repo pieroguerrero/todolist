@@ -1,5 +1,5 @@
 import { popUpProject } from "./popUpProject";
-import PubSub from 'pubsub-js';
+import { menuTray_Controller } from "../Back/BusinessLogic/menuTray_Controller";
 
 const menuTray = (function () {
 
@@ -14,10 +14,9 @@ const menuTray = (function () {
 
     /**
      * 
-     * @param {string} strMessage 
      * @param {{dblId:number, strName:string, intCantOpenTasks:number}[]} arrProjectsFiltered 
      */
-    const renderProjectsList = function (strMessage, arrProjectsFiltered) {
+    const renderProjectsList = function (arrProjectsFiltered) {
 
         const ulProjectsList = divMenuExpanded.querySelector("#ul-menu-projectslist");
 
@@ -51,13 +50,9 @@ const menuTray = (function () {
         },
         loadProjectsList: function () {
 
-            if (PubSub.getSubscriptions("MenuTray-LoadProjectsList-Render").length === 0) {
-
-                PubSub.subscribe("MenuTray-LoadProjectsList-Render", renderProjectsList);
-            }
-
             const dblCurrentUserId = 1;
-            PubSub.publish("MenuTray-LoadProjectsList-Get", { dblCurrentUserId });
+            const arrSimpleProjecstList = menuTray_Controller.getProjectsList(dblCurrentUserId);
+            renderProjectsList(arrSimpleProjecstList);
         },
         isOpen: function () {
 

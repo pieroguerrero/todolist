@@ -1,6 +1,4 @@
-import PubSub, { publish } from 'pubsub-js'
 import { mainLandingAddTaskPoUp_Controller } from '../Back/BusinessLogic/mainLandingAddTaskPoUp_Controller';
-import { mainLandingWelcome_Controller } from '../Back/BusinessLogic/mainLandingWelcome_Controller';
 import { mainLandingWelcome } from './mainLandingWelcome';
 import { popUpProject } from './popUpProject';
 
@@ -39,12 +37,7 @@ const mainLandingAddTaskPoUp = (function () {
         }
     };
 
-    /**
-     * 
-     * @param {string} strMessage 
-     * @param {object[]} arrProjectsFiltered 
-     */
-    const popuplateDropDownList = function (strMessage, arrProjectsFiltered) {
+    const loadProjectsDropDownList = function () {
 
         const selProjectsList = divAddTask.querySelector("#select-register-todo-project");
         selProjectsList.replaceChildren();
@@ -53,6 +46,8 @@ const mainLandingAddTaskPoUp = (function () {
 
         opChooseProject.selected = true;
         fragment.appendChild(opChooseProject);
+
+        const arrProjectsFiltered = mainLandingAddTaskPoUp_Controller.loadProjectsDropDownList(dblOWnerUserIdkeep);
 
         arrProjectsFiltered.forEach(el => {
 
@@ -63,8 +58,6 @@ const mainLandingAddTaskPoUp = (function () {
             fragment.appendChild(opProject);
         });
 
-        //opNewProject.onclick = popUpProject.load.bind(-1);
-
         fragment.appendChild(opNewProject);
 
         selProjectsList.appendChild(fragment);
@@ -72,16 +65,7 @@ const mainLandingAddTaskPoUp = (function () {
         selProjectsList.value = "";
         // @ts-ignore
         selProjectsList.onchange = onChangeSelect.bind(selProjectsList);
-    };
 
-    const loadProjectsDropDownList = function () {
-
-        if (PubSub.getSubscriptions("MainLandingAddTaskPoUp-Load-RenderProjectsDropDownList").length === 0) {
-
-            PubSub.subscribe("MainLandingAddTaskPoUp-Load-RenderProjectsDropDownList", popuplateDropDownList);
-        }
-
-        PubSub.publish("MainLandingAddTaskPoUp-Load-GetProjectsDropDownList", { dblCurrentUserId: dblOWnerUserIdkeep });
     };
 
     /**

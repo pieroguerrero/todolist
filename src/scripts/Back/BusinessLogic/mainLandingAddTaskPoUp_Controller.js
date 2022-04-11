@@ -6,23 +6,12 @@ const mainLandingAddTaskPoUp_Controller = (function () {
 
     let dblOWnerUserIdkeep;
 
-    const loadProjectsDropDownList = function (data) {
-
-        const objProjectDAO = createProjectDAO();
-
-        const arrProjects = objProjectDAO.dbSelectAll(data.dblCurrentUserId);
-
-        const arrProjectsFiltered = arrProjects.map(objProject => ({ dblId: objProject.getId(), strName: objProject.getTitle(), }));
-
-        PubSub.publish("MainLandingAddTaskPoUp-Load-RenderProjectsDropDownList", arrProjectsFiltered);
-    };
-
     return {
 
         subscribeEvents: function (dblCurrentUserId) {
 
             dblOWnerUserIdkeep = dblCurrentUserId;
-            PubSub.subscribe("MainLandingAddTaskPoUp-Load-GetProjectsDropDownList", loadProjectsDropDownList);
+            //PubSub.subscribe("MainLandingAddTaskPoUp-Load-GetProjectsDropDownList", loadProjectsDropDownList);
             //PubSub.subscribe("MainLandinAddTaskPopUp-CreateNewTask-Register", registerNewTask);
 
         },
@@ -47,6 +36,16 @@ const mainLandingAddTaskPoUp_Controller = (function () {
 
             return { dblId: dblNewTaskId, strResult };
             //PubSub.publish("MainLandingAddTaskPopUpController-RegisterNewTask-Render", { dblId: dblNewTaskId, strResult });
+        },
+        loadProjectsDropDownList: function (dblCurrentUserId) {
+
+            const objProjectDAO = createProjectDAO();
+
+            const arrProjects = objProjectDAO.dbSelectAll(dblCurrentUserId);
+
+            const arrProjectsFiltered = arrProjects.map(objProject => ({ dblId: objProject.getId(), strName: objProject.getTitle(), }));
+
+            return arrProjectsFiltered;
         },
     }
 })();

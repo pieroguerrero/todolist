@@ -8,9 +8,6 @@ const header = (function () {
         this.querySelector(".close_icon").classList.toggle("hidden");
 
         menuTray.load();
-
-        //pubsub.notify(time to load data and in the menu tray)
-
     }
 
     const loadHamburguerMenuButton = function () {

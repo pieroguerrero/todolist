@@ -26,8 +26,6 @@ mainLandingAddTaskPoUp_Controller.subscribeEvents(dblUserId);
 
 //#region subscriptions from ui modules
 
-popUpProject.subscribeEvents();
-
 //#endregion
 
 
