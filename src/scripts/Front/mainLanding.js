@@ -11,11 +11,11 @@ const mainLanding = (function () {
     };
 
     return {
-        onPageLoad: function () {
+        onPageLoad: function (dblOWnerUserId) {
 
             loadTitleDiv();
             mainLandingAddTaskPoUp.hide();
-            mainLandingWelcome.load();
+            mainLandingWelcome.load(dblOWnerUserId, new Date, -1);
         },
     }
 })();

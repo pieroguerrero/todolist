@@ -26,8 +26,8 @@ const popUpProject = (function () {
                 dblId: intProjectID,
                 strName: divPopUpProject.querySelector("#input-register-project-name").value,
                 strDescription: divPopUpProject.querySelector("#textarea-register-project-description").value,
-                dtStartDate: new Date(divPopUpProject.querySelector("#date-register-project-startdate").valueAsNumber),
-                dtEndDate: new Date(divPopUpProject.querySelector("#date-register-project-enddate").valueAsNumber),
+                dtStartDate: new Date(divPopUpProject.querySelector("#date-register-project-startdate").value.replace(/-/g, '\/')),
+                dtEndDate: new Date(divPopUpProject.querySelector("#date-register-project-enddate").value.replace(/-/g, '\/')),
             };
 
             const objResult = popUpProject_Controller.saveProject(objProjectUI.dblId, objProjectUI.strName, objProjectUI.strDescription, objProjectUI.dtStartDate, objProjectUI.dtEndDate);

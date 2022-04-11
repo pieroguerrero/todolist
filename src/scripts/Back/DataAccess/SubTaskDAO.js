@@ -70,11 +70,11 @@ function dbSelect(intSubTaskId) {
 
     const objSubTask = shapeSubTask(
         objSubTaskData.dblId,
-        objSubTaskData.dtCreatedOn,
+        new Date(objSubTaskData.dtCreatedOn),
         objSubTaskData.intTodoId,
         objSubTaskData.strTitle,
         objSubTaskData.strDescription,
-        objSubTaskData.dtDueDate,
+        new Date(objSubTaskData.dtDueDate),
         objSubTaskData.idUserOwner,
         objSubTaskData.idUserCreator,
         objSubTaskData.idStatus,

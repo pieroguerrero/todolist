@@ -9,16 +9,16 @@ const mainLandingWelcome = (function () {
 
 
 
-    const loadAddTaskPopUp = function () {
+    const loadAddTaskPopUp = function (dblOWnerUserId, dtDate, dblProjectId) {
 
         divLandingWelcome.classList.add("hidden");
-        mainLandingAddTaskPoUp.load(dblOWnerUserIdkeep, loadTasksList.bind(null, dblOWnerUserIdkeep,), false);
+        mainLandingAddTaskPoUp.load(dblOWnerUserIdkeep, loadTasksList.bind(null, dblOWnerUserId, dtDate, dblProjectId), false);
     };
 
-    const loadAddTaskButton = function () {
+    const loadAddTaskButton = function (dblOWnerUserId, dtDate, dblProjectId) {
 
         const btnAddTask = document.getElementById("button-welcome-section-addtask");
-        btnAddTask.onclick = loadAddTaskPopUp.bind(btnAddTask);
+        btnAddTask.onclick = loadAddTaskPopUp.bind(btnAddTask, dblOWnerUserId, dtDate, dblProjectId);
     };
 
     /**
@@ -35,6 +35,8 @@ const mainLandingWelcome = (function () {
         if (arrSimpleTasksList.length > 0) {
 
             divWelcomeImage.classList.add("hidden");
+
+            divLandingWelcome.classList.remove("hidden");
 
             const ulTasksList = divLandingWelcome.querySelector(".div-welcome-section .div-todo-list ul");
             ulTasksList.replaceChildren();
@@ -53,6 +55,8 @@ const mainLandingWelcome = (function () {
             });
 
             ulTasksList.appendChild(fragment);
+
+            //divLandingWelcome.classList.remove("hidden");
         } else {
 
             divWelcomeImage.classList.remove("hidden");
@@ -62,13 +66,13 @@ const mainLandingWelcome = (function () {
     };
 
     return {
-        load: function (dblOWnerUserId) {
+        load: function (dblOWnerUserId, dtDate, dblProjectId) {
 
             dblOWnerUserIdkeep = dblOWnerUserId;
 
-            loadAddTaskButton();
+            loadAddTaskButton(dblOWnerUserId, dtDate, dblProjectId);
 
-            loadTasksList(dblOWnerUserId, new Date(), -1);
+            loadTasksList(dblOWnerUserId, dtDate, dblProjectId);
         },
         show: function () {
 

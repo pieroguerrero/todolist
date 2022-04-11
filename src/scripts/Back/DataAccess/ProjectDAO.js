@@ -40,6 +40,32 @@ function dbInsert(strTitle, strDescription, dtStartDate, dtEndDate, intStatusId,
     return objProjectData.dblId;
 }
 
+function dbAddTodoIdToProject(dblProjectId, dblTodoId, intUserOwnerId) {
+
+    const objProject = createProjectDAO().dbSelect(dblProjectId, intUserOwnerId);
+
+    objProject.getToDosIdList().push(dblTodoId);
+
+    const objProjectData = {
+
+        dblId: objProject.getId(),
+        intStatusId: objProject.getStatusId(),
+        strTitle: objProject.getTitle(),
+        strDescription: objProject.getDescription(),
+        dtStartDate: objProject.getStartDate(),
+        dtEndDate: objProject.getEndDate(),
+        intUserOwnerId: objProject.getUserOwnerId(),
+        intUserCreatorId: objProject.getUserCreatorId(),
+        dtCreatedOn: objProject.getCreationDate(),
+        arrToDoIds: objProject.getToDosIdList()
+    };
+
+    localStorage.setItem("project-" + objProjectData.dblId, JSON.stringify(objProjectData));
+
+    return true;
+
+}
+
 /**
  * 
  * @param {number} dblId 
@@ -126,12 +152,12 @@ function dbSelect(dblProjectId, dblOWnerUserId) {
             objProjectData.dblId,
             objProjectData.strTitle,
             objProjectData.strDescription,
-            objProjectData.dtStartDate,
-            objProjectData.dtEndDate,
+            new Date(objProjectData.dtStartDate),
+            new Date(objProjectData.dtEndDate),
             objProjectData.intStatusId,
             objProjectData.intUserOwnerId,
             objProjectData.intUserCreatorId,
-            objProjectData.dtCreatedOn,
+            new Date(objProjectData.dtCreatedOn),
             objProjectData.arrToDoIds
         );
 
@@ -167,7 +193,7 @@ function dbSelectAll(dblOWnerUserId) {
     return arrProjects;
 }
 
-const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbInsertDefaultProject: null };
+const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbInsertDefaultProject: null, dbAddTodoIdToProject: null };
 
 /**
  * 
@@ -177,6 +203,7 @@ const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: n
  * dbSelectAll:dbSelectAll,
  * dbUpdate: dbUpdate,
  * dbInsertDefaultProject:dbInsertDefaultProject,
+ * dbAddTodoIdToProject:dbAddTodoIdToProject
  * }}
  */
 export function createProjectDAO() {
@@ -188,6 +215,7 @@ export function createProjectDAO() {
         objData.dbSelectAll = dbSelectAll;
         objData.dbUpdate = dbUpdate;
         objData.dbInsertDefaultProject = dbInsertDefaultProject;
+        objData.dbAddTodoIdToProject = dbAddTodoIdToProject;
     }
 
     return objData;

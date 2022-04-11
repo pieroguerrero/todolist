@@ -36,7 +36,7 @@ function dbSelect(dblId) {
         objNoteData.strTitle,
         objNoteData.strDescription,
         objNoteData.idUserAuthor,
-        objNoteData.dtCreatedOn
+        new Date(objNoteData.dtCreatedOn)
     );
 
     return objNote;

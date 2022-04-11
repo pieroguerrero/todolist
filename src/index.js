@@ -30,7 +30,7 @@ mainLandingAddTaskPoUp_Controller.subscribeEvents(dblUserId);
 
 
 header.onPageLoad();
-mainLanding.onPageLoad();
+mainLanding.onPageLoad(dblUserId);
 popUpProject.close();
 
 

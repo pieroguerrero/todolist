@@ -36,6 +36,8 @@ function dbInsert(dblProjectId, intStatusId, strTitle, strDescription, dtDueDate
 
     localStorage.setItem("todo-" + objTodoData.dblId, JSON.stringify(objTodoData));
 
+    createProjectDAO().dbAddTodoIdToProject(objTodoData.dblProjectId, objTodoData.dblId, objTodoData.intUserOwnerId);
+
     return objTodoData.dblId;
 }
 
@@ -49,12 +51,12 @@ function dbSelect(dblId) {
         objTodoData.intStatusId,
         objTodoData.strTitle,
         objTodoData.strDescription,
-        objTodoData.dtDueDate,
+        new Date(objTodoData.dtDueDate),
         objTodoData.intPriority,
         objTodoData.strTag,
         objTodoData.intUserOwnerId,
         objTodoData.intUserCreatorId,
-        objTodoData.dtCreatedOn,
+        new Date(objTodoData.dtCreatedOn),
         objTodoData.booIsClosed,
         objTodoData.arrNoteId,
         objTodoData.arrSubTaskId
