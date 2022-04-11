@@ -636,7 +636,7 @@
                     </path>
                 </svg>
             </button>
-            <div class="grid grid-rows-[fit-content_fit_content] grid-cols-1">
+            <div class="grid grid-rows-[fit-content_1fr] grid-cols-1">
                 <div>
                     <div id="div-popup-edit-task-fields-view" class="flex gap-5 items-start">
                         <div class="div-popup-edit-task-check-complete">
@@ -645,13 +645,6 @@
                                 type="checkbox" name="" id="chk-todo-complete-1">
                         </div>
                         <button type="button" id="button-popup-edit-task-save" class="flex-1 flex flex-col gap-3">
-                            <!-- <p class="p-popup-edit-task-title font-bold">Aasdasd</p>
-                            <p class="p-popup-edit-task-description text-sm font-light">📄 Sdfsdfsdf</p>
-                            <p class="p-popup-edit-task-description font-light">📈 Personal Tasks</p>
-                            <p class="p-popup-edit-task-description font-light">📅 20/04/2022</p>
-                            <p class="p-popup-edit-task-description font-light">🟠 Priority 2</p>
-                            <p class="p-popup-edit-task-description font-light">🏷 varios</p> -->
-
                             <p class="p-popup-edit-task-title font-bold">Aasdasd</p>
                             <div class="flex gap-2 items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"
@@ -704,11 +697,106 @@
                         </button>
                     </div>
                     <form id="form-popup-edit-task-fields-edit" onsubmit="return false"
-                        class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4">
+                        class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4 hidden">
+
+                        <div
+                            class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3">
+                            <select name="select-popup-edit-task-project" id="select-popup-edit-task-project" required
+                                class="py-[10px] pl-[10px] bg-white border-[1px] border-solid border-slate-300 rounded-[10px]">
+                                <option value="">--Choose a project--</option>
+                                <option value="1">Personal Tasks</option>
+                                <option value="-1" class="italic border-slate-400 font-light">Create new Project
+                                </option>
+                            </select>
+                            <input id="input-popup-edit-task-title" type="text"
+                                placeholder="☝️ e.g., Family Lunch on Sunday..." required>
+                            <textarea name="textarea-popup-edit-task-description"
+                                id="textarea-popup-edit-task-description" class="w-full overflow-hidden" rows="3"
+                                placeholder="📄 Description" required></textarea>
+
+
+                            <input type="date" name="input-popup-edit-task-date" list="dist-popup-edit-task-days"
+                                id="input-popup-edit-task-date" class="self-start" required>
+                            <datalist id="dist-popup-edit-task-days">
+                            </datalist>
+
+                            <select name="select-popup-edit-task-priority" id="select-popup-edit-task-priority"
+                                class="w-[min-content] py-[10px] pl-[10px] bg-white border-[1px] border-solid border-slate-300 rounded-[10px]">
+                                <option value="4">⚪ No Priority</option>
+                                <option value="3">🟡 Low Priority</option>
+                                <option value="2">🟠 Medium Priority</option>
+                                <option value="1">🔴 High Priority</option>
+                            </select>
+                            <!-- <select name="select-register-todo-project" id="select-register-todo-project"></select> -->
+                            <input id="input-popup-edit-task-tag" type="text" placeholder="🏷 Label">
+                        </div>
+
+
+
+
+
+
+
+
+
 
                     </form>
                 </div>
-                <div></div>
+                <div>
+
+                    <!-- Tabs -->
+                    <ul id="ul-popup-edit-task-tabs" class="inline-flex pt-2 px-1 w-full border-b">
+                        <li
+                            class="bg-white px-4 text-gray-800 font-semibold py-2 rounded-t border-t border-r border-l -mb-px">
+                            <a id="default-tab" href="#div-popup-edi-task-contents-first">Sub-tasks</a>
+                        </li>
+                        <li class="px-4 text-gray-800 font-semibold py-2 rounded-t">
+                            <a href="#div-popup-edi-task-contents-second">Notes</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab Contents -->
+                    <div id="div-popup-edi-task-contents">
+                        <div id="div-popup-edi-task-contents-first" class="p-4">
+                            <ul id="ul-popup-edi-task-contents-subtaskslist" class="flex flex-col gap-4">
+                                <template id="tmp-popup-subtask-item">
+                                    <li class="flex gap-5 items-start">
+                                        <input type="hidden" class="hidden-tab-subtask-item-id">
+                                        <div class="div-tab-subtask-check-complete">
+                                            <input
+                                                class="chk-tab-subtask-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
+                                                type="checkbox" name="chk-tab-subtask-complete"
+                                                id="chk-tab-subtask-complete">
+                                        </div>
+                                        <button type="button" id="button-subtask-tab-list-item"
+                                            class="flex-1 flex flex-col">
+                                            <p class="p-subtask-tab-title font-bold">aasdasd</p>
+                                            <p class="p-subtask-tab-description text-sm font-light">sdfsdfsdf</p>
+                                        </button>
+                                    </li>
+                                </template>
+                            </ul>
+                            <div>
+                                <button type="button" id="div-popup-edi-task-contents-add-subtask"
+                                    class="flex items-center gap-2">
+                                    <svg width="13" height="13">
+                                        <path
+                                            d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
+                                            fill="#DB4C3F" fill-rule="evenodd"></path>
+                                    </svg>
+                                    <p class="font-light">Add Sub-task</p>
+                                </button>
+                                <form action=""></form>
+                            </div>
+
+                        </div>
+                        <div id="div-popup-edi-task-contents-second" class="hidden p-4">
+                            <p>Hola Mundo 2</p>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
         </div>
     </div>
