@@ -1,4 +1,5 @@
 import { createProjectDAO } from "../DataAccess/ProjectDAO";
+import { createSubTaskDAO } from "../DataAccess/SubTaskDAO";
 import { createTodoDAO } from "../DataAccess/TodoDAO";
 import { STATUS } from "../Model/Status";
 
@@ -40,6 +41,21 @@ const popUpEditTask_Controller = (function () {
 
             return { dblId: dblEditedTaskId, strResult };
             //PubSub.publish("MainLandingAddTaskPopUpController-RegisterNewTask-Render", { dblId: dblNewTaskId, strResult });
+        },
+        addSubTask: function (dblSubtaskId, dblTaskId, strName, strDescription, dtDueDate, dblUserOwnerId) {
+
+            const objResult = {};
+            if (dblSubtaskId === -1) {
+
+                objResult.dblId = createSubTaskDAO().dbInsert(dblTaskId, strName, strDescription, dtDueDate, dblUserOwnerId, dblUserOwnerId, STATUS.PENDING.id);
+
+                objResult.strMessage = "Success";
+            } else {//update
+
+            }
+
+            return objResult;
+
         },
     }
 })();

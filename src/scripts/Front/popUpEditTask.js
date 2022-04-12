@@ -43,29 +43,76 @@ const popUpEditTask = (function () {
         }));
     };
 
-    const loadFirstTab = function () {
+    const loadSubTasks = function () {
+
+        const ulSubTasksList = divPopUpEditTask.querySelector("#ul-popup-edi-task-contents-subtaskslist");
+
+    };
+
+    const saveSubTask = function (dblTaskId, dblSubtaskId) {
+
+        const frmSubTask = divPopUpEditTask.querySelector("#form-popup-create-subtask");
+
+        const strNewName = frmSubTask.querySelector("#input-popup-create-subtask-title").value;
+        const strNewDescription = frmSubTask.querySelector("#textarea-popup-edit-task-description").value;
+        const dtNewDueDate = new Date(frmSubTask.querySelector("#input-popup-edit-task-date").value.replace(/-/g, '\/'));
+
+        const objResult = popUpEditTask_Controller.addSubTask(dblSubtaskId, dblTaskId, strNewName, strNewDescription, dtNewDueDate, dblOWnerUserIdkeep);
+
+        if (objResult.dblId > 0) {
+
+            loadSubTasks();
+
+            frmSubTask.classList.add("hidden");
+        }
+
+    };
+
+    const loadSubTaskPopUp = function (dblTaskId) {
+
+        divPopUpEditTask.querySelector("#form-popup-create-subtask").classList.remove("hidden");
+
+        //limit the Subt-task DueDate setting min date as today and max date as the Task's duedate.
+
+        const btnCancel = divPopUpEditTask.querySelector("#button-form-create-subtask-cancel");
+        btnCancel.onclick = (function () {
+
+            divPopUpEditTask.querySelector("#form-popup-create-subtask").classList.add("hidden");
+            divPopUpEditTask.querySelector("#button-popup-edi-task-contents-add-subtask").classList.remove("hidden")
+
+        }).bind(btnCancel);
+
+        const btnAdd = divPopUpEditTask.querySelector("#button-form-create-subtask-add");
+        btnAdd.onclick = saveSubTask.bind(btnAdd, dblTaskId, -1);
+
+
+
+    };
+
+    const loadFirstTab = function (dblTaskId) {
         //Load First Tab: hide the popup to register subtasks, assign events and load subtasks
 
         divPopUpEditTask.querySelector("#form-popup-create-subtask").classList.add("hidden");
 
         const btnAddSubTask = divPopUpEditTask.querySelector("#button-popup-edi-task-contents-add-subtask");
-        btnAddSubTask.onclick = function () {
+        btnAddSubTask.onclick = (function (dblTaskId) {
 
-            btnAddSubTask.classList.add("hidden");
-            divPopUpEditTask.querySelector("#form-popup-create-subtask").classList.remove("hidden");
-        };
+            this.classList.add("hidden");
+            loadSubTaskPopUp(dblTaskId);
+        }).bind(btnAddSubTask, dblTaskId);
 
+        loadSubTasks();
     };
 
     const loadSecondTab = function () {
         //Load Second Tab: load notes 
     };
 
-    const loadTabs = function () {
+    const loadTabs = function (dblTaskId) {
 
         initializeTabs();
-        loadFirstTab();
-        loadSecondTab();
+        loadFirstTab(dblTaskId);
+        //loadSecondTab(dblTaskId);
     };
 
 
@@ -230,7 +277,7 @@ const popUpEditTask = (function () {
 
             divPopUpEditTask.querySelector("#form-popup-edit-task-fields-edit").classList.add("hidden");
             loadMainInfo(dblTaskId);
-            loadTabs();
+            loadTabs(dblTaskId);
 
             divPopUpEditTask.classList.remove("hidden");
         },
