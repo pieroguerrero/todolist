@@ -446,7 +446,7 @@
                                                 class="chk-todo-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
                                                 type="checkbox" name="" id="chk-todo-complete-1">
                                         </div>
-                                        <button type="button" id="button-todo-list-item" class="flex-1 flex flex-col">
+                                        <button class="button-todo-list-item flex-1 flex flex-col">
                                             <p class="p-todo-title font-bold">aasdasd</p>
                                             <p class="p-todo-description text-sm font-light">sdfsdfsdf</p>
                                         </button>
@@ -701,17 +701,30 @@
 
                         <div
                             class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3">
-                            <select name="select-popup-edit-task-project" id="select-popup-edit-task-project" required
+                            <!-- <select name="select-popup-edit-task-project" id="select-popup-edit-task-project" required
                                 class="py-[10px] pl-[10px] bg-white border-[1px] border-solid border-slate-300 rounded-[10px]">
                                 <option value="">--Choose a project--</option>
                                 <option value="1">Personal Tasks</option>
                                 <option value="-1" class="italic border-slate-400 font-light">Create new Project
                                 </option>
-                            </select>
+                            </select> -->
+
+
+                            <div class="flex gap-2 items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"
+                                    fill="#000000">
+                                    <path d="M0 0h24v24H0V0z" fill="none" />
+                                    <path
+                                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z" />
+                                </svg>
+                                <p class="p-popup-edit-task-project-readonly font-bold"></p>
+                            </div>
+
+
                             <input id="input-popup-edit-task-title" type="text"
                                 placeholder="☝️ e.g., Family Lunch on Sunday..." required>
                             <textarea name="textarea-popup-edit-task-description"
-                                id="textarea-popup-edit-task-description" class="w-full overflow-hidden" rows="3"
+                                id="textarea-popup-edit-task-description" class="w-full overflow-hidden" rows="2"
                                 placeholder="📄 Description" required></textarea>
 
 
@@ -771,7 +784,7 @@
                                 </template>
                             </ul>
                             <div>
-                                <button type="button" id="div-popup-edi-task-contents-add-subtask"
+                                <button type="button" id="button-popup-edi-task-contents-add-subtask"
                                     class="flex items-center gap-2">
                                     <svg width="13" height="13">
                                         <path
