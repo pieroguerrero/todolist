@@ -14,7 +14,7 @@ console.log("its alive!");
 //headerListener.onPageLoad();
 
 const dblUserId = 1;
-localStorage.clear();
+//localStorage.clear();
 
 //#region subscriptions from business objects
 
@@ -35,6 +35,6 @@ mainLanding.onPageLoad(dblUserId);
 popUpProject.close();
 
 
-popUpEditTask.load();
+//popUpEditTask.load();
 
 console.log("its alive 2!");

@@ -41,6 +41,11 @@ function dbInsert(dblProjectId, intStatusId, strTitle, strDescription, dtDueDate
     return objTodoData.dblId;
 }
 
+/**
+ * 
+ * @param {number} dblId 
+ * @returns 
+ */
 function dbSelect(dblId) {
 
     const objTodoData = JSON.parse(localStorage.getItem("todo-" + dblId));

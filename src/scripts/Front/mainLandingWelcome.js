@@ -1,5 +1,6 @@
 import { mainLandingWelcome_Controller } from "../Back/BusinessLogic/mainLandingWelcome_Controller";
 import { mainLandingAddTaskPoUp } from "./mainLandingAddTaskPoUp";
+import { popUpEditTask } from "./popUpEditTask";
 
 const mainLandingWelcome = (function () {
 
@@ -41,17 +42,20 @@ const mainLandingWelcome = (function () {
             const ulTasksList = divLandingWelcome.querySelector(".div-welcome-section .div-todo-list ul");
             ulTasksList.replaceChildren();
 
-            const tmpTask = document.importNode(tmpTaskCopy, true).content;
+
             const fragment = document.createDocumentFragment();
 
             arrSimpleTasksList.forEach(objSimpleTask => {
+
+                const tmpTask = document.importNode(tmpTaskCopy, true).content;
 
                 tmpTask.querySelector(".hidden-task-item-id").setAttribute("value", objSimpleTask.dblTaskId.toString());
                 tmpTask.querySelector(".p-todo-title").textContent = objSimpleTask.strTaskName;
                 tmpTask.querySelector(".p-todo-description").textContent = objSimpleTask.strDescription;
                 tmpTask.querySelector(".p-cant-subtasks").textContent = objSimpleTask.intCantSubTasks.toString();
+                tmpTask.querySelector(".button-todo-list-item").onclick = popUpEditTask.load.bind(null, objSimpleTask.dblTaskId, dblOWnerUserIdkeep, null);
 
-                fragment.appendChild(document.importNode(tmpTask, true));
+                fragment.appendChild(tmpTask);
             });
 
             ulTasksList.appendChild(fragment);
@@ -73,6 +77,8 @@ const mainLandingWelcome = (function () {
             loadAddTaskButton(dblOWnerUserId, dtDate, dblProjectId);
 
             loadTasksList(dblOWnerUserId, dtDate, dblProjectId);
+
+            popUpEditTask.hide();
         },
         show: function () {
 
