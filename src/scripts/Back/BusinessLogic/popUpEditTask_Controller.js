@@ -53,10 +53,23 @@ const popUpEditTask_Controller = (function () {
             } else {//update
 
             }
-
             return objResult;
 
         },
+        /**
+         * 
+         * @param {number} dblTaskId 
+         * @returns 
+         */
+        getSubTasksByTask: function (dblTaskId) {
+
+            return createSubTaskDAO().dbSelectActiveByTodo(dblTaskId).map(objSubTask => ({
+
+                dblId: objSubTask.getId(),
+                strName: objSubTask.getTitle(),
+                strDescription: objSubTask.getDescription(),
+            }));
+        }
     }
 })();
 

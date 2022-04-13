@@ -1,13 +1,23 @@
 import { menuTray } from "./menuTray";
 
 const header = (function () {
+    let dblOWnerUserIdkeep;
 
     const onClickHamburguerMenu = function () {
 
-        this.querySelector(".menu_icon").classList.toggle("hidden");
-        this.querySelector(".close_icon").classList.toggle("hidden");
+        const svgMenuIcon = this.querySelector(".menu_icon");
+        const svgCloseIcon = this.querySelector(".close_icon");
 
-        menuTray.load();
+        if (svgCloseIcon.classList.contains("hidden")) {
+
+            menuTray.load(dblOWnerUserIdkeep);
+        } else {
+
+            menuTray.hide();
+        }
+
+        svgMenuIcon.classList.toggle("hidden");
+        svgCloseIcon.classList.toggle("hidden");
     }
 
     const loadHamburguerMenuButton = function () {
@@ -18,8 +28,9 @@ const header = (function () {
     };
 
     return {
-        onPageLoad: function () {
+        onPageLoad: function (dblOWnerUserId) {
 
+            dblOWnerUserIdkeep = dblOWnerUserId;
             loadHamburguerMenuButton();
             //load other buttons
             //pubsub.notify(it's headers loading time)

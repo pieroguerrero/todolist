@@ -42,7 +42,7 @@ const mainLandingWelcome_Controller = (function () {
                 dblTaskId: objTaks.getId(),
                 strTaskName: objTaks.getTitle(),
                 strDescription: objTaks.getDescription(),
-                intCantSubTasks: objSubTasks.dbSelectActiveByTodo(objTaks.getId(), objTaks.getUserOwnerId()).length,
+                intCantSubTasks: objSubTasks.dbSelectActiveByTodo(objTaks.getId()).length,
             }));
 
             return arrSimpleTasksList;

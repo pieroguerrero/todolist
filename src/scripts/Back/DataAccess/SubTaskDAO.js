@@ -107,7 +107,7 @@ function dbSelectByTodo(dblTodoId) {
     return dbSelectAll(arrSubTasksId);
 }
 
-function dbSelectActiveByTodo(dblTodoId, dblUserOwnerId) {
+function dbSelectActiveByTodo(dblTodoId) {
 
     return dbSelectByTodo(dblTodoId).filter(objSubTasks => ((objSubTasks.getStatusId() !== STATUS.CLOSED.id) && (objSubTasks.getStatusId() !== STATUS.COMPLETED.id)));
 

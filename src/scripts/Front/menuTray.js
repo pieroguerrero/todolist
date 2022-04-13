@@ -1,11 +1,14 @@
 import { popUpProject } from "./popUpProject";
 import { menuTray_Controller } from "../Back/BusinessLogic/menuTray_Controller";
+import format from "date-fns/format";
+import { mainLandingWelcome } from "./mainLandingWelcome";
 
 const menuTray = (function () {
 
     const divMenuShade = document.getElementById("div-shade-bg");
     const divMenuExpanded = document.querySelector(".div-menu-expanded");
     const tmpProjectCopy = document.importNode(divMenuExpanded.querySelector("#tmp-project-item"), true);
+    let dblOWnerUserIdkeep;
 
     const onClickAddProject = function () {
 
@@ -37,26 +40,100 @@ const menuTray = (function () {
         ulProjectsList.appendChild(fragment);
     };
 
+    const loadProjectSection = function () {
+
+        const btnAddProject = divMenuExpanded.querySelector("#button-menu-projects-add");
+        btnAddProject.onclick = onClickAddProject.bind(btnAddProject);
+
+        loadProjectsList();
+    };
+
+    const removeSelectionStyle = function () {
+
+        const arrChildren = Array.from(divMenuExpanded.querySelector("#up-menu-options-list").children);
+
+        arrChildren.forEach(child => {
+
+            if (child.id !== "div-menu-custom") {
+                child.classList.remove("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
+            }
+
+        });
+    };
+
+    const onChangeCustomDate = function (divCustomDate, btnCustomDate) {
+
+        divCustomDate.classList.add("hidden");
+        btnCustomDate.classList.remove("hidden");
+
+        removeSelectionStyle();
+        btnCustomDate.classList.add("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
+
+        const dtCustomDate = new Date(divCustomDate.querySelector("#inputdate-menu-custom-date").value.replace(/-/g, '\/'));
+
+        btnCustomDate.querySelector("#p-menu-custom-title").textContent = format(dtCustomDate, "dd/MM/yyyy");
+
+        //TODO: load tasks list
+        mainLandingWelcome.loadTasksList(dblOWnerUserIdkeep, dtCustomDate, -1);
+
+    };
+
+    const loadCustomDateOption = function () {
+
+        const btnCustomDate = divMenuExpanded.querySelector("#button-menu-custom");
+        btnCustomDate.onclick = (function () {
+
+            this.classList.add("hidden");
+
+            const divCustomDate = divMenuExpanded.querySelector("#div-menu-custom");
+            divCustomDate.classList.remove("hidden");
+
+            const inputCustomDate = divCustomDate.querySelector("#inputdate-menu-custom-date");
+            inputCustomDate.onchange = onChangeCustomDate.bind(inputCustomDate, divCustomDate, btnCustomDate);
+
+            const buttonCancelCustomDate = divCustomDate.querySelector("#button-menu-custom-date-close");
+            buttonCancelCustomDate.onclick = (function (divCustomDate, btnCustomDate) {
+
+                divCustomDate.classList.add("hidden");
+                btnCustomDate.classList.remove("hidden");
+            }).bind(null, divCustomDate, btnCustomDate);
+
+        }).bind(btnCustomDate);
+    };
+
+    const loadOptionsSection = function () {
+
+        //TODO: load events and behavior for each option
+
+        loadCustomDateOption();
+    };
+
+    const loadProjectsList = function () {
+
+        const dblCurrentUserId = 1;
+        const arrSimpleProjecstList = menuTray_Controller.getProjectsList(dblCurrentUserId);
+        renderProjectsList(arrSimpleProjecstList);
+    }
+
     return {
-        load: function () {
+        load: function (dblOWnerUserId) {
 
-            divMenuShade.classList.toggle("hidden");
-            divMenuExpanded.classList.toggle("change");
+            dblOWnerUserIdkeep = dblOWnerUserId;
 
-            const btnAddProject = divMenuExpanded.querySelector("#button-menu-projects-add");
-            btnAddProject.onclick = onClickAddProject.bind(btnAddProject);
+            divMenuShade.classList.remove("hidden");
+            divMenuExpanded.classList.add("change");
 
-            this.loadProjectsList();
+            loadOptionsSection();
+            loadProjectSection();
         },
-        loadProjectsList: function () {
-
-            const dblCurrentUserId = 1;
-            const arrSimpleProjecstList = menuTray_Controller.getProjectsList(dblCurrentUserId);
-            renderProjectsList(arrSimpleProjecstList);
-        },
+        loadProjectsList,
         isOpen: function () {
 
             return divMenuExpanded.classList.contains("change");
+        },
+        hide: function () {
+            divMenuShade.classList.add("hidden");
+            divMenuExpanded.classList.remove("change");
         },
     }
 })();

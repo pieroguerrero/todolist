@@ -4,6 +4,7 @@ import { popUpEditTask_Controller } from "../Back/BusinessLogic/popUpEditTask_Co
 const popUpEditTask = (function () {
 
     const divPopUpEditTask = document.getElementById("div-popup-edit-task");
+    const tmpSubTaskCopy = document.importNode(divPopUpEditTask.querySelector("#tmp-popup-subtask-item"), true);
     let dblOWnerUserIdkeep;
 
     const opNewProject = document.createElement("option");
@@ -43,9 +44,44 @@ const popUpEditTask = (function () {
         }));
     };
 
-    const loadSubTasks = function () {
+    /**
+     * 
+     * @param {number} dblTaskId 
+     */
+    const loadSubTasks = function (dblTaskId) {
 
-        const ulSubTasksList = divPopUpEditTask.querySelector("#ul-popup-edi-task-contents-subtaskslist");
+        const divFirstTabContent = divPopUpEditTask.querySelector("#div-popup-edi-task-contents-first");
+
+        const arrSubTasksList = popUpEditTask_Controller.getSubTasksByTask(dblTaskId);
+
+        if (arrSubTasksList.length > 0) {
+
+            divFirstTabContent.classList.remove("hidden");
+
+            const ulSubTasksList = divPopUpEditTask.querySelector("#ul-popup-edi-task-contents-subtaskslist");
+            ulSubTasksList.replaceChildren();
+
+            const fragment = document.createDocumentFragment();
+
+            arrSubTasksList.forEach(objSimpleSubTask => {
+
+                const tmpSubTask = document.importNode(tmpSubTaskCopy, true).content;
+
+                tmpSubTask.querySelector(".hidden-tab-subtask-item-id").value = objSimpleSubTask.dblId.toString();
+                tmpSubTask.querySelector(".p-subtask-tab-title").textContent = objSimpleSubTask.strName.toString();
+                tmpSubTask.querySelector(".p-subtask-tab-description").textContent = objSimpleSubTask.strDescription.toString();
+
+                //TODO: assign the event to open and edit the subtask and assign the evet to close the subtask in the checkbox
+
+                fragment.appendChild(tmpSubTask);
+            });
+
+            ulSubTasksList.appendChild(fragment);
+        } else {
+
+            divFirstTabContent.classList.add("hidden");
+        }
+
 
     };
 
@@ -61,7 +97,7 @@ const popUpEditTask = (function () {
 
         if (objResult.dblId > 0) {
 
-            loadSubTasks();
+            loadSubTasks(dblTaskId);
 
             frmSubTask.classList.add("hidden");
         }
@@ -90,7 +126,7 @@ const popUpEditTask = (function () {
     };
 
     const loadFirstTab = function (dblTaskId) {
-        //Load First Tab: hide the popup to register subtasks, assign events and load subtasks
+        //TODO: Load First Tab: hide the popup to register subtasks, assign events and load subtasks
 
         divPopUpEditTask.querySelector("#form-popup-create-subtask").classList.add("hidden");
 
@@ -101,7 +137,7 @@ const popUpEditTask = (function () {
             loadSubTaskPopUp(dblTaskId);
         }).bind(btnAddSubTask, dblTaskId);
 
-        loadSubTasks();
+        loadSubTasks(dblTaskId);
     };
 
     const loadSecondTab = function () {
