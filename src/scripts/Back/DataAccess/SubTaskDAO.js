@@ -30,6 +30,8 @@ function dbInsert(intTodoId, strTitle, strDescription, dtDueDate, idUserOwner, i
 
     localStorage.setItem("subtask-" + objSubTaskData.dblId, JSON.stringify(objSubTaskData));
 
+    createTodoDAO().dbAddSubTaskId(objSubTaskData.intTodoId, objSubTaskData.dblId);
+
     return objSubTaskData.dblId;
 }
 

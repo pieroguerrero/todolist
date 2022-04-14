@@ -1,4 +1,5 @@
 import { shapeNote } from "../Model/Note";
+import { createTodoDAO } from "./TodoDAO";
 
 /**
  * 
@@ -21,6 +22,8 @@ function dbInsert(idTodo, strTitle, strDescription, idUserAuthor) {
     };
 
     localStorage.setItem("note-" + objNoteData.dblId, JSON.stringify(objNoteData));
+
+    createTodoDAO().dbAddNoteId(objNoteData.idTodo, objNoteData.dblId);
 
     return objNoteData.dblId;
 
@@ -73,7 +76,14 @@ function dbSelectAll(arrNoteId) {
     return arrNotes;
 }
 
-const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null };
+function dbSelectByTodo(dblTodoId) {
+
+    const arrNotesksId = createTodoDAO().dbSelect(dblTodoId).getNotesIdList();
+
+    return dbSelectAll(arrNotesksId);
+}
+
+const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbSelectByTodo: null };
 
 /**
  * 
@@ -81,10 +91,11 @@ const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: n
  * dbInsert: dbInsert, 
  * dbSelect: dbSelect,
  * dbSelectAll: dbSelectAll,
- * dbUpdate: dbUpdate
+ * dbUpdate: dbUpdate,
+ * dbSelectByTodo:dbSelectByTodo
  * }}
  */
-export function createNoteDAO() {
+function createNoteDAO() {
 
     if (!objData.dbInsert) {
 
@@ -92,7 +103,10 @@ export function createNoteDAO() {
         objData.dbSelect = dbSelect;
         objData.dbSelectAll = dbSelectAll;
         objData.dbUpdate = dbUpdate;
+        objData.dbSelectByTodo = dbSelectByTodo;
     }
 
     return objData;
 }
+
+export { createNoteDAO };

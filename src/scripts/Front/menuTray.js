@@ -2,6 +2,7 @@ import { popUpProject } from "./popUpProject";
 import { menuTray_Controller } from "../Back/BusinessLogic/menuTray_Controller";
 import format from "date-fns/format";
 import { mainLandingWelcome } from "./mainLandingWelcome";
+import { header } from "./header";
 
 const menuTray = (function () {
 
@@ -75,6 +76,8 @@ const menuTray = (function () {
 
         //TODO: load tasks list
         mainLandingWelcome.loadTasksList(dblOWnerUserIdkeep, dtCustomDate, -1);
+
+        header.onClickHamburguerMenu();
 
     };
 

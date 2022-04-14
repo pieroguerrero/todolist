@@ -5,8 +5,9 @@ const header = (function () {
 
     const onClickHamburguerMenu = function () {
 
-        const svgMenuIcon = this.querySelector(".menu_icon");
-        const svgCloseIcon = this.querySelector(".close_icon");
+        const btnHamburguerMenu = document.getElementById("button-hamburguer-menu");
+        const svgMenuIcon = btnHamburguerMenu.querySelector(".menu_icon");
+        const svgCloseIcon = btnHamburguerMenu.querySelector(".close_icon");
 
         if (svgCloseIcon.classList.contains("hidden")) {
 
@@ -23,7 +24,7 @@ const header = (function () {
     const loadHamburguerMenuButton = function () {
 
         const btnHamburguerMenu = document.getElementById("button-hamburguer-menu");
-        btnHamburguerMenu.onclick = onClickHamburguerMenu.bind(btnHamburguerMenu);
+        btnHamburguerMenu.onclick = onClickHamburguerMenu;
 
     };
 
@@ -35,6 +36,7 @@ const header = (function () {
             //load other buttons
             //pubsub.notify(it's headers loading time)
         },
+        onClickHamburguerMenu: onClickHamburguerMenu,
     }
 })();
 

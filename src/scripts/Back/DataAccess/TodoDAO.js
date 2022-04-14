@@ -43,6 +43,72 @@ function dbInsert(dblProjectId, intStatusId, strTitle, strDescription, dtDueDate
 
 /**
  * 
+ * @param {number} dblTodoId 
+ * @param {number} dblSubtaskId 
+ * @returns 
+ */
+function dbAddSubTaskId(dblTodoId, dblSubtaskId) {
+
+    const objTodo = createTodoDAO().dbSelect(dblTodoId);
+    objTodo.getSubTasksIdList().push(dblSubtaskId);
+
+    const objTodoData = {
+        dblId: objTodo.getId(),
+        dblProjectId: objTodo.getProjectId(),
+        intStatusId: objTodo.getStatusId(),
+        strTitle: objTodo.getTitle(),
+        strDescription: objTodo.getDescription(),
+        dtDueDate: objTodo.getDueDate(),
+        intPriority: objTodo.getPriority(),
+        strTag: objTodo.getTag(),
+        intUserOwnerId: objTodo.getUserOwnerId(),
+        intUserCreatorId: objTodo.getUserCreatorId(),
+        dtCreatedOn: objTodo.getCreationDate(),
+        booIsClosed: false,
+        arrNoteId: objTodo.getNotesIdList(),
+        arrSubTaskId: objTodo.getSubTasksIdList()
+    };
+
+    localStorage.setItem("todo-" + objTodoData.dblId, JSON.stringify(objTodoData));
+
+    return true;
+}
+
+/**
+ * 
+ * @param {number} dblTodoId 
+ * @param {number} dblNoteId 
+ * @returns 
+ */
+function dbAddNoteId(dblTodoId, dblNoteId) {
+
+    const objTodo = createTodoDAO().dbSelect(dblTodoId);
+    objTodo.getNotesIdList().push(dblNoteId);
+
+    const objTodoData = {
+        dblId: objTodo.getId(),
+        dblProjectId: objTodo.getProjectId(),
+        intStatusId: objTodo.getStatusId(),
+        strTitle: objTodo.getTitle(),
+        strDescription: objTodo.getDescription(),
+        dtDueDate: objTodo.getDueDate(),
+        intPriority: objTodo.getPriority(),
+        strTag: objTodo.getTag(),
+        intUserOwnerId: objTodo.getUserOwnerId(),
+        intUserCreatorId: objTodo.getUserCreatorId(),
+        dtCreatedOn: objTodo.getCreationDate(),
+        booIsClosed: false,
+        arrNoteId: objTodo.getNotesIdList(),
+        arrSubTaskId: objTodo.getSubTasksIdList()
+    };
+
+    localStorage.setItem("todo-" + objTodoData.dblId, JSON.stringify(objTodoData));
+
+    return true;
+}
+
+/**
+ * 
  * @param {number} dblId 
  * @returns 
  */
@@ -168,7 +234,7 @@ function dbSelectByDate(dtDate, dblOWnerUserId) {
     return arrAllTasks.filter(tasks => (format(tasks.getDueDate(), "yyyy/MM/dd") === format(dtDate, "yyyy/MM/dd")));
 }
 
-const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbSelectByDate: null };
+const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbSelectByDate: null, dbAddSubTaskId: null, dbAddNoteId: null };
 
 /**
  * 
@@ -178,6 +244,8 @@ const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: n
  * dbSelectAll: dbSelectAll,
  * dbUpdate: dbUpdate,
  * dbSelectByDate:dbSelectByDate
+ * dbAddSubTaskId:dbAddSubTaskId
+ * dbAddNoteId:dbAddNoteId
  * }}
  */
 function createTodoDAO() {
@@ -189,6 +257,8 @@ function createTodoDAO() {
         objData.dbSelectAll = dbSelectAll;
         objData.dbUpdate = dbUpdate;
         objData.dbSelectByDate = dbSelectByDate;
+        objData.dbAddSubTaskId = dbAddSubTaskId;
+        objData.dbAddNoteId = dbAddNoteId;
     }
 
     return objData;

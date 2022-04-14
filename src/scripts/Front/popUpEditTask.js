@@ -1,10 +1,12 @@
 import format from "date-fns/format";
 import { popUpEditTask_Controller } from "../Back/BusinessLogic/popUpEditTask_Controller";
+import { createNoteDAO } from "../Back/DataAccess/NoteDAO";
 
 const popUpEditTask = (function () {
 
     const divPopUpEditTask = document.getElementById("div-popup-edit-task");
     const tmpSubTaskCopy = document.importNode(divPopUpEditTask.querySelector("#tmp-popup-subtask-item"), true);
+    const tmpNoteCopy = document.importNode(divPopUpEditTask.querySelector("#tmp-popup-note-item"), true);
     let dblOWnerUserIdkeep;
 
     const opNewProject = document.createElement("option");
@@ -50,15 +52,14 @@ const popUpEditTask = (function () {
      */
     const loadSubTasks = function (dblTaskId) {
 
-        const divFirstTabContent = divPopUpEditTask.querySelector("#div-popup-edi-task-contents-first");
+        const ulSubTasksList = divPopUpEditTask.querySelector("#ul-popup-edi-task-contents-subtaskslist");
 
         const arrSubTasksList = popUpEditTask_Controller.getSubTasksByTask(dblTaskId);
 
         if (arrSubTasksList.length > 0) {
 
-            divFirstTabContent.classList.remove("hidden");
+            ulSubTasksList.classList.remove("hidden");
 
-            const ulSubTasksList = divPopUpEditTask.querySelector("#ul-popup-edi-task-contents-subtaskslist");
             ulSubTasksList.replaceChildren();
 
             const fragment = document.createDocumentFragment();
@@ -79,9 +80,47 @@ const popUpEditTask = (function () {
             ulSubTasksList.appendChild(fragment);
         } else {
 
-            divFirstTabContent.classList.add("hidden");
+            ulSubTasksList.classList.add("hidden");
         }
+    };
 
+    /**
+     * 
+     * @param {number} dblTaskId 
+     */
+    const loadNotes = function (dblTaskId) {
+
+        const ulNotessList = divPopUpEditTask.querySelector("#ul-popup-note-list");
+        const divNoteEmtpy = divPopUpEditTask.querySelector("#div-popup-note-empty");
+        const arrSimpleNotesList = popUpEditTask_Controller.getNotesByTask(dblTaskId);
+
+        if (arrSimpleNotesList.length > 0) {
+
+            divNoteEmtpy.classList.add("hidden");
+            ulNotessList.classList.remove("hidden");
+            ulNotessList.replaceChildren();
+
+            const fragment = document.createDocumentFragment();
+
+            arrSimpleNotesList.forEach(objSimpleNote => {
+
+                const tmpNote = document.importNode(tmpNoteCopy, true).content;
+
+                tmpNote.querySelector(".hidden-tab-note-item-id").value = objSimpleNote.dblId.toString();
+                tmpNote.querySelector(".p-note-tab-date").textContent = objSimpleNote.strDate;
+                tmpNote.querySelector(".p-note-tab-description").textContent = objSimpleNote.strComment;
+
+                //TODO: assign the event to open and edit the Note and assign the evet to close the Note in the checkbox
+
+                fragment.appendChild(tmpNote);
+            });
+
+            ulNotessList.appendChild(fragment);
+        } else {
+
+            ulNotessList.classList.add("hidden");
+            divNoteEmtpy.classList.remove("hidden");
+        }
 
     };
 
@@ -106,7 +145,9 @@ const popUpEditTask = (function () {
 
     const loadSubTaskPopUp = function (dblTaskId) {
 
-        divPopUpEditTask.querySelector("#form-popup-create-subtask").classList.remove("hidden");
+        const frmCreateSubTask = divPopUpEditTask.querySelector("#form-popup-create-subtask");
+        frmCreateSubTask.classList.remove("hidden");
+        frmCreateSubTask.reset();
 
         //limit the Subt-task DueDate setting min date as today and max date as the Task's duedate.
 
@@ -133,22 +174,41 @@ const popUpEditTask = (function () {
         const btnAddSubTask = divPopUpEditTask.querySelector("#button-popup-edi-task-contents-add-subtask");
         btnAddSubTask.onclick = (function (dblTaskId) {
 
-            this.classList.add("hidden");
+            //this.classList.add("hidden");
             loadSubTaskPopUp(dblTaskId);
         }).bind(btnAddSubTask, dblTaskId);
 
         loadSubTasks(dblTaskId);
     };
 
-    const loadSecondTab = function () {
-        //Load Second Tab: load notes 
+    /**
+     * 
+     * @param {number} dblTaskId 
+     */
+    const saveNote = function (dblTaskId) {
+
+        const objResult = popUpEditTask_Controller.saveNote(-1, dblTaskId, format(new Date(), "dd/MM/yyyy hh:mm"), divPopUpEditTask.querySelector("#texarea-popup-subtask-note-comment").value, dblOWnerUserIdkeep);
+
+        if (objResult.dblId > 0) {
+
+            loadNotes(dblTaskId);
+        }
+    };
+
+    const loadSecondTab = function (dblTaskId) {
+        //Load Second Tab: load notes
+
+        const btnSaveNote = divPopUpEditTask.querySelector("#button-popup-subtask-note-add");
+        btnSaveNote.onclick = saveNote.bind(null, dblTaskId);
+
+        loadNotes(dblTaskId);
     };
 
     const loadTabs = function (dblTaskId) {
 
         initializeTabs();
         loadFirstTab(dblTaskId);
-        //loadSecondTab(dblTaskId);
+        loadSecondTab(dblTaskId);
     };
 
 
@@ -310,6 +370,11 @@ const popUpEditTask = (function () {
         load: function (dblTaskId, dblCurrentUserId, fncCloseLaterExecution = null) {
 
             dblOWnerUserIdkeep = dblCurrentUserId;
+
+            const btnClose = divPopUpEditTask.querySelector("#button-popup-task-edit-close");
+            btnClose.onclick = function () {
+                divPopUpEditTask.classList.add("hidden");
+            };
 
             divPopUpEditTask.querySelector("#form-popup-edit-task-fields-edit").classList.add("hidden");
             loadMainInfo(dblTaskId);

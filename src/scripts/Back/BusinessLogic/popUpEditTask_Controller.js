@@ -1,3 +1,4 @@
+import { createNoteDAO } from "../DataAccess/NoteDAO";
 import { createProjectDAO } from "../DataAccess/ProjectDAO";
 import { createSubTaskDAO } from "../DataAccess/SubTaskDAO";
 import { createTodoDAO } from "../DataAccess/TodoDAO";
@@ -69,7 +70,39 @@ const popUpEditTask_Controller = (function () {
                 strName: objSubTask.getTitle(),
                 strDescription: objSubTask.getDescription(),
             }));
-        }
+        },
+        /**
+         * 
+         * @param {number} dblTaskId 
+         * @returns 
+         */
+        getNotesByTask: function (dblTaskId) {
+
+            return createNoteDAO().dbSelectByTodo(dblTaskId).map(objNote => ({
+
+                dblId: objNote.getId(),
+                strDate: objNote.getTitle(),
+                strComment: objNote.getDescription(),
+            }));
+        },
+        saveNote: function (dblSubTaskId, dblTaskId, strDate, strComment, dblUserOwnerId) {
+
+            //new Date(divPopUpProject.querySelector("#date-register-project-startdate").value.replace(/-/g, '\/'))
+            const objResult = {};
+
+            if (dblSubTaskId === -1) {
+
+                objResult.dblId = createNoteDAO().dbInsert(dblTaskId,
+                    strDate,
+                    strComment,
+                    dblUserOwnerId);
+                objResult.strMessage = "Success";
+            } else {//update
+
+            }
+
+            return objResult;
+        },
     }
 })();
 
