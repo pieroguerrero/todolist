@@ -8,7 +8,7 @@
     <title>To-do List</title>
 </head>
 
-<body class="flex flex-col h-full overflow-x-hidden relative">
+<body class="flex flex-col h-screen overflow-x-hidden relative">
     <header class="bg-todoist_red h-[44px] w-full flex justify-between items-center">
         <ul id="left-menu" class="flex items-center gap-4 pl-[12px]">
             <li class="flex items-center">
@@ -649,17 +649,17 @@
 
     </div>
     <div id="div-popup-edit-task"
-        class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-slate-900 bg-opacity-40">
+        class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-slate-900 bg-opacity-40 ">
         <input type="hidden" class="hidden-popup-edit-task-id">
-        <div id="div-popup-edit-task-main" class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4">
-            <button type="button" id="button-popup-task-edit-close">
+        <div id="div-popup-edit-task-main" class="rounded-[10px] bg-white w-[95%] h-[90%] flex flex-col gap-2 ">
+            <button type="button" id="button-popup-task-edit-close" class="flex justify-end pt-3 pr-3">
                 <svg viewBox="0 0 24 24" class="icon_close" width="24" height="24">
                     <path fill="currentColor" fill-rule="nonzero"
                         d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z">
                     </path>
                 </svg>
             </button>
-            <div class="grid grid-rows-[fit-content_1fr] grid-cols-1">
+            <div class="h-full grid grid-rows-[auto_1fr] grid-cols-1 px-5 gap-4">
                 <div>
                     <div id="div-popup-edit-task-fields-view" class="flex gap-5 items-start">
                         <div class="div-popup-edit-task-check-complete">
@@ -720,7 +720,7 @@
                         </button>
                     </div>
                     <form id="form-popup-edit-task-fields-edit" onsubmit="return false"
-                        class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4">
+                        class="rounded-[10px] bg-white w-full flex flex-col gap-4 items-center">
 
                         <div
                             class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3">
@@ -774,7 +774,7 @@
                         </div>
                     </form>
                 </div>
-                <div>
+                <div class="h-full">
                     <!-- Tabs -->
                     <ul id="ul-popup-edit-task-tabs" class="inline-flex pt-2 px-1 w-full border-b">
                         <li
@@ -787,7 +787,7 @@
                     </ul>
                     <!-- Tab Contents -->
                     <div id="div-popup-edi-task-contents">
-                        <div id="div-popup-edi-task-contents-first" class="p-4">
+                        <div id="div-popup-edi-task-contents-first" class="py-4 flex flex-col gap-5">
                             <ul id="ul-popup-edi-task-contents-subtaskslist" class="flex flex-col gap-4">
                                 <template id="tmp-popup-subtask-item">
                                     <li class="flex gap-5 items-start">
@@ -807,15 +807,18 @@
                                 </template>
                             </ul>
                             <div>
-                                <button type="button" id="button-popup-edi-task-contents-add-subtask"
-                                    class="flex items-center gap-2">
-                                    <svg width="13" height="13">
-                                        <path
-                                            d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
-                                            fill="#DB4C3F" fill-rule="evenodd"></path>
-                                    </svg>
-                                    <p class="font-light">Add Sub-task</p>
-                                </button>
+                                <div class="w-full  pl-4">
+                                    <button type="button" id="button-popup-edi-task-contents-add-subtask"
+                                        class="flex items-center gap-2">
+                                        <svg width="13" height="13">
+                                            <path
+                                                d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
+                                                fill="#DB4C3F" fill-rule="evenodd"></path>
+                                        </svg>
+                                        <p class="font-light">Add Sub-task</p>
+                                    </button>
+                                </div>
+
                                 <form id="form-popup-create-subtask" onsubmit="return false"
                                     class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4">
                                     <div
@@ -842,9 +845,10 @@
                                 </form>
                             </div>
                         </div>
-                        <div id="div-popup-edi-task-contents-second" class="hidden p-4">
-                            <div>
-                                <div class="flex flex-col gap-3 items-center">
+                        <div id="div-popup-edi-task-contents-second"
+                            class="hidden pt-4 h-full flex flex-col justify-between">
+                            <div class="flex flex-col">
+                                <div id="div-popup-note-empty" class="flex flex-col gap-3 items-center">
                                     <svg data-svgs-path="theme_todoist/task_comments.svg"
                                         xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" stroke-linecap="round"
                                         stroke-linejoin="round" stroke-miterlimit="1.5" clip-rule="evenodd"
@@ -954,10 +958,26 @@
                                     <p class="font-light text-center">Add relevant notes to describre and track your
                                         progress.</p>
                                 </div>
-                                <div></div>
+                                <ul id="ul-popup-note-list" class="flex flex-col gap-4 h-[250px] overflow-y-scroll">
+                                    <template id="tmp-popup-note-item">
+                                        <li class="flex gap-5 items-start items-center">
+                                            <input type="hidden" class="hidden-tab-note-item-id">
+                                            <div class="div-tab-note-check-complete">
+                                                <input
+                                                    class="chk-tab-note-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
+                                                    type="checkbox" name="chk-tab-note-complete"
+                                                    id="chk-tab-note-complete">
+                                            </div>
+                                            <div id="button-note-tab-list-item" class="flex-1 flex flex-col">
+                                                <p class="p-note-tab-description text-left">sdfs df sdf</p>
+                                                <p class="p-note-tab-date font-light text-sm italic">12/11/2021</p>
+                                            </div>
+                                        </li>
+                                    </template>
+                                </ul>
                             </div>
                             <form id="form-popup-subtask-note" onsubmit="return false"
-                                class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4">
+                                class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4 mt-6">
                                 <div
                                     class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3">
                                     <textarea name="texarea-popup-subtask-note-comment"
@@ -965,7 +985,7 @@
                                         placeholder="Comment"></textarea>
                                 </div>
                                 <div class="w-full flex justify-start gap-4">
-                                    <button id="button-popup-subtask-add"
+                                    <button id="button-popup-subtask-note-add"
                                         class="button-form-popup-edit-task-save bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]">Save</button>
                                 </div>
                             </form>
