@@ -76,8 +76,8 @@
     <main class="relative flex-1 flex flex-col">
         <div id="div-landing" class="flex-1 h-full pt-8 flex flex-col items-center gap-4">
             <div class="div-title w-full px-12 flex gap-3 items-center">
-                <p class="text-2xl font-bold">Today</p>
-                <p id="p-todolist-description" class="font-light">Tue Apr 5</p>
+                <p id="p-todolist-title" class="text-2xl font-bold">Today</p>
+                <p id="p-todolist-description" class="font-light self-end">Tue Apr 5</p>
             </div>
             <div class="div-content w-full grid grid-rows-[fit-content_fit_content] grid-cols-1">
                 <div class="div-welcome-section flex px-12 w-full h-[fit-content]">
@@ -439,12 +439,12 @@
                         <div class="div-todo-list pb-8">
                             <ul class="flex flex-col gap-4">
                                 <template id="tmp-tasks-item">
-                                    <li class="flex gap-5 items-start">
+                                    <li class="li-task-item flex gap-5 items-start">
                                         <input type="hidden" class="hidden-task-item-id">
                                         <div class="div-check-complete">
                                             <input
-                                                class="chk-todo-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
-                                                type="checkbox" name="" id="chk-todo-complete-1">
+                                                class="chk-todolist-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
+                                                type="checkbox" name="" id="chk-todolist-complete">
                                         </div>
                                         <button class="button-todo-list-item flex-1 flex flex-col">
                                             <p class="p-todo-title font-bold">aasdasd</p>
@@ -508,7 +508,7 @@
         <nav
             class="div-menu-expanded bg-todoist_gray flex flex-col gap-5 top-0 bottom-0 h-full absolute  overflow-hidden max-w-0 opacity-0 transition-all duration-[0.6s] delay-[0.s]">
             <ul id="up-menu-options-list" class="pl-9 pr-5 pt-8 flex flex-col gap-3">
-                <button type="button" class="flex items-center gap-1">
+                <button type="button" class="flex items-center gap-1" id="button-menu-options-today">
                     <svg width="24" height="24" viewBox="0 0 24 24">
                         <g fill="#058527" fill-rule="nonzero">
                             <path d="M10 14.5a2 2 0 104 0h5.5V18a1.5 1.5 0 01-1.5 1.5H6A1.5 1.5 0 014.5 18v-3.5H10z"
@@ -521,7 +521,7 @@
                     <p class="flex-1 text-left">Today</p>
                     <p id="p-menu-today-count">4</p>
                 </button>
-                <button class="flex items-center gap-1">
+                <button class="flex items-center gap-1" id="button-menu-options-upcoming">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <g fill="#692fc2" fill-rule="nonzero">
                             <path d="M6 4.5h12A1.5 1.5 0 0119.5 6v2.5h-15V6A1.5 1.5 0 016 4.5z" opacity="0.1"></path>
@@ -665,7 +665,7 @@
                         <div class="div-popup-edit-task-check-complete">
                             <input
                                 class="chk-popup-edit-task-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
-                                type="checkbox" name="" id="chk-todo-complete-1">
+                                type="checkbox" name="" id="chk-popup-edit-task-complete">
                         </div>
                         <button type="button" id="button-popup-edit-task-save" class="flex-1 flex flex-col gap-3">
                             <p class="p-popup-edit-task-title font-bold">Aasdasd</p>
@@ -790,7 +790,7 @@
                         <div id="div-popup-edi-task-contents-first" class="py-4 flex flex-col gap-5">
                             <ul id="ul-popup-edi-task-contents-subtaskslist" class="flex flex-col gap-4">
                                 <template id="tmp-popup-subtask-item">
-                                    <li class="flex gap-5 items-start">
+                                    <li class="li-popup-edit-task-subtask-item flex gap-5 items-center">
                                         <input type="hidden" class="hidden-tab-subtask-item-id">
                                         <div class="div-tab-subtask-check-complete">
                                             <input
@@ -960,14 +960,24 @@
                                 </div>
                                 <ul id="ul-popup-note-list" class="flex flex-col gap-4 h-[250px] overflow-y-scroll">
                                     <template id="tmp-popup-note-item">
-                                        <li class="flex gap-5 items-start items-center">
+                                        <li class="li-popup-note-list-item flex gap-5 items-start items-center">
                                             <input type="hidden" class="hidden-tab-note-item-id">
-                                            <div class="div-tab-note-check-complete">
-                                                <input
-                                                    class="chk-tab-note-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
-                                                    type="checkbox" name="chk-tab-note-complete"
-                                                    id="chk-tab-note-complete">
-                                            </div>
+
+                                            <button type="button" class="btn-tab-note-complete">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    aria-hidden="true" class="comments_actions_icon">
+                                                    <g fill="none" fill-rule="evenodd">
+                                                        <path d="M0 0h24v24H0z"></path>
+                                                        <rect width="14" height="1" x="5" y="6" fill="currentColor"
+                                                            rx=".5"></rect>
+                                                        <path fill="currentColor" d="M10 9h1v8h-1V9zm3 0h1v8h-1V9z">
+                                                        </path>
+                                                        <path stroke="currentColor"
+                                                            d="M17.5 6.5h-11V18A1.5 1.5 0 0 0 8 19.5h8a1.5 1.5 0 0 0 1.5-1.5V6.5zm-9 0h7V5A1.5 1.5 0 0 0 14 3.5h-4A1.5 1.5 0 0 0 8.5 5v1.5z">
+                                                        </path>
+                                                    </g>
+                                                </svg>
+                                            </button>
                                             <div id="button-note-tab-list-item" class="flex-1 flex flex-col">
                                                 <p class="p-note-tab-description text-left">sdfs df sdf</p>
                                                 <p class="p-note-tab-date font-light text-sm italic">12/11/2021</p>
