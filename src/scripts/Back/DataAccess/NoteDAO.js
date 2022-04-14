@@ -45,6 +45,21 @@ function dbSelect(dblId) {
     return objNote;
 }
 
+/**
+ * 
+ * @param {number} dblNoteId 
+ * @returns 
+ */
+function dbDelete(dblNoteId) {
+
+    const objNote = dbSelect(dblNoteId);
+
+    createTodoDAO().dbRemoveNoteId(objNote.getIdTodo(), objNote.getId());
+    localStorage.removeItem("note-" + objNote.getId());
+
+    return objNote.getId();
+}
+
 function dbUpdate(dblId, strTitle, strDescription) {
 
     const objNote = dbSelect(dblId);
@@ -83,7 +98,7 @@ function dbSelectByTodo(dblTodoId) {
     return dbSelectAll(arrNotesksId);
 }
 
-const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbSelectByTodo: null };
+const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbSelectByTodo: null, dbDelete: null };
 
 /**
  * 
@@ -92,7 +107,8 @@ const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: n
  * dbSelect: dbSelect,
  * dbSelectAll: dbSelectAll,
  * dbUpdate: dbUpdate,
- * dbSelectByTodo:dbSelectByTodo
+ * dbSelectByTodo:dbSelectByTodo,
+ * dbDelete:dbDelete
  * }}
  */
 function createNoteDAO() {
@@ -104,6 +120,7 @@ function createNoteDAO() {
         objData.dbSelectAll = dbSelectAll;
         objData.dbUpdate = dbUpdate;
         objData.dbSelectByTodo = dbSelectByTodo;
+        objData.dbDelete = dbDelete;
     }
 
     return objData;

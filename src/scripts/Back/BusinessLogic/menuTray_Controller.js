@@ -29,6 +29,20 @@ const menuTray_Controller = (function () {
 
             return arrProjectsFiltered;
         },
+        /**
+         * 
+         * @param {number} dblProjectId 
+         * @param {Date} dtStartDate 
+         * @param {Date} dtEndDate 
+         * @param {number} dblCurrentUserId 
+         * @returns 
+         */
+        calculateQttyOfTasks: function (dblProjectId, dtStartDate, dtEndDate, dblCurrentUserId) {
+
+            const dblQtty = createTodoDAO().dbSelectByDate(dtStartDate, dtEndDate, dblCurrentUserId).length;
+
+            return dblQtty;
+        },
     }
 })();
 

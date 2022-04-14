@@ -1,6 +1,8 @@
 import format from "date-fns/format";
 import { popUpEditTask_Controller } from "../Back/BusinessLogic/popUpEditTask_Controller";
 import { createNoteDAO } from "../Back/DataAccess/NoteDAO";
+import { STATUS } from "../Back/Model/Status";
+import { mainLandingWelcome } from "./mainLandingWelcome";
 
 const popUpEditTask = (function () {
 
@@ -46,6 +48,15 @@ const popUpEditTask = (function () {
         }));
     };
 
+    const completeSubTask = function (dblSubTaskId) {
+
+        if (popUpEditTask_Controller.completeSubTask(dblSubTaskId).dblId > 0) {
+
+            const liParent = this.closest(".li-popup-edit-task-subtask-item");
+            this.closest("ul").removeChild(liParent);
+        }
+    };
+
     /**
      * 
      * @param {number} dblTaskId 
@@ -66,21 +77,36 @@ const popUpEditTask = (function () {
 
             arrSubTasksList.forEach(objSimpleSubTask => {
 
-                const tmpSubTask = document.importNode(tmpSubTaskCopy, true).content;
+                if (objSimpleSubTask.intStatusId !== STATUS.COMPLETED.id && objSimpleSubTask.intStatusId !== STATUS.CLOSED.id) {
+                    const tmpSubTask = document.importNode(tmpSubTaskCopy, true).content;
 
-                tmpSubTask.querySelector(".hidden-tab-subtask-item-id").value = objSimpleSubTask.dblId.toString();
-                tmpSubTask.querySelector(".p-subtask-tab-title").textContent = objSimpleSubTask.strName.toString();
-                tmpSubTask.querySelector(".p-subtask-tab-description").textContent = objSimpleSubTask.strDescription.toString();
+                    tmpSubTask.querySelector(".hidden-tab-subtask-item-id").value = objSimpleSubTask.dblId.toString();
+                    tmpSubTask.querySelector(".p-subtask-tab-title").textContent = objSimpleSubTask.strName.toString();
+                    tmpSubTask.querySelector(".p-subtask-tab-description").textContent = objSimpleSubTask.strDescription.toString();
 
-                //TODO: assign the event to open and edit the subtask and assign the evet to close the subtask in the checkbox
+                    const chkComplete = tmpSubTask.querySelector(".chk-tab-subtask-complete");
+                    chkComplete.onchange = completeSubTask.bind(chkComplete, objSimpleSubTask.dblId);
 
-                fragment.appendChild(tmpSubTask);
+                    //TODO: assign the event to open and edit the subtask.
+
+                    fragment.appendChild(tmpSubTask);
+                }
+
             });
 
             ulSubTasksList.appendChild(fragment);
         } else {
 
             ulSubTasksList.classList.add("hidden");
+        }
+    };
+
+    const deleteNote = function (dblNoteId) {
+
+        if (popUpEditTask_Controller.deleteNote(dblNoteId).dblId > 0) {
+
+            const liParent = this.closest(".li-popup-note-list-item");
+            this.closest("ul").removeChild(liParent);
         }
     };
 
@@ -110,7 +136,8 @@ const popUpEditTask = (function () {
                 tmpNote.querySelector(".p-note-tab-date").textContent = objSimpleNote.strDate;
                 tmpNote.querySelector(".p-note-tab-description").textContent = objSimpleNote.strComment;
 
-                //TODO: assign the event to open and edit the Note and assign the evet to close the Note in the checkbox
+                const btnDeleteNote = tmpNote.querySelector(".btn-tab-note-complete");
+                btnDeleteNote.onclick = deleteNote.bind(btnDeleteNote, objSimpleNote.dblId);
 
                 fragment.appendChild(tmpNote);
             });
@@ -328,6 +355,19 @@ const popUpEditTask = (function () {
      * 
      * @param {number} dblTaskId 
      */
+    const completeTask = function (dblTaskId) {
+
+        if (popUpEditTask_Controller.completeTask(dblTaskId).dblId > 0) {
+
+            divPopUpEditTask.classList.add("hidden");
+            mainLandingWelcome.loadTasksList();
+        }
+    }
+
+    /**
+     * 
+     * @param {number} dblTaskId 
+     */
     const loadMainInfo = function (dblTaskId) {
 
         divPopUpEditTask.querySelector("#div-popup-edit-task-fields-view").classList.remove("hidden");
@@ -348,7 +388,9 @@ const popUpEditTask = (function () {
         btnEditInfo.querySelector(".p-popup-edit-task-priority").textContent = strPriorityName;
         btnEditInfo.querySelector(".p-popup-edit-task-label").textContent = objTaskInfo.strLabel;
 
-        //load event del checkbox...
+        const chkCompleteTask = divPopUpEditTask.querySelector("#chk-popup-edit-task-complete");
+        chkCompleteTask.checked = false;
+        chkCompleteTask.onchange = completeTask.bind(chkCompleteTask, objTaskInfo.dblId);
 
         btnEditInfo.onclick = (function (objTaskInfo) {
 
@@ -377,6 +419,7 @@ const popUpEditTask = (function () {
             };
 
             divPopUpEditTask.querySelector("#form-popup-edit-task-fields-edit").classList.add("hidden");
+
             loadMainInfo(dblTaskId);
             loadTabs(dblTaskId);
 

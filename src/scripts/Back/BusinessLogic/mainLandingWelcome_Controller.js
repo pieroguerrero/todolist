@@ -30,12 +30,13 @@ const mainLandingWelcome_Controller = (function () {
          * dblTaskId: number,
          * strTaskName: string,
          * strDescription: string,
-         * intCantSubTasks:number
+         * intCantSubTasks:number,
+         * intStatusId:number
          * }[]}
          */
-        getTasksListbyDate: function (dblCurrentUserId, dtDate, dblProjectId) {
+        getTasksListbyDate: function (dblCurrentUserId, dtDate, dblProjectId, booPunctualDate, booShowOverDueTask) {
 
-            const arrAllTasks = createTodoDAO().dbSelectByDate(dtDate, dblCurrentUserId);
+            const arrAllTasks = createTodoDAO().dbSelectByDate(dtDate, booPunctualDate ? dtDate : null, dblCurrentUserId);
             const objSubTasks = createSubTaskDAO();
 
             const arrSimpleTasksList = arrAllTasks.map(objTaks => ({
@@ -43,11 +44,24 @@ const mainLandingWelcome_Controller = (function () {
                 strTaskName: objTaks.getTitle(),
                 strDescription: objTaks.getDescription(),
                 intCantSubTasks: objSubTasks.dbSelectActiveByTodo(objTaks.getId()).length,
+                intStatusId: objTaks.getStatusId(),
             }));
 
             return arrSimpleTasksList;
         },
+        /**
+         * 
+         * @param {number} dblTaskId 
+         */
+        completeTask: function (dblTaskId) {
 
+            const objResult = {};
+
+            objResult.dblId = createTodoDAO().dbComplete(dblTaskId);
+            objResult.strMessage = "Success";
+
+            return objResult;
+        },
     }
 })();
 

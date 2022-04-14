@@ -3,6 +3,7 @@ import { menuTray_Controller } from "../Back/BusinessLogic/menuTray_Controller";
 import format from "date-fns/format";
 import { mainLandingWelcome } from "./mainLandingWelcome";
 import { header } from "./header";
+import { mainLanding } from "./mainLanding";
 
 const menuTray = (function () {
 
@@ -56,7 +57,15 @@ const menuTray = (function () {
         arrChildren.forEach(child => {
 
             if (child.id !== "div-menu-custom") {
+
                 child.classList.remove("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
+                if (child.id === "button-menu-custom") {
+                    child.querySelector("#p-menu-custom-title").textContent = "Custom date";
+                    child.querySelector("#p-menu-custom-count").textContent = "";
+
+                }
+            } else {
+                child.querySelector("#inputdate-menu-custom-date").value = "";
             }
 
         });
@@ -67,15 +76,19 @@ const menuTray = (function () {
         divCustomDate.classList.add("hidden");
         btnCustomDate.classList.remove("hidden");
 
+        const dtCustomDate = new Date(divCustomDate.querySelector("#inputdate-menu-custom-date").value.replace(/-/g, '\/'));
+
         removeSelectionStyle();
         btnCustomDate.classList.add("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
 
-        const dtCustomDate = new Date(divCustomDate.querySelector("#inputdate-menu-custom-date").value.replace(/-/g, '\/'));
-
         btnCustomDate.querySelector("#p-menu-custom-title").textContent = format(dtCustomDate, "dd/MM/yyyy");
+        btnCustomDate.querySelector("#p-menu-custom-count").textContent = menuTray_Controller.calculateQttyOfTasks(-1, dtCustomDate, dtCustomDate, dblOWnerUserIdkeep);
 
         //TODO: load tasks list
-        mainLandingWelcome.loadTasksList(dblOWnerUserIdkeep, dtCustomDate, -1);
+        //mainLandingWelcome.loadTasksList(dblOWnerUserIdkeep, dtCustomDate, -1);
+
+        mainLanding.setTitle(format(dtCustomDate, "EEE MMM d"), "Custom date");
+        mainLandingWelcome.load(dblOWnerUserIdkeep, dtCustomDate, -1, true, false,);
 
         header.onClickHamburguerMenu();
 
@@ -104,10 +117,59 @@ const menuTray = (function () {
         }).bind(btnCustomDate);
     };
 
+    const onClickOptionLoad = function (dtDate, dblProjectId, booPunctualDate, booShowOverDue) {
+
+        removeSelectionStyle();
+        this.classList.add("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
+
+        if (dblProjectId === -1) {
+
+            if (booPunctualDate) {
+
+                mainLanding.setTitle("Today", format(dtDate, "EEE MMM d"));
+            } else {
+
+                mainLanding.setTitle("Upcoming", "From " + format(dtDate, "EEE MMM d"));
+            }
+        }
+
+        mainLandingWelcome.load(dblOWnerUserIdkeep, dtDate, dblProjectId, booPunctualDate, booShowOverDue);
+
+        header.onClickHamburguerMenu();
+    };
+
+    const loadTodayOption = function () {
+
+        const dtDateFilter = new Date();
+        const dblProjectIdFilter = -1;
+
+        const btnOptionToday = divMenuExpanded.querySelector("#button-menu-options-today");
+
+        const pQtty = btnOptionToday.querySelector("#p-menu-today-count");
+        pQtty.textContent = menuTray_Controller.calculateQttyOfTasks(dblProjectIdFilter, dtDateFilter, dtDateFilter, dblOWnerUserIdkeep).toString();
+
+        btnOptionToday.onclick = onClickOptionLoad.bind(btnOptionToday, new Date(), -1, true, true);
+    };
+
+    const loadUpcomingOption = function () {
+
+        const dtDateFilter = new Date();
+        const dblProjectIdFilter = -1;
+
+        const btnOptionUpcoming = divMenuExpanded.querySelector("#button-menu-options-upcoming");
+
+        const pQtty = btnOptionUpcoming.querySelector("#p-menu-upcoming-count");
+        pQtty.textContent = menuTray_Controller.calculateQttyOfTasks(dblProjectIdFilter, dtDateFilter, null, dblOWnerUserIdkeep).toString();
+
+        btnOptionUpcoming.onclick = onClickOptionLoad.bind(btnOptionUpcoming, new Date(), -1, false, false);;
+    };
+
     const loadOptionsSection = function () {
 
         //TODO: load events and behavior for each option
 
+        loadTodayOption();
+        loadUpcomingOption();
         loadCustomDateOption();
     };
 

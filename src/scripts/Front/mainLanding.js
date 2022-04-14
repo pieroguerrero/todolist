@@ -4,19 +4,26 @@ import { mainLandingWelcome } from "./mainLandingWelcome";
 
 const mainLanding = (function () {
 
-    const loadTitleDiv = function () {
+    const setTitle = function (strTitle, strDescription) {
 
-        const pTitle = document.getElementById("p-todolist-description");
-        pTitle.textContent = format(new Date(), "EEE MMM d");
+
+        const pTitle = document.getElementById("p-todolist-title")
+        pTitle.textContent = strTitle;
+
+        const pDescription = document.getElementById("p-todolist-description");
+        pDescription.textContent = strDescription;
+        //pTitle.textContent = format(new Date(), "EEE MMM d");
     };
 
     return {
         onPageLoad: function (dblOWnerUserId) {
 
-            loadTitleDiv();
+            setTitle("Today", format(new Date(), "EEE MMM d"));
             mainLandingAddTaskPoUp.hide();
-            mainLandingWelcome.load(dblOWnerUserId, new Date, -1);
+            mainLandingWelcome.load(dblOWnerUserId, new Date, -1, true, true);
         },
+        setTitle: setTitle,
+
     }
 })();
 

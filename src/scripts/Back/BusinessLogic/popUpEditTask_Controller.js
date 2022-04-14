@@ -69,6 +69,7 @@ const popUpEditTask_Controller = (function () {
                 dblId: objSubTask.getId(),
                 strName: objSubTask.getTitle(),
                 strDescription: objSubTask.getDescription(),
+                intStatusId: objSubTask.getStatusId(),
             }));
         },
         /**
@@ -100,6 +101,37 @@ const popUpEditTask_Controller = (function () {
             } else {//update
 
             }
+
+            return objResult;
+        },
+        /**
+         * 
+         * @param {number} dblTaskId 
+         */
+        completeTask: function (dblTaskId) {
+
+            const objResult = {};
+
+            objResult.dblId = createTodoDAO().dbComplete(dblTaskId);
+            objResult.strMessage = "Success";
+
+            return objResult;
+        },
+        completeSubTask: function (dblSubTaskId) {
+
+            const objResult = {};
+
+            objResult.dblId = createSubTaskDAO().dbComplete(dblSubTaskId);
+            objResult.strMessage = "Success";
+
+            return objResult;
+        },
+        deleteNote: function (dblNoteId) {
+
+            const objResult = {};
+
+            objResult.dblId = createNoteDAO().dbDelete(dblNoteId);
+            objResult.strMessage = "Success";
 
             return objResult;
         },

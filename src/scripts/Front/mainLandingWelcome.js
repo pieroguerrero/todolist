@@ -1,4 +1,5 @@
 import { mainLandingWelcome_Controller } from "../Back/BusinessLogic/mainLandingWelcome_Controller";
+import { STATUS } from "../Back/Model/Status";
 import { mainLandingAddTaskPoUp } from "./mainLandingAddTaskPoUp";
 import { popUpEditTask } from "./popUpEditTask";
 
@@ -6,7 +7,7 @@ const mainLandingWelcome = (function () {
 
     const divLandingWelcome = document.querySelector(".div-welcome-section");
     const tmpTaskCopy = document.importNode(divLandingWelcome.querySelector("#tmp-tasks-item"), true);
-    let dblOWnerUserIdkeep;
+    let dblOWnerUserIdkeep, dtCurrentDateFilter, dblCurrentProjectFilter, booPunctualDateFilter, booShowOverDueTaskFilter;
 
 
 
@@ -24,18 +25,29 @@ const mainLandingWelcome = (function () {
 
     /**
      * 
-     * @param {number} dblCurrentUserId 
-     * @param {Date} dtDate 
-     * @param {number} dblProjectId 
+     * @param {number} dblTaskId 
      */
-    const loadTasksList = function (dblCurrentUserId, dtDate, dblProjectId) {
+    const completeTask = function (dblTaskId) {
 
-        const arrSimpleTasksList = mainLandingWelcome_Controller.getTasksListbyDate(dblCurrentUserId, dtDate, dblProjectId);
+        if (mainLandingWelcome_Controller.completeTask(dblTaskId).dblId > 0) {
+
+            const liParent = this.closest(".li-task-item");
+            this.closest("ul").removeChild(liParent);
+        }
+    }
+
+    const loadTasksList = function () {
+
+        const arrSimpleTasksList = mainLandingWelcome_Controller.getTasksListbyDate(dblOWnerUserIdkeep, dtCurrentDateFilter, dblCurrentProjectFilter, booPunctualDateFilter, booShowOverDueTaskFilter);
+
         const divWelcomeImage = divLandingWelcome.querySelector(".div-welcome-image");
+        const divWelcomeTaskList = divLandingWelcome.querySelector(".div-todo-list");
+
 
         if (arrSimpleTasksList.length > 0) {
 
             divWelcomeImage.classList.add("hidden");
+            divWelcomeTaskList.classList.remove("hidden");
 
             divLandingWelcome.classList.remove("hidden");
 
@@ -47,15 +59,21 @@ const mainLandingWelcome = (function () {
 
             arrSimpleTasksList.forEach(objSimpleTask => {
 
-                const tmpTask = document.importNode(tmpTaskCopy, true).content;
+                if (objSimpleTask.intStatusId !== STATUS.COMPLETED.id && objSimpleTask.intStatusId !== STATUS.CLOSED.id) {
 
-                tmpTask.querySelector(".hidden-task-item-id").setAttribute("value", objSimpleTask.dblTaskId.toString());
-                tmpTask.querySelector(".p-todo-title").textContent = objSimpleTask.strTaskName;
-                tmpTask.querySelector(".p-todo-description").textContent = objSimpleTask.strDescription;
-                tmpTask.querySelector(".p-cant-subtasks").textContent = objSimpleTask.intCantSubTasks.toString();
-                tmpTask.querySelector(".button-todo-list-item").onclick = popUpEditTask.load.bind(null, objSimpleTask.dblTaskId, dblOWnerUserIdkeep, null);
+                    const tmpTask = document.importNode(tmpTaskCopy, true).content;
 
-                fragment.appendChild(tmpTask);
+                    tmpTask.querySelector(".hidden-task-item-id").setAttribute("value", objSimpleTask.dblTaskId.toString());
+                    tmpTask.querySelector(".p-todo-title").textContent = objSimpleTask.strTaskName;
+                    tmpTask.querySelector(".p-todo-description").textContent = objSimpleTask.strDescription;
+                    tmpTask.querySelector(".p-cant-subtasks").textContent = objSimpleTask.intCantSubTasks.toString();
+                    tmpTask.querySelector(".button-todo-list-item").onclick = popUpEditTask.load.bind(null, objSimpleTask.dblTaskId, dblOWnerUserIdkeep, null);
+
+                    const chkCompleteTask = tmpTask.querySelector(".chk-todolist-complete");
+                    chkCompleteTask.onchange = completeTask.bind(chkCompleteTask, objSimpleTask.dblTaskId);
+
+                    fragment.appendChild(tmpTask);
+                }
             });
 
             ulTasksList.appendChild(fragment);
@@ -64,19 +82,33 @@ const mainLandingWelcome = (function () {
         } else {
 
             divWelcomeImage.classList.remove("hidden");
+            divWelcomeTaskList.classList.add("hidden");
+
         }
 
 
     };
 
     return {
-        load: function (dblOWnerUserId, dtDate, dblProjectId) {
+        /**
+         * 
+         * @param {number} dblOWnerUserId 
+         * @param {Date} dtDate 
+         * @param {number} dblProjectId 
+         * @param {Boolean} booPunctualDate 
+         * @param {Boolean} booShowOverDueTask 
+         */
+        load: function (dblOWnerUserId, dtDate, dblProjectId, booPunctualDate, booShowOverDueTask) {
 
             dblOWnerUserIdkeep = dblOWnerUserId;
+            dtCurrentDateFilter = dtDate;
+            dblCurrentProjectFilter = dblProjectId;
+            booPunctualDateFilter = booPunctualDate;
+            booShowOverDueTaskFilter = booShowOverDueTask;
 
             loadAddTaskButton(dblOWnerUserId, dtDate, dblProjectId);
 
-            loadTasksList(dblOWnerUserId, dtDate, dblProjectId);
+            loadTasksList();
 
             popUpEditTask.hide();
         },
@@ -85,6 +117,7 @@ const mainLandingWelcome = (function () {
             divLandingWelcome.classList.remove("hidden");
         },
         loadTasksList: loadTasksList,
+
     }
 })();
 

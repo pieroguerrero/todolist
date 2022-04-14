@@ -35,6 +35,27 @@ function dbInsert(intTodoId, strTitle, strDescription, dtDueDate, idUserOwner, i
     return objSubTaskData.dblId;
 }
 
+function dbComplete(dblId) {
+
+    const objSubTask = dbSelect(dblId);
+
+    const objSubTaskData = {
+        dblId: objSubTask.getId(),
+        intTodoId: objSubTask.getIdTodo(),
+        strTitle: objSubTask.getTitle(),
+        strDescription: objSubTask.getDescription(),
+        dtDueDate: objSubTask.getDueDate(),
+        idUserOwner: objSubTask.getUserOwnerId(),
+        idUserCreator: objSubTask.getUserCreatorId(),
+        idStatus: STATUS.COMPLETED.id,
+        dtCreatedOn: objSubTask.getCreationDate()
+    };
+
+    localStorage.setItem("subtask-" + objSubTaskData.dblId, JSON.stringify(objSubTaskData));
+
+    return objSubTaskData.dblId;
+}
+
 /**
  * 
  * @param {number} dblId 
@@ -115,7 +136,7 @@ function dbSelectActiveByTodo(dblTodoId) {
 
 }
 
-const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbSelectActiveByTodo: null };
+const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbSelectActiveByTodo: null, dbComplete: null };
 
 /**
  * 
@@ -125,6 +146,7 @@ const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: n
  * dbSelectAll: dbSelectAll,
  * dbUpdate: dbUpdate,
  * dbSelectActiveByTodo:dbSelectActiveByTodo
+ * dbComplete:dbComplete
  * }}
  */
 function createSubTaskDAO() {
@@ -136,6 +158,7 @@ function createSubTaskDAO() {
         objData.dbSelectAll = dbSelectAll;
         objData.dbUpdate = dbUpdate;
         objData.dbSelectActiveByTodo = dbSelectActiveByTodo;
+        objData.dbComplete = dbComplete;
     }
 
     return objData;
