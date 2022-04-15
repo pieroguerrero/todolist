@@ -95,7 +95,7 @@ const mainLandingAddTaskPoUp = (function () {
 
             if (objResult.dblId > 0) {
 
-                alert(objResult.strResult);
+                //alert(objResult.strResult);
                 //load the tasks list and, in case needed, close the popup
                 divAddTask.classList.add("hidden");
 

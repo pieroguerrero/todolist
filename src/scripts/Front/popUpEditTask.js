@@ -335,7 +335,7 @@ const popUpEditTask = (function () {
 
             if (objResult.dblId === dblTaskId) {
 
-                alert(objResult.strResult);
+                //alert(objResult.strResult);
                 //load the tasks list and, in case needed, close the popup
                 divPopUpEditTask.querySelector("#form-popup-edit-task-fields-edit").classList.add("hidden");
                 loadMainInfo(dblTaskId);
