@@ -10,17 +10,17 @@ export const STATUS = {
         description: "The item is done.",
     },
     INPROGRESS: {
-        id: 2,
-        name: "In Progress",
-        description: "The item is currently in progress.",
-    },
-    CLOSED: {
         id: 3,
         name: "In Progress",
         description: "The item is currently in progress.",
     },
-    EMPTY: {
+    CLOSED: {
         id: 4,
+        name: "In Progress",
+        description: "The item is currently in progress.",
+    },
+    EMPTY: {
+        id: 5,
         name: "In Progress",
         description: "The item is currently in progress.",
     },
