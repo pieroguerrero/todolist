@@ -6,6 +6,28 @@ const menuTray_Controller = (function () {
 
     let dblOWnerUserIdkeep;
 
+    /**
+     * 
+     * @param {number[]} arrTodoIds 
+     * @returns
+     */
+    const calculateOpenTasksByProject = function (arrTodoIds) {
+
+        const arrTodos = createTodoDAO().dbSelectAll(arrTodoIds);
+        const arrTodosReduced = arrTodos.reduce(
+            (prev, curr) => {
+
+                if ((curr.getStatusId() !== STATUS.EMPTY.id) && (curr.getStatusId() !== STATUS.COMPLETED.id) && (curr.getStatusId() !== STATUS.CLOSED.id)) {
+                    prev++;
+                }
+
+                return prev;
+            },
+            0)
+
+        return arrTodosReduced;
+    }
+
     return {
         subscribeEvents: function (dblOWnerUserId) {
 
@@ -14,16 +36,15 @@ const menuTray_Controller = (function () {
         getProjectsList: function (dblOWnerUserId) {
 
             const arrProjects = createProjectDAO().dbSelectAll(dblOWnerUserId);
-            const objTodoDAO = createTodoDAO();
+            //const objTodoDAO = createTodoDAO();
 
             const arrProjectsFiltered = arrProjects.map(
                 objProject => ({
                     dblId: objProject.getId(),
                     strName: objProject.getTitle(),
-                    intCantOpenTasks: objTodoDAO.dbSelectAll(objProject.getToDosIdList()).reduce(
-                        (prev, curr) =>
-                            ((curr.getStatusId() !== STATUS.EMPTY.id && curr.getStatusId() !== STATUS.CLOSED.id) ? prev++ : prev),
-                        0),
+                    dtStartDate: objProject.getStartDate(),
+                    dtEndDate: objProject.getEndDate(),
+                    intCantOpenTasks: calculateOpenTasksByProject(objProject.getToDosIdList()),
                 })
             );
 

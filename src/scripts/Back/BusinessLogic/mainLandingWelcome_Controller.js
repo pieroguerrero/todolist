@@ -36,7 +36,14 @@ const mainLandingWelcome_Controller = (function () {
          */
         getTasksListbyDate: function (dblCurrentUserId, dtDate, dblProjectId, booPunctualDate, booShowOverDueTask) {
 
-            const arrAllTasks = createTodoDAO().dbSelectByDate(dtDate, booPunctualDate ? dtDate : null, dblCurrentUserId);
+            let arrAllTasks;
+
+            if (dblProjectId === -1) {
+                arrAllTasks = createTodoDAO().dbSelectByDate(dtDate, booPunctualDate ? dtDate : null, dblCurrentUserId);
+            } else {
+                arrAllTasks = createTodoDAO().dbSelectByProject(dblProjectId);
+            }
+
             const objSubTasks = createSubTaskDAO();
 
             const arrSimpleTasksList = arrAllTasks.map(objTaks => ({

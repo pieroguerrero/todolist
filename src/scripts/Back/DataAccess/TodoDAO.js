@@ -262,6 +262,12 @@ function dbSelectAll(arrTodoId) {
     return arrTodos;
 }
 
+
+function dbSelectByProject(dblProjectId) {
+
+    const objProject = createProjectDAO().dbSelect(dblProjectId, 1);
+    return dbSelectAll(objProject.getToDosIdList());
+}
 /**
  * 
  * @param {Date} dtStartDate 
@@ -307,7 +313,7 @@ function dbSelectByDate(dtStartDate, dtEndDate, dblOWnerUserId) {
     ));
 }
 
-const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbSelectByDate: null, dbAddSubTaskId: null, dbAddNoteId: null, dbComplete: null, dbRemoveNoteId: null };
+const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: null, dbSelectByDate: null, dbAddSubTaskId: null, dbAddNoteId: null, dbComplete: null, dbRemoveNoteId: null, dbSelectByProject: null };
 
 /**
  * 
@@ -320,7 +326,8 @@ const objData = { dbInsert: null, dbUpdate: null, dbSelect: null, dbSelectAll: n
  * dbAddSubTaskId:dbAddSubTaskId,
  * dbAddNoteId:dbAddNoteId,
  * dbComplete:dbComplete,
- * dbRemoveNoteId:dbRemoveNoteId
+ * dbRemoveNoteId:dbRemoveNoteId,
+ * dbSelectByProject:dbSelectByProject
  * }}
  */
 function createTodoDAO() {
@@ -336,6 +343,7 @@ function createTodoDAO() {
         objData.dbAddNoteId = dbAddNoteId;
         objData.dbComplete = dbComplete;
         objData.dbRemoveNoteId = dbRemoveNoteId;
+        objData.dbSelectByProject = dbSelectByProject;
     }
 
     return objData;

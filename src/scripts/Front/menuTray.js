@@ -19,24 +19,58 @@ const menuTray = (function () {
 
     /**
      * 
-     * @param {{dblId:number, strName:string, intCantOpenTasks:number}[]} arrProjectsFiltered 
+     * @param {number} dblProjectId 
+     */
+    const onClickProject = function (dblProjectId) {
+
+        const dtDateFilter = null;
+        const dblProjectIdFilter = dblProjectId;
+
+        removeSelectionStyle();
+        this.classList.add("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
+
+    };
+
+    /**
+     * 
+     * @param {{dblId:number, strName:string, intCantOpenTasks:number, dtStartDate:Date, dtEndDate:Date}[]} arrProjectsFiltered 
      */
     const renderProjectsList = function (arrProjectsFiltered) {
 
         const ulProjectsList = divMenuExpanded.querySelector("#ul-menu-projectslist");
+        let arrChildrenId = [];
 
-        ulProjectsList.replaceChildren();
+        if (ulProjectsList.children.length > 1) {
 
-        const tmpProject = document.importNode(tmpProjectCopy, true).content;
+            arrChildrenId = Array.from(ulProjectsList.children).reduce((prev, curr) => {
+
+                if (curr.id !== "tmp-project-item") {
+                    prev.push(curr.querySelector(".hid-project-id").value);
+                }
+
+                return prev;
+            }, []);
+        }
+
+        //ulProjectsList.replaceChildren();
+
         const fragment = document.createDocumentFragment();
 
         arrProjectsFiltered.forEach(objProjectFiltered => {
 
-            tmpProject.querySelector(".hid-project-id").setAttribute("value", objProjectFiltered.dblId.toString());
-            tmpProject.querySelector(".p-project-name").textContent = objProjectFiltered.strName;
-            tmpProject.querySelector(".p-project-subtasks-count").textContent = objProjectFiltered.intCantOpenTasks.toString();
+            if (!arrChildrenId.find(strId => strId === objProjectFiltered.dblId.toString())) {
 
-            fragment.appendChild(document.importNode(tmpProject, true));
+                const tmpProject = document.importNode(tmpProjectCopy, true).content;
+
+                tmpProject.querySelector(".hid-project-id").setAttribute("value", objProjectFiltered.dblId.toString());
+                tmpProject.querySelector(".p-project-name").textContent = objProjectFiltered.strName;
+                tmpProject.querySelector(".p-project-subtasks-count").textContent = objProjectFiltered.intCantOpenTasks.toString();
+
+                const liProjectItem = tmpProject.querySelector(".ul-menu-projectslist-li");
+                liProjectItem.addEventListener("click", onClickOptionLoad.bind(liProjectItem, objProjectFiltered.dtStartDate, objProjectFiltered.dblId, false, true, objProjectFiltered.strName, "Project"));
+
+                fragment.appendChild(tmpProject);
+            }
         });
 
         ulProjectsList.appendChild(fragment);
@@ -69,6 +103,28 @@ const menuTray = (function () {
             }
 
         });
+
+        const ulProjectsList = divMenuExpanded.querySelector("#ul-menu-projectslist");
+
+        if (ulProjectsList.children.length > 1) {
+
+            Array.from(ulProjectsList.children).forEach(el => {
+
+                if (el.id !== "tmp-project-item") {
+
+                    el.classList.remove("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");;
+                }
+            });
+        }
+
+
+
+
+
+
+
+
+
     };
 
     const onChangeCustomDate = function (divCustomDate, btnCustomDate) {
@@ -117,22 +173,12 @@ const menuTray = (function () {
         }).bind(btnCustomDate);
     };
 
-    const onClickOptionLoad = function (dtDate, dblProjectId, booPunctualDate, booShowOverDue) {
+    const onClickOptionLoad = function (dtDate, dblProjectId, booPunctualDate, booShowOverDue, strTitle, strDescription) {
 
         removeSelectionStyle();
         this.classList.add("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
 
-        if (dblProjectId === -1) {
-
-            if (booPunctualDate) {
-
-                mainLanding.setTitle("Today", format(dtDate, "EEE MMM d"));
-            } else {
-
-                mainLanding.setTitle("Upcoming", "From " + format(dtDate, "EEE MMM d"));
-            }
-        }
-
+        mainLanding.setTitle(strTitle, strDescription);
         mainLandingWelcome.load(dblOWnerUserIdkeep, dtDate, dblProjectId, booPunctualDate, booShowOverDue);
 
         header.onClickHamburguerMenu();
@@ -148,7 +194,7 @@ const menuTray = (function () {
         const pQtty = btnOptionToday.querySelector("#p-menu-today-count");
         pQtty.textContent = menuTray_Controller.calculateQttyOfTasks(dblProjectIdFilter, dtDateFilter, dtDateFilter, dblOWnerUserIdkeep).toString();
 
-        btnOptionToday.onclick = onClickOptionLoad.bind(btnOptionToday, new Date(), -1, true, true);
+        btnOptionToday.onclick = onClickOptionLoad.bind(btnOptionToday, new Date(), -1, true, true, "Today", format(new Date(), "EEE MMM d"));
     };
 
     const loadUpcomingOption = function () {
@@ -161,7 +207,7 @@ const menuTray = (function () {
         const pQtty = btnOptionUpcoming.querySelector("#p-menu-upcoming-count");
         pQtty.textContent = menuTray_Controller.calculateQttyOfTasks(dblProjectIdFilter, dtDateFilter, null, dblOWnerUserIdkeep).toString();
 
-        btnOptionUpcoming.onclick = onClickOptionLoad.bind(btnOptionUpcoming, new Date(), -1, false, false);;
+        btnOptionUpcoming.onclick = onClickOptionLoad.bind(btnOptionUpcoming, new Date(), -1, false, false, "Upcoming", "From " + format(new Date(), "EEE MMM d"));;
     };
 
     const loadOptionsSection = function () {
@@ -187,6 +233,14 @@ const menuTray = (function () {
 
             divMenuShade.classList.remove("hidden");
             divMenuExpanded.classList.add("change");
+
+            if (!divMenuShade.onclick) {
+
+                divMenuShade.onclick = () => {
+
+                    header.onClickHamburguerMenu();
+                };
+            }
 
             loadOptionsSection();
             loadProjectSection();
