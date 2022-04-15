@@ -433,10 +433,10 @@
                             <p class="text-xl text-center">Get a clear view of the day ahead.</p>
                             <p class=" font-light text-center">Tasks with upcoming due date will be shown here.</p>
                         </div>
-                        <div class="div-todo-list pb-8">
-                            <ul class="flex flex-col gap-4">
+                        <div class="div-todo-list pb-8 flex flex-col">
+                            <ul class="flex flex-col gap-4 self-start w-full">
                                 <template id="tmp-tasks-item">
-                                    <li class="li-task-item flex gap-5 items-start">
+                                    <li class="li-task-item flex gap-5 items-start ">
                                         <input type="hidden" class="hidden-task-item-id">
                                         <div class="div-check-complete">
                                             <input
@@ -444,8 +444,8 @@
                                                 type="checkbox" name="" id="chk-todolist-complete">
                                         </div>
                                         <button class="button-todo-list-item flex-1 flex flex-col">
-                                            <p class="p-todo-title font-bold">aasdasd</p>
-                                            <p class="p-todo-description text-sm font-light">sdfsdfsdf</p>
+                                            <p class="p-todo-title font-bold self-start">aasdasd</p>
+                                            <p class="p-todo-description text-sm font-light self-start">sdfsdfsdf</p>
                                         </button>
                                         <p class="p-cant-subtasks self-center text-sm font-light text-slate-500">4</p>
                                     </li>
@@ -677,7 +677,7 @@
                                 type="checkbox" name="" id="chk-popup-edit-task-complete">
                         </div>
                         <button type="button" id="button-popup-edit-task-save" class="flex-1 flex flex-col gap-3">
-                            <p class="p-popup-edit-task-title font-bold">Aasdasd</p>
+                            <p class="p-popup-edit-task-title font-bold self-start">Aasdasd</p>
                             <div class="flex gap-2 items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"
                                     fill="#000000">
@@ -798,9 +798,9 @@
                     <div id="div-popup-edi-task-contents" class="max-h-full">
                         <div id="div-popup-edi-task-contents-first" class="py-4 flex flex-col gap-5">
                             <ul id="ul-popup-edi-task-contents-subtaskslist"
-                                class="flex flex-col gap-4 max-h-[140px] overflow-y-auto">
+                                class="flex w-full flex-col gap-4 max-h-[140px] overflow-y-auto self-start">
                                 <template id="tmp-popup-subtask-item">
-                                    <li class="li-popup-edit-task-subtask-item flex gap-5 items-center">
+                                    <li class="li-popup-edit-task-subtask-item flex gap-5 items-center self-start">
                                         <input type="hidden" class="hidden-tab-subtask-item-id">
                                         <div class="div-tab-subtask-check-complete">
                                             <input
