@@ -431,7 +431,7 @@
                                 </g>
                             </svg>
                             <p class="text-xl text-center">Get a clear view of the day ahead.</p>
-                            <p class=" font-light text-center">All your tasks that are due today will show up here.</p>
+                            <p class=" font-light text-center">Tasks with upcoming due date will be shown here.</p>
                         </div>
                         <div class="div-todo-list pb-8">
                             <ul class="flex flex-col gap-4">
@@ -455,7 +455,7 @@
                     </div>
                 </div>
                 <div class="div-add-todo-form">
-                    <form onsubmit="return false"
+                    <form onsubmit="return false" autocomplete="off"
                         class="form-register-todo flex flex-col justify-center items-center px-12 gap-4">
                         <div
                             class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3">
@@ -604,7 +604,7 @@
     </footer>
     <div id="div-popup-register-project"
         class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-slate-900 bg-opacity-40">
-        <form id="form-popup-register-project" onsubmit="return false"
+        <form id="form-popup-register-project" autocomplete="off" onsubmit="return false"
             class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4">
             <input type="hidden" id="hidden-popup-project-id" name="hidden-popup-project-id">
             <div
@@ -728,7 +728,7 @@
                             </div>
                         </button>
                     </div>
-                    <form id="form-popup-edit-task-fields-edit" onsubmit="return false"
+                    <form id="form-popup-edit-task-fields-edit" autocomplete="off" onsubmit="return false"
                         class="rounded-[10px] bg-white w-full flex flex-col gap-4 items-center">
 
                         <div
@@ -783,7 +783,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="h-full">
+                <div id="div-popup-edit-task-tabs" class="h-full">
                     <!-- Tabs -->
                     <ul id="ul-popup-edit-task-tabs" class="inline-flex pt-2 px-1 w-full border-b">
                         <li
@@ -798,7 +798,7 @@
                     <div id="div-popup-edi-task-contents" class="max-h-full">
                         <div id="div-popup-edi-task-contents-first" class="py-4 flex flex-col gap-5">
                             <ul id="ul-popup-edi-task-contents-subtaskslist"
-                                class="flex flex-col gap-4 max-h-[250px] overflow-y-auto">
+                                class="flex flex-col gap-4 max-h-[170px] overflow-y-auto">
                                 <template id="tmp-popup-subtask-item">
                                     <li class="li-popup-edit-task-subtask-item flex gap-5 items-center">
                                         <input type="hidden" class="hidden-tab-subtask-item-id">
@@ -829,7 +829,7 @@
                                     </button>
                                 </div>
 
-                                <form id="form-popup-create-subtask" onsubmit="return false"
+                                <form id="form-popup-create-subtask" autocomplete="off" onsubmit="return false"
                                     class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4">
                                     <div
                                         class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3">
@@ -855,10 +855,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div id="div-popup-edi-task-contents-second" class="hidden pt-4 max-h-full flex flex-col">
+                        <div id="div-popup-edi-task-contents-second"
+                            class="hidden pt-4 max-h-full flex flex-col justify-end">
                             <div class="flex flex-col items-center">
                                 <div id="div-popup-note-empty" class="flex flex-col gap-3 items-center">
-                                    <svg class="h-[100px]" data-svgs-path="theme_todoist/task_comments.svg"
+                                    <!-- <svg class="h-[100px]" data-svgs-path="theme_todoist/task_comments.svg"
                                         xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" stroke-linecap="round"
                                         stroke-linejoin="round" stroke-miterlimit="1.5" clip-rule="evenodd"
                                         viewBox="0 0 220 200">
@@ -963,12 +964,12 @@
                                                 </g>
                                             </g>
                                         </g>
-                                    </svg>
-                                    <p class="font-light text-center">Add relevant notes to describre and track your
+                                    </svg> -->
+                                    <p class="font-light text-center p-3">Add relevant notes to describre and track your
                                         progress.</p>
                                 </div>
                                 <ul id="ul-popup-note-list"
-                                    class="flex-1 flex flex-col gap-4 h-[250px] overflow-y-scroll self-start">
+                                    class="flex-1 flex flex-col gap-4 max-h-[150px] overflow-y-auto self-start">
                                     <template id="tmp-popup-note-item">
                                         <li class="li-popup-note-list-item flex gap-5 items-start">
                                             <input type="hidden" class="hidden-tab-note-item-id">
@@ -996,17 +997,17 @@
                                     </template>
                                 </ul>
                             </div>
-                            <form id="form-popup-subtask-note" onsubmit="return false"
-                                class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4 mt-6">
+                            <form id="form-popup-subtask-note" autocomplete="off" onsubmit="return false"
+                                class="rounded-[10px] bg-white w-full flex items-center gap-2 mt-6">
                                 <div
                                     class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3">
                                     <textarea name="texarea-popup-subtask-note-comment"
-                                        id="texarea-popup-subtask-note-comment" rows="2"
+                                        id="texarea-popup-subtask-note-comment" rows="1"
                                         placeholder="Comment"></textarea>
                                 </div>
-                                <div class="w-full flex justify-start gap-4">
+                                <div class="w-full flex">
                                     <button id="button-popup-subtask-note-add"
-                                        class="button-form-popup-edit-task-save bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]">Save</button>
+                                        class="button-form-popup-edit-task-save bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]">Add</button>
                                 </div>
                             </form>
                         </div>
