@@ -23,7 +23,7 @@ const mainLanding = (function () {
 
             const btnOptionToday = document.querySelector(".div-menu-expanded").querySelector("#button-menu-options-today");
             btnOptionToday.classList.add("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
-            mainLandingWelcome.load(dblOWnerUserId, new Date, -1, true, true);
+            mainLandingWelcome.load(dblOWnerUserId, new Date, -1, true, true, "");
         },
         setTitle: setTitle,
 

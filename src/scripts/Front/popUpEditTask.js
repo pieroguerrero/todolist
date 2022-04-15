@@ -166,6 +166,10 @@ const popUpEditTask = (function () {
             loadSubTasks(dblTaskId);
 
             frmSubTask.classList.add("hidden");
+            divPopUpEditTask.querySelector("#button-popup-edi-task-contents-add-subtask").classList.remove("hidden");
+
+            const ulSubTasksList = divPopUpEditTask.querySelector("#ul-popup-edi-task-contents-subtaskslist");
+            ulSubTasksList.classList.remove("hidden");
         }
 
     };
@@ -184,6 +188,9 @@ const popUpEditTask = (function () {
             divPopUpEditTask.querySelector("#form-popup-create-subtask").classList.add("hidden");
             divPopUpEditTask.querySelector("#button-popup-edi-task-contents-add-subtask").classList.remove("hidden")
 
+            const ulSubTasksList = divPopUpEditTask.querySelector("#ul-popup-edi-task-contents-subtaskslist");
+            ulSubTasksList.classList.remove("hidden");
+
         }).bind(btnCancel);
 
         const btnAdd = divPopUpEditTask.querySelector("#button-form-create-subtask-add");
@@ -201,7 +208,10 @@ const popUpEditTask = (function () {
         const btnAddSubTask = divPopUpEditTask.querySelector("#button-popup-edi-task-contents-add-subtask");
         btnAddSubTask.onclick = (function (dblTaskId) {
 
-            //this.classList.add("hidden");
+            this.classList.add("hidden");
+            const ulSubTasksList = divPopUpEditTask.querySelector("#ul-popup-edi-task-contents-subtaskslist");
+            ulSubTasksList.classList.add("hidden");
+
             loadSubTaskPopUp(dblTaskId);
         }).bind(btnAddSubTask, dblTaskId);
 

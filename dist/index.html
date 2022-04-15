@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 
 <head>
     <meta charset="UTF-8">
@@ -8,9 +8,9 @@
     <title>To-do List</title>
 </head>
 
-<body class="flex flex-col h-screen overflow-x-hidden relative">
-    <header class="bg-todoist_red h-[44px] w-full flex justify-between items-center">
-        <ul id="left-menu" class="flex items-center gap-4 pl-[12px]">
+<body class="flex flex-col h-full overflow-x-hidden relative">
+    <header id="header-options" class="bg-todoist_red h-[44px] w-full grid grid-cols-[0.9fr_0.1fr] px-[12px]">
+        <ul id="left-menu" class="w-full flex items-center gap-4 ">
             <li class="flex items-center">
                 <button id="button-hamburguer-menu">
                     <svg class="menu_icon" width="24" height="24" viewBox="0 0 24 24">
@@ -25,7 +25,8 @@
                     </svg>
                 </button>
             </li>
-            <li class="flex items-center"> <button id="button-home">
+            <li class="flex items-center">
+                <button id="button-header-home">
                     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path fill="#ffffff"
                             d="M12.527 3.075c.35.104.64.263 1.27.876L19.1 9.123c.374.364.49.505.601.678.11.174.185.351.232.552.042.178.062.34.066.742L20 17.718c0 .446-.046.607-.134.77a.906.906 0 01-.378.378c-.163.088-.324.134-.77.134H14v-4.718c0-.446-.046-.607-.134-.77a.906.906 0 00-.378-.378c-.142-.077-.284-.122-.616-.132L12.718 13h-1.436c-.446 0-.607.046-.77.134a.906.906 0 00-.378.378c-.077.142-.122.284-.132.616l-.002.154V19H5.282c-.446 0-.607-.046-.77-.134a.906.906 0 01-.378-.378c-.088-.163-.134-.324-.134-.77v-6.462c0-.522.02-.703.067-.903.047-.2.121-.378.232-.552l.077-.113c.098-.134.233-.282.524-.565l5.304-5.172c.629-.613.92-.772 1.269-.876a1.82 1.82 0 011.054 0zm-.286.958a.825.825 0 00-.482 0c-.18.054-.326.139-.63.418l-.227.216L5.598 9.84c-.3.293-.385.39-.456.5a.76.76 0 00-.102.242c-.026.112-.037.224-.04.531l.002 6.807.005.073.074.006L8.999 18 9 14.268l.003-.17c.013-.448.083-.749.249-1.058a1.9 1.9 0 01.788-.788c.306-.164.6-.234 1.043-.249l.199-.003h1.45l.17.003c.448.013.749.083 1.058.249.337.18.608.45.788.788.164.306.234.6.249 1.043l.003.199L14.999 18l3.92-.002.073-.006.006-.073.002-.2v-6.615l-.005-.218a1.494 1.494 0 00-.035-.305.747.747 0 00-.102-.242l-.059-.084a3.571 3.571 0 00-.294-.315l-5.407-5.273c-.425-.414-.604-.545-.798-.615l-.06-.019z">
@@ -34,42 +35,38 @@
                 </button>
 
             </li>
-            <li class="flex items-center">
-                <div id="div-menu-search" class="flex items-center">
+            <li class="flex flex-1">
+                <button type="button" id="button-header-search" class="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
                         class="svg-search_icon">
                         <path
                             d="M10.5 3a7.5 7.5 0 015.645 12.438l4.709 4.708a.502.502 0 01-.708.708l-4.708-4.709A7.5 7.5 0 1110.5 3zm0 1a6.5 6.5 0 100 13 6.5 6.5 0 000-13z"
                             fill="#ffffff"></path>
                     </svg>
+                </button>
+                <div id="div-header-searchbox" class="relative flex-1 flex items-center pr-2 hidden">
+                    <input class="w-full rounded-[10px] pl-3" type="text" name="input-header-search-text"
+                        id="input-header-search-text">
+                    <button class="absolute top-0 right-[10px]" type="button" id="button-header-search-close">
+                        <svg viewBox="0 0 24 24" width="24" height="24" class="p-1">
+                            <path fill="#000000" fill-rule="nonzero"
+                                d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z">
+                            </path>
+                        </svg>
+                    </button>
                 </div>
             </li>
+
         </ul>
-        <ul class="flex items-center gap-5 pr-[12px]">
-            <li class="flex items-center">
-                <button id="button-add-task">
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                        <g fill="#ffffff" fill-rule="evenodd" transform="translate(4 3)">
-                            <mask id="jd4FBg" fill="#ffffff">
-                                <path
-                                    d="M9 8h7a.5.5 0 1 1 0 1H9v7a.5.5 0 1 1-1 0V9H1a.5.5 0 0 1 0-1h7V1a.5.5 0 0 1 1 0v7z">
-                                </path>
-                            </mask>
-                            <g mask="url(#jd4FBg)">
-                                <path fill="#ffffff" d="M-4-3h24v24H-4z"></path>
-                            </g>
-                        </g>
-                    </svg>
-                </button>
-            <li class="flex items-center">
-                <button id="button-profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"
-                        fill="#ffffff">
-                        <path d="M0 0h24v24H0V0z" fill="none" />
-                        <path
-                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72zm11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z" />
-                    </svg>
-                </button>
+        <ul class="flex items-center justify-center">
+            <li class="">
+
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff">
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72zm11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z" />
+                </svg>
+
             </li>
         </ul>
     </header>
@@ -592,7 +589,19 @@
             </div>
         </nav>
     </main>
-    <footer></footer>
+    <footer class="w-full">
+        <div class="flex items-center justify-center gap-2 text-white p-1 text-sm bg-todoist_red">
+            <span>Created by <strong><a id="link-footer" target="_blank"
+                        href="https://github.com/pieroguerrero">pieroguerrero</a>
+                </strong></span>
+            <a href="https://github.com/pieroguerrero" target="_blank">
+                <svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
+                    <path
+                        d="M15,3C8.373,3,3,8.373,3,15c0,5.623,3.872,10.328,9.092,11.63C12.036,26.468,12,26.28,12,26.047v-2.051c-0.487,0-1.303,0-1.508,0c-0.821,0-1.551-0.353-1.905-1.009c-0.393-0.729-0.461-1.844-1.435-2.526c-0.289-0.227-0.069-0.486,0.264-0.451c0.615,0.174,1.125,0.596,1.605,1.222c0.478,0.627,0.703,0.769,1.596,0.769c0.433,0,1.081-0.025,1.691-0.121c0.328-0.833,0.895-1.6,1.588-1.962c-3.996-0.411-5.903-2.399-5.903-5.098c0-1.162,0.495-2.286,1.336-3.233C9.053,10.647,8.706,8.73,9.435,8c1.798,0,2.885,1.166,3.146,1.481C13.477,9.174,14.461,9,15.495,9c1.036,0,2.024,0.174,2.922,0.483C18.675,9.17,19.763,8,21.565,8c0.732,0.731,0.381,2.656,0.102,3.594c0.836,0.945,1.328,2.066,1.328,3.226c0,2.697-1.904,4.684-5.894,5.097C18.199,20.49,19,22.1,19,23.313v2.734c0,0.104-0.023,0.179-0.035,0.268C23.641,24.676,27,20.236,27,15C27,8.373,21.627,3,15,3z" />
+                </svg>
+            </a>
+        </div>
+    </footer>
     <div id="div-popup-register-project"
         class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-slate-900 bg-opacity-40">
         <form id="form-popup-register-project" onsubmit="return false"
@@ -786,9 +795,10 @@
                         </li>
                     </ul>
                     <!-- Tab Contents -->
-                    <div id="div-popup-edi-task-contents">
+                    <div id="div-popup-edi-task-contents" class="max-h-full">
                         <div id="div-popup-edi-task-contents-first" class="py-4 flex flex-col gap-5">
-                            <ul id="ul-popup-edi-task-contents-subtaskslist" class="flex flex-col gap-4">
+                            <ul id="ul-popup-edi-task-contents-subtaskslist"
+                                class="flex flex-col gap-4 max-h-[250px] overflow-y-auto">
                                 <template id="tmp-popup-subtask-item">
                                     <li class="li-popup-edit-task-subtask-item flex gap-5 items-center">
                                         <input type="hidden" class="hidden-tab-subtask-item-id">
@@ -845,11 +855,10 @@
                                 </form>
                             </div>
                         </div>
-                        <div id="div-popup-edi-task-contents-second"
-                            class="hidden pt-4 h-full flex flex-col justify-between">
-                            <div class="flex flex-col">
+                        <div id="div-popup-edi-task-contents-second" class="hidden pt-4 max-h-full flex flex-col">
+                            <div class="flex flex-col items-center">
                                 <div id="div-popup-note-empty" class="flex flex-col gap-3 items-center">
-                                    <svg data-svgs-path="theme_todoist/task_comments.svg"
+                                    <svg class="h-[100px]" data-svgs-path="theme_todoist/task_comments.svg"
                                         xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" stroke-linecap="round"
                                         stroke-linejoin="round" stroke-miterlimit="1.5" clip-rule="evenodd"
                                         viewBox="0 0 220 200">
@@ -958,9 +967,10 @@
                                     <p class="font-light text-center">Add relevant notes to describre and track your
                                         progress.</p>
                                 </div>
-                                <ul id="ul-popup-note-list" class="flex flex-col gap-4 h-[250px] overflow-y-scroll">
+                                <ul id="ul-popup-note-list"
+                                    class="flex-1 flex flex-col gap-4 h-[250px] overflow-y-scroll self-start">
                                     <template id="tmp-popup-note-item">
-                                        <li class="li-popup-note-list-item flex gap-5 items-start items-center">
+                                        <li class="li-popup-note-list-item flex gap-5 items-start">
                                             <input type="hidden" class="hidden-tab-note-item-id">
 
                                             <button type="button" class="btn-tab-note-complete">

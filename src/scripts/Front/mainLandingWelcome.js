@@ -7,7 +7,7 @@ const mainLandingWelcome = (function () {
 
     const divLandingWelcome = document.querySelector(".div-welcome-section");
     const tmpTaskCopy = document.importNode(divLandingWelcome.querySelector("#tmp-tasks-item"), true);
-    let dblOWnerUserIdkeep, dtCurrentDateFilter, dblCurrentProjectFilter, booPunctualDateFilter, booShowOverDueTaskFilter;
+    let dblOWnerUserIdkeep, dtCurrentDateFilter, dblCurrentProjectFilter, booPunctualDateFilter, booShowOverDueTaskFilter, strSearchTermFilter;
 
 
 
@@ -38,7 +38,12 @@ const mainLandingWelcome = (function () {
 
     const loadTasksList = function () {
 
-        const arrSimpleTasksList = mainLandingWelcome_Controller.getTasksListbyDate(dblOWnerUserIdkeep, dtCurrentDateFilter, dblCurrentProjectFilter, booPunctualDateFilter, booShowOverDueTaskFilter);
+        let arrSimpleTasksList = mainLandingWelcome_Controller.getTasksListbyDate(dblOWnerUserIdkeep, dtCurrentDateFilter, dblCurrentProjectFilter, booPunctualDateFilter, booShowOverDueTaskFilter);
+
+        if (strSearchTermFilter && strSearchTermFilter.length > 0) {
+
+            arrSimpleTasksList = arrSimpleTasksList.filter(objSimpleTask => (objSimpleTask.strTaskName.toLowerCase().includes(strSearchTermFilter.toLowerCase()) || objSimpleTask.strDescription.toLowerCase().includes(strSearchTermFilter.toLowerCase())));
+        }
 
         const divWelcomeImage = divLandingWelcome.querySelector(".div-welcome-image");
         const divWelcomeTaskList = divLandingWelcome.querySelector(".div-todo-list");
@@ -97,14 +102,16 @@ const mainLandingWelcome = (function () {
          * @param {number} dblProjectId 
          * @param {Boolean} booPunctualDate 
          * @param {Boolean} booShowOverDueTask 
+         * @param {string} strSearchTerm
          */
-        load: function (dblOWnerUserId, dtDate, dblProjectId, booPunctualDate, booShowOverDueTask) {
+        load: function (dblOWnerUserId, dtDate, dblProjectId, booPunctualDate, booShowOverDueTask, strSearchTerm) {
 
             dblOWnerUserIdkeep = dblOWnerUserId;
             dtCurrentDateFilter = dtDate;
             dblCurrentProjectFilter = dblProjectId;
             booPunctualDateFilter = booPunctualDate;
             booShowOverDueTaskFilter = booShowOverDueTask;
+            strSearchTermFilter = strSearchTerm;
 
             loadAddTaskButton(dblOWnerUserId, dtDate, dblProjectId);
 

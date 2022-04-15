@@ -144,7 +144,7 @@ const menuTray = (function () {
         //mainLandingWelcome.loadTasksList(dblOWnerUserIdkeep, dtCustomDate, -1);
 
         mainLanding.setTitle(format(dtCustomDate, "EEE MMM d"), "Custom date");
-        mainLandingWelcome.load(dblOWnerUserIdkeep, dtCustomDate, -1, true, false,);
+        mainLandingWelcome.load(dblOWnerUserIdkeep, dtCustomDate, -1, true, false, "");
 
         header.onClickHamburguerMenu();
 
@@ -179,7 +179,7 @@ const menuTray = (function () {
         this.classList.add("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
 
         mainLanding.setTitle(strTitle, strDescription);
-        mainLandingWelcome.load(dblOWnerUserIdkeep, dtDate, dblProjectId, booPunctualDate, booShowOverDue);
+        mainLandingWelcome.load(dblOWnerUserIdkeep, dtDate, dblProjectId, booPunctualDate, booShowOverDue, "");
 
         header.onClickHamburguerMenu();
     };
@@ -253,6 +253,18 @@ const menuTray = (function () {
         hide: function () {
             divMenuShade.classList.add("hidden");
             divMenuExpanded.classList.remove("change");
+        },
+        goHome: function () {
+
+            removeSelectionStyle();
+
+            const btnOptionToday = divMenuExpanded.querySelector("#button-menu-options-today");
+            btnOptionToday.classList.add("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
+
+            const dtDate = new Date();
+
+            mainLanding.setTitle("Today", format(dtDate, "EEE MMM d"));
+            mainLandingWelcome.load(dblOWnerUserIdkeep, dtDate, -1, true, true, "");
         },
     }
 })();
