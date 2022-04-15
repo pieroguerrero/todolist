@@ -18,12 +18,13 @@ const mainLanding = (function () {
     return {
         onPageLoad: function (dblOWnerUserId) {
 
-            setTitle("Today", format(new Date(), "EEE MMM d"));
+            setTitle("Upcoming", "starting " + format(new Date(), "EEE MMM d"));
             mainLandingAddTaskPoUp.hide();
 
-            const btnOptionToday = document.querySelector(".div-menu-expanded").querySelector("#button-menu-options-today");
-            btnOptionToday.classList.add("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
-            mainLandingWelcome.load(dblOWnerUserId, new Date, -1, true, true, "");
+            const btnOptionUpcoming = document.querySelector("#button-menu-options-upcoming");
+            btnOptionUpcoming.classList.add("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
+
+            mainLandingWelcome.load(dblOWnerUserId, new Date, -1, false, true, "");
         },
         setTitle: setTitle,
 

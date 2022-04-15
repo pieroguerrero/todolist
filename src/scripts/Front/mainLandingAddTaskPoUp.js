@@ -97,6 +97,8 @@ const mainLandingAddTaskPoUp = (function () {
 
                 alert(objResult.strResult);
                 //load the tasks list and, in case needed, close the popup
+                divAddTask.classList.add("hidden");
+
                 if (fnSuccessLaterExecution) {
 
                     fnSuccessLaterExecution();
@@ -113,6 +115,8 @@ const mainLandingAddTaskPoUp = (function () {
         const dtToday = new Date();
 
         const dliDueDateList = divAddTask.querySelector("#dist-todo-popup-days");
+        dliDueDateList.replaceChildren();
+
         const optToday = document.createElement("option");
         optToday.value = format(dtToday, "yyyy-MM-dd");
         optToday.label = "Today";
@@ -147,6 +151,8 @@ const mainLandingAddTaskPoUp = (function () {
             btnSave.onclick = createNewTask.bind(btnSave, fnNewTasksLaterExecution);
 
             loadProjectsDropDownList();
+
+
         },
         hide: function () {
 

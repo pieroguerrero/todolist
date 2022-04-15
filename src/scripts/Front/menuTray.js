@@ -207,7 +207,7 @@ const menuTray = (function () {
         const pQtty = btnOptionUpcoming.querySelector("#p-menu-upcoming-count");
         pQtty.textContent = menuTray_Controller.calculateQttyOfTasks(dblProjectIdFilter, dtDateFilter, null, dblOWnerUserIdkeep).toString();
 
-        btnOptionUpcoming.onclick = onClickOptionLoad.bind(btnOptionUpcoming, new Date(), -1, false, false, "Upcoming", "From " + format(new Date(), "EEE MMM d"));;
+        btnOptionUpcoming.onclick = onClickOptionLoad.bind(btnOptionUpcoming, new Date(), -1, false, false, "Upcoming", "starting " + format(new Date(), "EEE MMM d"));;
     };
 
     const loadOptionsSection = function () {
@@ -258,13 +258,22 @@ const menuTray = (function () {
 
             removeSelectionStyle();
 
-            const btnOptionToday = divMenuExpanded.querySelector("#button-menu-options-today");
-            btnOptionToday.classList.add("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
+            // const btnOptionToday = divMenuExpanded.querySelector("#button-menu-options-today");
+            // btnOptionToday.classList.add("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
+
+            // const dtDate = new Date();
+
+            // mainLanding.setTitle("Today", format(dtDate, "EEE MMM d"));
+            // mainLandingWelcome.load(dblOWnerUserIdkeep, dtDate, -1, true, true, "");
+
+
+            const btnOptionUpcoming = divMenuExpanded.querySelector("#button-menu-options-upcoming");
+            btnOptionUpcoming.classList.add("bg-[#ececec]", "rounded-lg", "p-2", "font-bold");
 
             const dtDate = new Date();
 
-            mainLanding.setTitle("Today", format(dtDate, "EEE MMM d"));
-            mainLandingWelcome.load(dblOWnerUserIdkeep, dtDate, -1, true, true, "");
+            mainLanding.setTitle("Upcoming", "starting " + format(dtDate, "EEE MMM d"));
+            mainLandingWelcome.load(dblOWnerUserIdkeep, dtDate, -1, false, true, "");
         },
     }
 })();

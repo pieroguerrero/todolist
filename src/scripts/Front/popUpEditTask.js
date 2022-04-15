@@ -310,6 +310,8 @@ const popUpEditTask = (function () {
 
         divPopUpEditTask.querySelector("#div-popup-edit-task-fields-view").classList.remove("hidden");
         divPopUpEditTask.querySelector("#form-popup-edit-task-fields-edit").classList.add("hidden");
+
+        divPopUpEditTask.querySelector("#div-popup-edit-task-tabs").classList.remove("hidden");
     };
 
     const editTask = function (dblTaskId) {
@@ -337,6 +339,7 @@ const popUpEditTask = (function () {
                 //load the tasks list and, in case needed, close the popup
                 divPopUpEditTask.querySelector("#form-popup-edit-task-fields-edit").classList.add("hidden");
                 loadMainInfo(dblTaskId);
+                divPopUpEditTask.querySelector("#div-popup-edit-task-tabs").classList.remove("hidden");
             }
         }
     };
@@ -405,6 +408,8 @@ const popUpEditTask = (function () {
         btnEditInfo.onclick = (function (objTaskInfo) {
 
             divPopUpEditTask.querySelector("#div-popup-edit-task-fields-view").classList.add("hidden");
+            divPopUpEditTask.querySelector("#div-popup-edit-task-tabs").classList.add("hidden");
+
             loadMainInfoEdit(objTaskInfo);
         }).bind(btnEditInfo, objTaskInfo);
 
