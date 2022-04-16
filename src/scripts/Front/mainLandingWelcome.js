@@ -32,7 +32,25 @@ const mainLandingWelcome = (function () {
         if (mainLandingWelcome_Controller.completeTask(dblTaskId).dblId > 0) {
 
             const liParent = this.closest(".li-task-item");
-            this.closest("ul").removeChild(liParent);
+
+            const divCheckBoxs = liParent.querySelector(".div-check-complete");
+            divCheckBoxs.classList.add("hidden");
+            const btnEdit = liParent.querySelector(".button-todo-list-item");
+            btnEdit.classList.add("hidden");
+            const pCant = liParent.querySelector(".p-cant-subtasks");
+            pCant.classList.add("hidden");
+
+            const divCompletedMark = liParent.querySelector(".div-check-completed-mark");
+            divCompletedMark.classList.remove("hidden");
+
+            const ulParent = this.closest("ul");
+
+            liParent.style.opacity = "0";
+
+            window.setTimeout(
+                function removethis() {
+                    ulParent.removeChild(liParent);
+                }, 1800);
         }
     }
 

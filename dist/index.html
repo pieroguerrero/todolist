@@ -70,7 +70,7 @@
             </li>
         </ul>
     </header>
-    <main class="relative flex-1 flex flex-col">
+    <main class="relative flex-1 flex flex-col items-center">
         <div id="div-landing" class="flex-1 h-full pt-8 flex flex-col items-center gap-4">
             <div class="div-title w-full px-12 flex gap-3 items-center">
                 <p id="p-todolist-title" class="text-2xl font-bold">Today</p>
@@ -436,17 +436,28 @@
                         <div class="div-todo-list pb-8 flex flex-col">
                             <ul class="flex flex-col gap-4 self-start w-full">
                                 <template id="tmp-tasks-item">
-                                    <li class="li-task-item flex gap-5 items-start ">
+                                    <li class="li-task-item flex gap-5 items-start disappear">
                                         <input type="hidden" class="hidden-task-item-id">
                                         <div class="div-check-complete">
                                             <input
                                                 class="chk-todolist-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
                                                 type="checkbox" name="" id="chk-todolist-complete">
+
                                         </div>
                                         <button class="button-todo-list-item flex-1 flex flex-col">
                                             <p class="p-todo-title font-bold self-start">aasdasd</p>
                                             <p class="p-todo-description text-sm font-light self-start">sdfsdfsdf</p>
                                         </button>
+                                        <div
+                                            class="div-check-completed-mark flex gap-5 items-start bg-todoist_green bg-opacity-80 rounded-lg w-full p-1 hidden">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
+                                                width="24px" fill="#8BC9C8">
+                                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                                <path
+                                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z" />
+                                            </svg>
+                                            <p class="font-bold">Done</p>
+                                        </div>
                                         <p class="p-cant-subtasks self-center text-sm font-light text-slate-500">4</p>
                                     </li>
                                 </template>
@@ -503,7 +514,7 @@
             class="hidden absolute left-0 top-0 w-full h-full bg-slate-900 bg-opacity-40 transition-all duration-[1s] delay-[0.s]">
         </div>
         <nav
-            class="div-menu-expanded bg-todoist_gray flex flex-col gap-5 top-0 bottom-0 h-full absolute  overflow-hidden max-w-0 opacity-0 transition-all duration-[0.6s] delay-[0.s]">
+            class="div-menu-expanded bg-todoist_gray flex flex-col gap-5 left-0 top-0 bottom-0 h-full absolute  overflow-hidden max-w-0 opacity-0 transition-all duration-[0.6s] delay-[0.s]">
             <ul id="up-menu-options-list" class="pl-9 pr-5 pt-8 flex flex-col gap-3">
                 <button type="button" class="flex items-center gap-1" id="button-menu-options-today">
                     <svg width="24" height="24" viewBox="0 0 24 24">
@@ -658,9 +669,10 @@
 
     </div>
     <div id="div-popup-edit-task"
-        class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-slate-900 bg-opacity-40 ">
+        class="absolute top-0 left-0 w-full h-full flex justify-center items-center sm:items-start bg-slate-900 bg-opacity-40 ">
         <input type="hidden" class="hidden-popup-edit-task-id">
-        <div id="div-popup-edit-task-main" class="rounded-[10px] bg-white w-[95%] h-[90%] flex flex-col gap-2 ">
+        <div id="div-popup-edit-task-main"
+            class="rounded-[10px] bg-white w-[95%] sm:w-[360px] h-[90%] sm:h-[580px] flex flex-col gap-2 sm:mt-12">
             <button type="button" id="button-popup-task-edit-close" class="flex justify-end pt-3 pr-3">
                 <svg viewBox="0 0 24 24" class="icon_close" width="24" height="24">
                     <path fill="currentColor" fill-rule="nonzero"
@@ -798,7 +810,7 @@
                     <div id="div-popup-edi-task-contents" class="max-h-full">
                         <div id="div-popup-edi-task-contents-first" class="py-4 flex flex-col gap-5">
                             <ul id="ul-popup-edi-task-contents-subtaskslist"
-                                class="flex w-full flex-col gap-4 max-h-[140px] overflow-y-auto self-start">
+                                class="flex w-full flex-col gap-4 max-h-[160px] sm:max-h-[180px] overflow-y-auto self-start">
                                 <template id="tmp-popup-subtask-item">
                                     <li class="li-popup-edit-task-subtask-item flex gap-5 items-center self-start">
                                         <input type="hidden" class="hidden-tab-subtask-item-id">
