@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 .change {
-    max-width: 270px;
-    width: 270px;
-    opacity: 1;
+  max-width: 270px;
+  width: 270px;
+  opacity: 1;
 }
 
 .disappear {
-    transition: all 1.8s;
-    -wekit-transition: all 1.8s;
-    -moz-transition: all 1.8s;
+  transition: all 1.8s;
+  -wekit-transition: all 1.8s;
+  -moz-transition: all 1.8s;
 }
