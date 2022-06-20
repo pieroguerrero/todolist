@@ -1,40 +1,28 @@
-import { mainLandingAddTaskPoUp_Controller } from "./scripts/Back/BusinessLogic/mainLandingAddTaskPoUp_Controller";
-import { mainLandingWelcome_Controller } from "./scripts/Back/BusinessLogic/mainLandingWelcome_Controller";
-import { menuTray_Controller } from "./scripts/Back/BusinessLogic/menuTray_Controller";
-import { popUpProject_Controller } from "./scripts/Back/BusinessLogic/popUpPoject_Controller";
+import { mainLandingAddTaskPoUp_Controller } from "./scripts/Front-Logic/BusinessLogic/mainLandingAddTaskPoUp_Controller";
+import { mainLandingWelcome_Controller } from "./scripts/Front-Logic/BusinessLogic/mainLandingWelcome_Controller";
+import { menuTray_Controller } from "./scripts/Front-Logic/BusinessLogic/menuTray_Controller";
+import { popUpProject_Controller } from "./scripts/Front-Logic/BusinessLogic/popUpPoject_Controller";
 import { header } from "./scripts/Front/header";
 import { mainLanding } from "./scripts/Front/mainLanding";
-import { popUpEditTask } from "./scripts/Front/popUpEditTask";
 import { popUpProject } from "./scripts/Front/popUpProject";
 import "./styles.css";
+import { getFirebaseConfig } from "./scripts/Services/firebase-config";
+import { initializeApp } from "firebase/app";
 
-
-
-console.log("its alive!");
-//headerListener.onPageLoad();
-
-const dblUserId = 1;
-//localStorage.clear();
+const strUserId = "1";
 
 //#region subscriptions from business objects
 
-popUpProject_Controller.subscribeEvents(dblUserId);
+popUpProject_Controller.subscribeEvents(strUserId);
 mainLandingWelcome_Controller.createDefatultProject();
-menuTray_Controller.subscribeEvents(dblUserId);
-mainLandingAddTaskPoUp_Controller.subscribeEvents(dblUserId);
+menuTray_Controller.subscribeEvents(strUserId);
+mainLandingAddTaskPoUp_Controller.subscribeEvents(strUserId);
 
 //#endregion
 
-//#region subscriptions from ui modules
-
-//#endregion
-
-
-header.onPageLoad(dblUserId);
-mainLanding.onPageLoad(dblUserId);
+header.onPageLoad(strUserId);
+mainLanding.onPageLoad(strUserId);
 popUpProject.close();
 
-
-//popUpEditTask.load();
-
-console.log("its alive 2!");
+const firebaseAppConfig = getFirebaseConfig();
+initializeApp(firebaseAppConfig);

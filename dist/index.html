@@ -1,594 +1,1278 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-do List</title>
-</head>
+  </head>
 
-<body class="flex flex-col h-full overflow-x-hidden relative">
-    <header id="header-options" class="bg-todoist_red h-[44px] w-full grid grid-cols-[0.9fr_0.1fr] px-[12px]">
-        <ul id="left-menu" class="w-full flex items-center gap-4 ">
-            <li class="flex items-center">
-                <button id="button-hamburguer-menu">
-                    <svg class="menu_icon" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="#ffffff" fill-rule="evenodd"
-                            d="M4.5 5h15a.5.5 0 1 1 0 1h-15a.5.5 0 0 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1z">
-                        </path>
-                    </svg>
-                    <svg viewBox="0 0 24 24" class="close_icon hidden" width="24" height="24">
-                        <path fill="#ffffff" fill-rule="nonzero"
-                            d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z">
-                        </path>
-                    </svg>
-                </button>
-            </li>
-            <li class="flex items-center">
-                <button id="button-header-home">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#ffffff"
-                            d="M12.527 3.075c.35.104.64.263 1.27.876L19.1 9.123c.374.364.49.505.601.678.11.174.185.351.232.552.042.178.062.34.066.742L20 17.718c0 .446-.046.607-.134.77a.906.906 0 01-.378.378c-.163.088-.324.134-.77.134H14v-4.718c0-.446-.046-.607-.134-.77a.906.906 0 00-.378-.378c-.142-.077-.284-.122-.616-.132L12.718 13h-1.436c-.446 0-.607.046-.77.134a.906.906 0 00-.378.378c-.077.142-.122.284-.132.616l-.002.154V19H5.282c-.446 0-.607-.046-.77-.134a.906.906 0 01-.378-.378c-.088-.163-.134-.324-.134-.77v-6.462c0-.522.02-.703.067-.903.047-.2.121-.378.232-.552l.077-.113c.098-.134.233-.282.524-.565l5.304-5.172c.629-.613.92-.772 1.269-.876a1.82 1.82 0 011.054 0zm-.286.958a.825.825 0 00-.482 0c-.18.054-.326.139-.63.418l-.227.216L5.598 9.84c-.3.293-.385.39-.456.5a.76.76 0 00-.102.242c-.026.112-.037.224-.04.531l.002 6.807.005.073.074.006L8.999 18 9 14.268l.003-.17c.013-.448.083-.749.249-1.058a1.9 1.9 0 01.788-.788c.306-.164.6-.234 1.043-.249l.199-.003h1.45l.17.003c.448.013.749.083 1.058.249.337.18.608.45.788.788.164.306.234.6.249 1.043l.003.199L14.999 18l3.92-.002.073-.006.006-.073.002-.2v-6.615l-.005-.218a1.494 1.494 0 00-.035-.305.747.747 0 00-.102-.242l-.059-.084a3.571 3.571 0 00-.294-.315l-5.407-5.273c-.425-.414-.604-.545-.798-.615l-.06-.019z">
-                        </path>
-                    </svg>
-                </button>
+  <body class="flex flex-col h-full overflow-x-hidden relative">
+    <header
+      id="header-options"
+      class="bg-todoist_red h-[44px] w-full grid grid-cols-[0.9fr_0.1fr] px-[12px]"
+    >
+      <ul id="left-menu" class="w-full flex items-center gap-4">
+        <li class="flex items-center">
+          <button id="button-hamburguer-menu">
+            <svg class="menu_icon" width="24" height="24" viewBox="0 0 24 24">
+              <path
+                fill="#ffffff"
+                fill-rule="evenodd"
+                d="M4.5 5h15a.5.5 0 1 1 0 1h-15a.5.5 0 0 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1z"
+              ></path>
+            </svg>
+            <svg
+              viewBox="0 0 24 24"
+              class="close_icon hidden"
+              width="24"
+              height="24"
+            >
+              <path
+                fill="#ffffff"
+                fill-rule="nonzero"
+                d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z"
+              ></path>
+            </svg>
+          </button>
+        </li>
+        <li class="flex items-center">
+          <button id="button-header-home">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill="#ffffff"
+                d="M12.527 3.075c.35.104.64.263 1.27.876L19.1 9.123c.374.364.49.505.601.678.11.174.185.351.232.552.042.178.062.34.066.742L20 17.718c0 .446-.046.607-.134.77a.906.906 0 01-.378.378c-.163.088-.324.134-.77.134H14v-4.718c0-.446-.046-.607-.134-.77a.906.906 0 00-.378-.378c-.142-.077-.284-.122-.616-.132L12.718 13h-1.436c-.446 0-.607.046-.77.134a.906.906 0 00-.378.378c-.077.142-.122.284-.132.616l-.002.154V19H5.282c-.446 0-.607-.046-.77-.134a.906.906 0 01-.378-.378c-.088-.163-.134-.324-.134-.77v-6.462c0-.522.02-.703.067-.903.047-.2.121-.378.232-.552l.077-.113c.098-.134.233-.282.524-.565l5.304-5.172c.629-.613.92-.772 1.269-.876a1.82 1.82 0 011.054 0zm-.286.958a.825.825 0 00-.482 0c-.18.054-.326.139-.63.418l-.227.216L5.598 9.84c-.3.293-.385.39-.456.5a.76.76 0 00-.102.242c-.026.112-.037.224-.04.531l.002 6.807.005.073.074.006L8.999 18 9 14.268l.003-.17c.013-.448.083-.749.249-1.058a1.9 1.9 0 01.788-.788c.306-.164.6-.234 1.043-.249l.199-.003h1.45l.17.003c.448.013.749.083 1.058.249.337.18.608.45.788.788.164.306.234.6.249 1.043l.003.199L14.999 18l3.92-.002.073-.006.006-.073.002-.2v-6.615l-.005-.218a1.494 1.494 0 00-.035-.305.747.747 0 00-.102-.242l-.059-.084a3.571 3.571 0 00-.294-.315l-5.407-5.273c-.425-.414-.604-.545-.798-.615l-.06-.019z"
+              ></path>
+            </svg>
+          </button>
+        </li>
+        <li class="flex flex-1">
+          <button
+            type="button"
+            id="button-header-search"
+            class="flex items-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              aria-hidden="true"
+              class="svg-search_icon"
+            >
+              <path
+                d="M10.5 3a7.5 7.5 0 015.645 12.438l4.709 4.708a.502.502 0 01-.708.708l-4.708-4.709A7.5 7.5 0 1110.5 3zm0 1a6.5 6.5 0 100 13 6.5 6.5 0 000-13z"
+                fill="#ffffff"
+              ></path>
+            </svg>
+          </button>
+          <div
+            id="div-header-searchbox"
+            class="relative flex-1 flex items-center pr-2 hidden"
+          >
+            <input
+              class="w-full rounded-[10px] pl-3"
+              type="text"
+              name="input-header-search-text"
+              id="input-header-search-text"
+            />
+            <button
+              class="absolute top-0 right-[10px]"
+              type="button"
+              id="button-header-search-close"
+            >
+              <svg viewBox="0 0 24 24" width="24" height="24" class="p-1">
+                <path
+                  fill="#000000"
+                  fill-rule="nonzero"
+                  d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </li>
+      </ul>
+      <ul class="flex items-center justify-center">
+        <li class="relative flex items-center justify-center">
+          <button
+            id="button-header-user-avatar"
+            type="button"
+            class="flex items-center justify-center"
+          >
+            <div class="div-header-user-info hidden">
+              <img id="img-button-user-image" class="w-8 h-auto rounded-full" />
+            </div>
 
-            </li>
-            <li class="flex flex-1">
-                <button type="button" id="button-header-search" class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
-                        class="svg-search_icon">
-                        <path
-                            d="M10.5 3a7.5 7.5 0 015.645 12.438l4.709 4.708a.502.502 0 01-.708.708l-4.708-4.709A7.5 7.5 0 1110.5 3zm0 1a6.5 6.5 0 100 13 6.5 6.5 0 000-13z"
-                            fill="#ffffff"></path>
-                    </svg>
-                </button>
-                <div id="div-header-searchbox" class="relative flex-1 flex items-center pr-2 hidden">
-                    <input class="w-full rounded-[10px] pl-3" type="text" name="input-header-search-text"
-                        id="input-header-search-text">
-                    <button class="absolute top-0 right-[10px]" type="button" id="button-header-search-close">
-                        <svg viewBox="0 0 24 24" width="24" height="24" class="p-1">
-                            <path fill="#000000" fill-rule="nonzero"
-                                d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z">
-                            </path>
-                        </svg>
-                    </button>
-                </div>
-            </li>
+            <svg
+              class="svg-header-user-avatar-default"
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 0 24 24"
+              width="24px"
+              fill="#ffffff"
+            >
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72zm11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z"
+              />
+            </svg>
+          </button>
+          <div
+            class="div-user-signin-menu hidden absolute z-50 bg-white shadow rounded-md top-8 left-[-105px] p-2"
+          >
+            <button
+              id="button-user-signin-menu-in"
+              type="button"
+              class="text-black underline w-32 h-6"
+            >
+              Sign In
+            </button>
 
-        </ul>
-        <ul class="flex items-center justify-center">
-            <li class="">
-
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff">
-                    <path d="M0 0h24v24H0V0z" fill="none" />
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72zm11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z" />
-                </svg>
-
-            </li>
-        </ul>
+            <div
+              class="div-user-signin-menu-out hidden flex flex-col items-center justify-center"
+            >
+              <p
+                class="text-sm text-gray-600 font-light"
+                id="p-button-user-name"
+              ></p>
+              <button
+                id="button-user-signin-menu-out"
+                type="button"
+                class="text-black underline w-32 h-6"
+              >
+                Sign Out
+              </button>
+            </div>
+          </div>
+        </li>
+      </ul>
     </header>
     <main class="relative flex-1 flex flex-col items-center">
-        <div id="div-landing" class="flex-1 h-full pt-8 flex flex-col items-center gap-4">
-            <div class="div-title w-full px-12 flex gap-3 items-center">
-                <p id="p-todolist-title" class="text-2xl font-bold">Today</p>
-                <p id="p-todolist-description" class="font-light self-end">Tue Apr 5</p>
-            </div>
-            <div class="div-content w-full grid grid-rows-[fit-content_fit_content] grid-cols-1">
-                <div class="div-welcome-section flex px-10 w-full h-[fit-content]">
-                    <div class="flex flex-col gap-9 w-full h-[fit-content]">
-                        <button id="button-welcome-section-addtask" class="flex items-center gap-2">
-                            <svg width="13" height="13">
-                                <path
-                                    d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
-                                    fill="#DB4C3F" fill-rule="evenodd"></path>
-                            </svg>
-                            <p>Add Task</p>
-                        </button>
-                        <div class="div-welcome-image flex flex-col gap-3 items-center">
-                            <svg class="h-[160px]" data-svgs-path="theme_todoist/today_new.svg" viewBox="0 0 220 200"
-                                xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"
-                                stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5">
-                                <g transform="translate(-2300)">
-                                    <g id="TodayNew">
-                                        <path fill="none" d="M1800-100h300v300h-300z"
-                                            transform="matrix(.73333 0 0 .66667 980 66.667)"></path>
-                                        <path
-                                            d="M3105.14 1275.25s22.45-8.55 37.57 16.58c0 0 9.38-12.2 27.02-6.73 0 0 23.67-43.48 70.44-27.94l.47-2.03c6.6-28.64-8.02-58.08-32.7-65.85-12.7-4-23.16-7.29-23.16-7.29s-1.8-2.74-4.71-7.16c-9.69-14.73-24.12-24.29-39.99-26.49-15.87-2.2-31.84 3.13-44.26 14.79-4.35 4.13-9.14 8.07-14.49 11.8-3.65 2.56-7.59 4.51-11.71 5.78-.07.05-.14.07-.22.09-20.96 6.51-36.86 26.36-40.91 51.07 11.25 3.67 17.65 10.71 23.43 21.74 0 0 36.26-9.19 53.22 21.64z"
-                                            fill="#f9e4e2" transform="matrix(-1.028 0 0 .88672 5633.305 -972.326)">
-                                        </path>
-                                        <path d="M16932 1353.33c12.8.49 33.4 5.35 45 29.67" fill="none" stroke="#eca19a"
-                                            stroke-width="1.79"
-                                            transform="matrix(-1.08243 0 0 1.14528 20845.768 -1401.164)"></path>
-                                        <path
-                                            d="M16968.9 1381.45c3.7-2.68 12.6-7.59 25.1-4.45 11.3 2.84 15.3 10.81 15 15-.3 3.82-5.4 3.36-4-1 2-6.46 15.9-9.79 23.3 0"
-                                            fill="none" stroke="#eca19a" stroke-width="1.72"
-                                            transform="matrix(-1.16412 0 0 1.16412 22233.471 -1428.474)"></path>
-                                        <path d="M17073 1303v26.3" fill="none" stroke="#fff" stroke-width=".74"
-                                            transform="matrix(-2.69682 0 0 2.69681 48499.53 -3429.105)"></path>
-                                        <path d="M17050 1310l4 12h-8l4-12z" fill="#da4c3f"
-                                            transform="matrix(0 2.42188 2.58334 0 -959.447 -41196.554)"></path>
-                                        <path d="M17073 1303v32.67" fill="none" stroke="#fff" stroke-width="1.26"
-                                            transform="matrix(1.68703 0 0 1.47161 -26385.336 -1799.734)"></path>
-                                        <path d="M17050 1310l4 12h-8l4-12z" fill="#eca19a"
-                                            transform="matrix(0 1.1636 -1.42285 0 4299.462 -19715.743)"></path>
-                                        <path d="M17073 1303v27.23" fill="none" stroke="#fff" stroke-width="1.26"
-                                            transform="matrix(1.68703 0 0 1.47161 -26320.336 -1817.634)"></path>
-                                        <path d="M17050 1310l4 12h-8l4-12z" fill="#eca19a"
-                                            transform="matrix(0 1.1636 -1.18977 0 4056.331 -19733.643)"></path>
-                                        <path d="M16954 1309l-8.2 54" fill="none" stroke="#eca19a" stroke-width="1.57"
-                                            transform="matrix(1.41765 0 0 1.1092 -21695.026 -1360.784)"></path>
-                                        <path d="M16954 1309l-8.2 54" fill="none" stroke="#eca19a" stroke-width="1.63"
-                                            transform="matrix(1.36846 0 0 1.0707 -20869.024 -1310.404)"></path>
-                                        <path d="M17059 1395c6.3-12.21 16.2-8.12 16.2-8.12" fill="none" stroke="#eca19a"
-                                            stroke-width="1.12"
-                                            transform="matrix(-1.92055 0 0 1.6275 35103.3 -2106.794)"></path>
-                                        <path d="M16954 1309l-8.2 54" fill="none" stroke="#eca19a" stroke-width="1.1"
-                                            transform="matrix(-2.02658 0 0 1.58562 36733.704 -1984.434)"></path>
-                                        <path d="M16954 1309l-8.2 54" fill="none" stroke="#eca19a" stroke-width="1.1"
-                                            transform="matrix(-2.02658 0 0 1.58562 36725.703 -1984.434)"></path>
-                                        <path d="M16963.7 1313.51v72.57" fill="none" stroke="#fff" stroke-width="2.2"
-                                            transform="matrix(0 -1.27672 .17087 0 2122.957 21758.478)"></path>
-                                        <path d="M16963.7 1313.51v72.57" fill="none" stroke="#fff" stroke-width="2.2"
-                                            transform="matrix(0 -1.27672 .17087 0 2122.957 21765.178)"></path>
-                                        <path d="M16963.7 1313.51v72.57" fill="none" stroke="#fff" stroke-width="2.2"
-                                            transform="matrix(0 -1.27672 .17087 0 2122.957 21771.878)"></path>
-                                        <path d="M16963.7 1313.51v72.57" fill="none" stroke="#fff" stroke-width="2.2"
-                                            transform="matrix(0 -1.27672 .17087 0 2122.957 21778.478)"></path>
-                                        <path d="M16963.7 1313.51v72.57" fill="none" stroke="#fff" stroke-width="2.2"
-                                            transform="matrix(0 -1.27672 .17087 0 2122.957 21785.178)"></path>
-                                        <path d="M16963.7 1313.51v72.57" fill="none" stroke="#fff" stroke-width="2.2"
-                                            transform="matrix(0 -1.27672 .17087 0 2122.957 21791.878)"></path>
-                                        <path d="M16963.7 1313.51v72.57" fill="none" stroke="#fff" stroke-width="2.2"
-                                            transform="matrix(0 -1.27672 .17087 0 2122.957 21798.578)"></path>
-                                        <path d="M17059 1395c4.1-7.95 9.8-9.02 13.3-8.78" fill="none" stroke="#eca19a"
-                                            stroke-opacity=".5" stroke-width="1.07"
-                                            transform="matrix(2.01367 0 0 1.7064 -31943.248 -2203.184)"></path>
-                                        <path d="M2797.69 2272.03V2314" fill="none" stroke="#eca19a" stroke-width="2.02"
-                                            transform="matrix(1.07577 0 0 .89557 -672.954 -2000.504)"></path>
-                                        <path d="M2797.69 2272.03V2314" fill="none" stroke="#f9e4e2" stroke-width="2.02"
-                                            transform="matrix(1.07577 0 0 .89557 -679.791 -2000.504)"></path>
-                                        <path d="M2797.69 2272.03V2314" fill="none" stroke="#eca19a" stroke-width="2.02"
-                                            transform="matrix(1.07577 0 0 .89557 -628.954 -2000.484)"></path>
-                                        <path d="M2797.69 2272.03V2314" fill="none" stroke="#f9e4e2" stroke-width="2.02"
-                                            transform="matrix(1.07577 0 0 .89557 -635.791 -2000.484)"></path>
-                                        <path d="M2786.29 2292.02l5.06 3.47" fill="none" stroke="#eca19a"
-                                            stroke-width="2.02"
-                                            transform="matrix(1.07577 0 0 .89557 -635.688 -2000.904)"></path>
-                                        <g transform="matrix(1.6556 0 0 1.10373 -25740.735 -1407.094)">
-                                            <path
-                                                d="M16992.2 1312c.2 0 .4-.25.5-.61.1-.36 0-.75-.2-.97-4.7-4.89-18.7-19.68-22.1-23.23-.4-.46-1-.48-1.5-.03-3.5 3.5-18.4 18.33-23.3 23.25-.2.21-.3.61-.2.97 0 .37.3.62.5.62h46.3z"
-                                                fill="#eca19a"></path>
-                                            <clipPath id="_clip1">
-                                                <path
-                                                    d="M16992.2 1312c.2 0 .4-.25.5-.61.1-.36 0-.75-.2-.97-4.7-4.89-18.7-19.68-22.1-23.23-.4-.46-1-.48-1.5-.03-3.5 3.5-18.4 18.33-23.3 23.25-.2.21-.3.61-.2.97 0 .37.3.62.5.62h46.3z">
-                                                </path>
-                                            </clipPath>
-                                            <g clip-path="url(#_clip1)">
-                                                <g opacity=".25">
-                                                    <path d="M2797.69 2272.03v29.96" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18792.714 -2159.35)">
-                                                    </path>
-                                                    <path d="M2797.69 2272.03v29.96" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18792.714 -2141.2)">
-                                                    </path>
-                                                    <path d="M2797.69 2272.03V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18790.3 342.35)"></path>
-                                                    <path d="M2797.69 2272.03v20.99" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18790.3 364.55)"></path>
-                                                    <path d="M2797.69 2243.01V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18790.3 388.55)"></path>
-                                                    <path d="M2797.69 2272.03v4.15" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18787.88 -2159.35)">
-                                                    </path>
-                                                    <path d="M2797.69 2272.03v11.36" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18787.88 -2150.2)"></path>
-                                                    <path d="M2797.69 2272.03v21.61" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18787.88 -2128.6)"></path>
-                                                    <path d="M2797.69 2309.8v4.2" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18785.467 -2159.35)">
-                                                    </path>
-                                                    <path d="M2797.69 2289.99V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18785.467 -2170.15)">
-                                                    </path>
-                                                    <path d="M2797.69 2289.99v19.81" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18785.467 -2186.5)">
-                                                    </path>
-                                                </g>
-                                                <g opacity=".25">
-                                                    <path d="M2797.69 2272.03v29.96" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18783.014 -2181.15)">
-                                                    </path>
-                                                    <path d="M2797.69 2272.03v29.96" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18783.014 -2163)"></path>
-                                                    <path d="M2797.69 2272.03v20.99" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18780.6 342.75)"></path>
-                                                    <path d="M2797.69 2243.01V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18780.6 366.75)"></path>
-                                                    <path d="M2797.69 2272.03v11.36" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18778.18 -2172)"></path>
-                                                    <path d="M2797.69 2272.03v21.61" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18778.18 -2150.4)"></path>
-                                                    <path d="M2797.69 2309.8v4.2" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18775.767 -2181.15)">
-                                                    </path>
-                                                    <path d="M2797.69 2289.99V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18775.767 -2191.95)">
-                                                    </path>
-                                                    <path d="M2797.69 2289.99v19.81" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18775.767 -2208.3)">
-                                                    </path>
-                                                </g>
-                                                <g opacity=".25">
-                                                    <path d="M2797.69 2272.03v29.96" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18773.314 -2153.05)">
-                                                    </path>
-                                                    <path d="M2797.69 2272.03v29.96" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18773.314 -2134.9)">
-                                                    </path>
-                                                    <path d="M2797.69 2272.03V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18770.9 348.65)"></path>
-                                                    <path d="M2797.69 2272.03v20.99" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18770.9 370.85)"></path>
-                                                    <path d="M2797.69 2243.01V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18770.9 394.85)"></path>
-                                                    <path d="M2797.69 2272.03v4.15" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18768.48 -2153.05)">
-                                                    </path>
-                                                    <path d="M2797.69 2272.03v11.36" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18768.48 -2143.9)"></path>
-                                                    <path d="M2797.69 2272.03v21.61" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18768.48 -2122.3)"></path>
-                                                    <path d="M2797.69 2309.8v4.2" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18766.067 -2153.05)">
-                                                    </path>
-                                                    <path d="M2797.69 2289.99V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18766.067 -2163.85)">
-                                                    </path>
-                                                    <path d="M2797.69 2289.99v19.81" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18766.067 -2180.2)">
-                                                    </path>
-                                                </g>
-                                                <g opacity=".25">
-                                                    <path d="M2797.69 2272.03v29.96" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18802.314 -2153.05)">
-                                                    </path>
-                                                    <path d="M2797.69 2272.03v29.96" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18802.314 -2134.9)">
-                                                    </path>
-                                                    <path d="M2797.69 2272.03V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18799.9 348.65)"></path>
-                                                    <path d="M2797.69 2272.03v20.99" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18799.9 370.85)"></path>
-                                                    <path d="M2797.69 2243.01V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18799.9 394.85)"></path>
-                                                    <path d="M2797.69 2272.03v4.15" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18797.48 -2153.05)">
-                                                    </path>
-                                                    <path d="M2797.69 2272.03v11.36" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18797.48 -2143.9)"></path>
-                                                    <path d="M2797.69 2272.03v21.61" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18797.48 -2122.3)"></path>
-                                                    <path d="M2797.69 2309.8v4.2" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18795.067 -2153.05)">
-                                                    </path>
-                                                    <path d="M2797.69 2289.99V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18795.067 -2163.85)">
-                                                    </path>
-                                                    <path d="M2797.69 2289.99v19.81" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18795.067 -2180.2)">
-                                                    </path>
-                                                </g>
-                                                <g opacity=".25">
-                                                    <path d="M2797.69 2272.03v29.96" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18811.914 -2162.15)">
-                                                    </path>
-                                                    <path d="M2797.69 2272.03v29.96" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18811.914 -2144)"></path>
-                                                    <path d="M2797.69 2272.03V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18809.5 339.55)"></path>
-                                                    <path d="M2797.69 2272.03v20.99" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18809.5 361.75)"></path>
-                                                    <path d="M2797.69 2243.01V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width="1.21" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 .4084 18809.5 385.75)"></path>
-                                                    <path d="M2797.69 2272.03v4.15" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18807.08 -2162.15)">
-                                                    </path>
-                                                    <path d="M2797.69 2272.03v11.36" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18807.08 -2153)"></path>
-                                                    <path d="M2797.69 2272.03v21.61" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18807.08 -2131.4)"></path>
-                                                    <path d="M2797.69 2309.8v4.2" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18804.667 -2162.15)">
-                                                    </path>
-                                                    <path d="M2797.69 2289.99V2314" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18804.667 -2172.95)">
-                                                    </path>
-                                                    <path d="M2797.69 2289.99v19.81" fill="none" stroke="#e57f78"
-                                                        stroke-width=".71" stroke-linecap="butt"
-                                                        transform="matrix(-.64978 0 0 1.50945 18804.667 -2189.3)">
-                                                    </path>
-                                                </g>
-                                            </g>
-                                        </g>
-                                        <path d="M16963.7 1313.51v72.57" fill="none" stroke="#fff" stroke-width="1.63"
-                                            transform="matrix(1.27672 0 0 1.1698 -19298.22 -1445.654)"></path>
-                                        <path d="M16963.7 1313.51v72.57" fill="none" stroke="#fff" stroke-width="1.63"
-                                            transform="matrix(1.27672 0 0 1.1698 -19310.62 -1445.654)"></path>
-                                        <path fill="#eca19a" d="M16944 1287h50v25h-50z"
-                                            transform="matrix(1.4 0 0 .80116 -21401.925 -959.28)"></path>
-                                        <path d="M2797.69 2272.03v29.96" fill="none" stroke="#e57f78"
-                                            stroke-opacity=".25" stroke-width=".71" stroke-linecap="butt"
-                                            transform="matrix(0 1.07577 1.66602 0 -1465.451 -2933.405)"></path>
-                                        <path d="M2797.69 2272.03v29.96" fill="none" stroke="#e57f78"
-                                            stroke-opacity=".25" stroke-width=".71" stroke-linecap="butt"
-                                            transform="matrix(0 1.07577 1.66602 0 -1445.451 -2933.405)"></path>
-                                        <path d="M2797.69 2272.03V2314" fill="none" stroke="#e57f78"
-                                            stroke-opacity=".25" stroke-width="1.21" stroke-linecap="butt"
-                                            transform="matrix(0 1.07577 .45075 0 1295.685 -2929.405)"></path>
-                                        <path d="M2797.69 2272.03v20.99" fill="none" stroke="#e57f78"
-                                            stroke-opacity=".25" stroke-width="1.21" stroke-linecap="butt"
-                                            transform="matrix(0 1.07577 .45075 0 1320.145 -2929.405)"></path>
-                                        <path d="M2797.69 2243.01V2314" fill="none" stroke="#e57f78"
-                                            stroke-opacity=".25" stroke-width="1.21" stroke-linecap="butt"
-                                            transform="matrix(0 1.07577 .45075 0 1346.685 -2929.405)"></path>
-                                        <path d="M2797.69 2272.03v4.15" fill="none" stroke="#e57f78"
-                                            stroke-opacity=".25" stroke-width=".71" stroke-linecap="butt"
-                                            transform="matrix(0 1.07577 1.66602 0 -1465.451 -2925.405)"></path>
-                                        <path d="M2797.69 2272.03v11.36" fill="none" stroke="#e57f78"
-                                            stroke-opacity=".25" stroke-width=".71" stroke-linecap="butt"
-                                            transform="matrix(0 1.07577 1.66602 0 -1455.451 -2925.405)"></path>
-                                        <path d="M2797.69 2272.03v21.61" fill="none" stroke="#e57f78"
-                                            stroke-opacity=".25" stroke-width=".71" stroke-linecap="butt"
-                                            transform="matrix(0 1.07577 1.66602 0 -1431.54 -2925.405)"></path>
-                                        <path d="M2797.69 2309.8v4.2" fill="none" stroke="#e57f78" stroke-opacity=".25"
-                                            stroke-width=".71" stroke-linecap="butt"
-                                            transform="matrix(0 1.07577 1.66602 0 -1465.451 -2921.405)"></path>
-                                        <path d="M2797.69 2289.99V2314" fill="none" stroke="#e57f78"
-                                            stroke-opacity=".25" stroke-width=".71" stroke-linecap="butt"
-                                            transform="matrix(0 1.07577 1.66602 0 -1477.451 -2921.405)"></path>
-                                        <path d="M2797.69 2289.99v19.81" fill="none" stroke="#e57f78"
-                                            stroke-opacity=".25" stroke-width=".71" stroke-linecap="butt"
-                                            transform="matrix(0 1.07577 1.66602 0 -1495.451 -2921.405)"></path>
-                                        <path d="M17059 1425s4.6-8.83 17-7" fill="none" stroke="#eca19a"
-                                            stroke-opacity=".5" stroke-width=".83"
-                                            transform="matrix(-2.53365 0 0 2.30412 45601.223 -3097.505)"></path>
-                                        <path
-                                            d="M909.799 1585.92c1.129-1.7 3.115-2.74 5.252-2.74 2.138 0 4.123 1.04 5.252 2.74 2.391 3.6 4.697 7.08 4.697 7.08h-19.898s2.306-3.48 4.697-7.08z"
-                                            fill="#da4c3f" transform="matrix(1.1922 0 0 1.27168 1271.105 -1953.974)">
-                                        </path>
-                                        <g transform="matrix(.7948 0 0 .7948 1633.196 -1200.029)">
-                                            <circle cx="917" cy="1575" r="6" fill="#eca19a"></circle>
-                                            <clipPath id="_clip2">
-                                                <circle cx="917" cy="1575" r="6"></circle>
-                                            </clipPath>
-                                            <g clip-path="url(#_clip2)">
-                                                <path fill="#da4c3f" d="M815 1555.53h16v11.474h-16z"
-                                                    transform="rotate(-45 496.885 1916.855) scale(1.25818)"></path>
-                                            </g>
-                                        </g>
-                                        <path
-                                            d="M533.401 2554.29s-2.189 6.4-2.189 9.14c0 1.97.981 3.57 2.189 3.57 1.209 0 2.19-1.6 2.19-3.57 0-2.74-2.19-9.14-2.19-9.14z"
-                                            fill="#da4c3f"
-                                            transform="matrix(1.15631 2.0028 -1.22993 .7101 4882.543 -2829.105)"></path>
-                                        <path d="M2789.05 2296.69l-.17.8" fill="none" stroke="#fff" stroke-width="2.02"
-                                            transform="matrix(1.07577 0 0 .89557 -636.29 -2004.294)"></path>
-                                    </g>
-                                </g>
-                            </svg>
-                            <p class="text-xl text-center">Get a clear view of the day ahead.</p>
-                            <p class=" font-light text-center">Tasks with upcoming due date will be shown here.</p>
-                        </div>
-                        <div class="div-todo-list pb-8 flex flex-col">
-                            <ul class="flex flex-col gap-4 self-start w-full">
-                                <template id="tmp-tasks-item">
-                                    <li class="li-task-item flex gap-5 items-start disappear">
-                                        <input type="hidden" class="hidden-task-item-id">
-                                        <div class="div-check-complete">
-                                            <input
-                                                class="chk-todolist-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
-                                                type="checkbox" name="" id="chk-todolist-complete">
-
-                                        </div>
-                                        <button class="button-todo-list-item flex-1 flex flex-col">
-                                            <p class="p-todo-title font-bold self-start">aasdasd</p>
-                                            <p class="p-todo-description text-sm font-light self-start">sdfsdfsdf</p>
-                                        </button>
-                                        <div
-                                            class="div-check-completed-mark flex gap-5 items-start bg-todoist_green bg-opacity-80 rounded-lg w-full p-1 hidden">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
-                                                width="24px" fill="#8BC9C8">
-                                                <path d="M0 0h24v24H0V0z" fill="none" />
-                                                <path
-                                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z" />
-                                            </svg>
-                                            <p class="font-bold">Done</p>
-                                        </div>
-                                        <p class="p-cant-subtasks self-center text-sm font-light text-slate-500">4</p>
-                                    </li>
-                                </template>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="div-add-todo-form">
-                    <form onsubmit="return false" autocomplete="off"
-                        class="form-register-todo flex flex-col justify-center items-center px-12 gap-4">
-                        <div
-                            class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3">
-                            <select name="select-register-todo-project" id="select-register-todo-project" required
-                                class="py-[10px] pl-[10px] bg-white border-[1px] border-solid border-slate-300 rounded-[10px]">
-                                <option value="">--Choose a project--</option>
-                                <option value="1">Personal Tasks jhbjkh j bjh jh bh jh hh hg g </option>
-                                <option value="-1" class="italic border-slate-400 font-light">Create new Project
-                                </option>
-                            </select>
-                            <input id="input-register-todo-title" type="text"
-                                placeholder="☝️ e.g., Family Lunch on Sunday..." required>
-                            <textarea name="textarea-register-todo-description" id="textarea-register-todo-description"
-                                class="w-full overflow-hidden" rows="3" placeholder="📄 Description"
-                                required></textarea>
-
-
-                            <input type="date" name="input-register-todo-date" list="dist-todo-popup-days"
-                                id="input-register-todo-date" class="self-start" required>
-                            <datalist id="dist-todo-popup-days">
-                            </datalist>
-
-                            <select name="select-register-todo-priority" id="select-register-todo-priority"
-                                class="w-[min-content] py-[10px] pl-[10px] bg-white border-[1px] border-solid border-slate-300 rounded-[10px]">
-                                <option value="4">⚪ No Priority</option>
-                                <option value="3">🟡 Low Priority</option>
-                                <option value="2">🟠 Medium Priority</option>
-                                <option value="1">🔴 High Priority</option>
-                            </select>
-                            <!-- <select name="select-register-todo-project" id="select-register-todo-project"></select> -->
-                            <input id="input-register-todo-tag" type="text" placeholder="🏷 Label">
-                        </div>
-                        <div class="w-full flex justify-start gap-4">
-                            <button id="button-form-register-todo-add"
-                                class="button-register-todo-add bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]">Add
-                                Task</button>
-                            <button type="button" id="button-form-register-todo-cancel"
-                                class="button-register-todo-cancel border-slate-300 border-solid border-[1px] h-8 px-[10px] rounded-[5px]">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+      <div
+        id="div-landing"
+        class="flex-1 h-full pt-8 flex flex-col items-center gap-4"
+      >
+        <div class="div-title w-full px-12 flex gap-3 items-center">
+          <p id="p-todolist-title" class="text-2xl font-bold">Today</p>
+          <p id="p-todolist-description" class="font-light self-end">
+            Tue Apr 5
+          </p>
         </div>
-        <div id="div-shade-bg"
-            class="hidden absolute left-0 top-0 w-full h-full bg-slate-900 bg-opacity-40 transition-all duration-[1s] delay-[0.s]">
+        <div
+          class="div-content w-full grid grid-rows-[fit-content_fit_content] grid-cols-1"
+        >
+          <div class="div-welcome-section flex px-10 w-full h-[fit-content]">
+            <div class="flex flex-col gap-9 w-full h-[fit-content]">
+              <button
+                id="button-welcome-section-addtask"
+                class="flex items-center gap-2"
+              >
+                <svg width="13" height="13">
+                  <path
+                    d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
+                    fill="#DB4C3F"
+                    fill-rule="evenodd"
+                  ></path>
+                </svg>
+                <p>Add Task</p>
+              </button>
+              <div class="div-welcome-image flex flex-col gap-3 items-center">
+                <svg
+                  class="h-[160px]"
+                  data-svgs-path="theme_todoist/today_new.svg"
+                  viewBox="0 0 220 200"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="1.5"
+                >
+                  <g transform="translate(-2300)">
+                    <g id="TodayNew">
+                      <path
+                        fill="none"
+                        d="M1800-100h300v300h-300z"
+                        transform="matrix(.73333 0 0 .66667 980 66.667)"
+                      ></path>
+                      <path
+                        d="M3105.14 1275.25s22.45-8.55 37.57 16.58c0 0 9.38-12.2 27.02-6.73 0 0 23.67-43.48 70.44-27.94l.47-2.03c6.6-28.64-8.02-58.08-32.7-65.85-12.7-4-23.16-7.29-23.16-7.29s-1.8-2.74-4.71-7.16c-9.69-14.73-24.12-24.29-39.99-26.49-15.87-2.2-31.84 3.13-44.26 14.79-4.35 4.13-9.14 8.07-14.49 11.8-3.65 2.56-7.59 4.51-11.71 5.78-.07.05-.14.07-.22.09-20.96 6.51-36.86 26.36-40.91 51.07 11.25 3.67 17.65 10.71 23.43 21.74 0 0 36.26-9.19 53.22 21.64z"
+                        fill="#f9e4e2"
+                        transform="matrix(-1.028 0 0 .88672 5633.305 -972.326)"
+                      ></path>
+                      <path
+                        d="M16932 1353.33c12.8.49 33.4 5.35 45 29.67"
+                        fill="none"
+                        stroke="#eca19a"
+                        stroke-width="1.79"
+                        transform="matrix(-1.08243 0 0 1.14528 20845.768 -1401.164)"
+                      ></path>
+                      <path
+                        d="M16968.9 1381.45c3.7-2.68 12.6-7.59 25.1-4.45 11.3 2.84 15.3 10.81 15 15-.3 3.82-5.4 3.36-4-1 2-6.46 15.9-9.79 23.3 0"
+                        fill="none"
+                        stroke="#eca19a"
+                        stroke-width="1.72"
+                        transform="matrix(-1.16412 0 0 1.16412 22233.471 -1428.474)"
+                      ></path>
+                      <path
+                        d="M17073 1303v26.3"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width=".74"
+                        transform="matrix(-2.69682 0 0 2.69681 48499.53 -3429.105)"
+                      ></path>
+                      <path
+                        d="M17050 1310l4 12h-8l4-12z"
+                        fill="#da4c3f"
+                        transform="matrix(0 2.42188 2.58334 0 -959.447 -41196.554)"
+                      ></path>
+                      <path
+                        d="M17073 1303v32.67"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.26"
+                        transform="matrix(1.68703 0 0 1.47161 -26385.336 -1799.734)"
+                      ></path>
+                      <path
+                        d="M17050 1310l4 12h-8l4-12z"
+                        fill="#eca19a"
+                        transform="matrix(0 1.1636 -1.42285 0 4299.462 -19715.743)"
+                      ></path>
+                      <path
+                        d="M17073 1303v27.23"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.26"
+                        transform="matrix(1.68703 0 0 1.47161 -26320.336 -1817.634)"
+                      ></path>
+                      <path
+                        d="M17050 1310l4 12h-8l4-12z"
+                        fill="#eca19a"
+                        transform="matrix(0 1.1636 -1.18977 0 4056.331 -19733.643)"
+                      ></path>
+                      <path
+                        d="M16954 1309l-8.2 54"
+                        fill="none"
+                        stroke="#eca19a"
+                        stroke-width="1.57"
+                        transform="matrix(1.41765 0 0 1.1092 -21695.026 -1360.784)"
+                      ></path>
+                      <path
+                        d="M16954 1309l-8.2 54"
+                        fill="none"
+                        stroke="#eca19a"
+                        stroke-width="1.63"
+                        transform="matrix(1.36846 0 0 1.0707 -20869.024 -1310.404)"
+                      ></path>
+                      <path
+                        d="M17059 1395c6.3-12.21 16.2-8.12 16.2-8.12"
+                        fill="none"
+                        stroke="#eca19a"
+                        stroke-width="1.12"
+                        transform="matrix(-1.92055 0 0 1.6275 35103.3 -2106.794)"
+                      ></path>
+                      <path
+                        d="M16954 1309l-8.2 54"
+                        fill="none"
+                        stroke="#eca19a"
+                        stroke-width="1.1"
+                        transform="matrix(-2.02658 0 0 1.58562 36733.704 -1984.434)"
+                      ></path>
+                      <path
+                        d="M16954 1309l-8.2 54"
+                        fill="none"
+                        stroke="#eca19a"
+                        stroke-width="1.1"
+                        transform="matrix(-2.02658 0 0 1.58562 36725.703 -1984.434)"
+                      ></path>
+                      <path
+                        d="M16963.7 1313.51v72.57"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="2.2"
+                        transform="matrix(0 -1.27672 .17087 0 2122.957 21758.478)"
+                      ></path>
+                      <path
+                        d="M16963.7 1313.51v72.57"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="2.2"
+                        transform="matrix(0 -1.27672 .17087 0 2122.957 21765.178)"
+                      ></path>
+                      <path
+                        d="M16963.7 1313.51v72.57"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="2.2"
+                        transform="matrix(0 -1.27672 .17087 0 2122.957 21771.878)"
+                      ></path>
+                      <path
+                        d="M16963.7 1313.51v72.57"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="2.2"
+                        transform="matrix(0 -1.27672 .17087 0 2122.957 21778.478)"
+                      ></path>
+                      <path
+                        d="M16963.7 1313.51v72.57"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="2.2"
+                        transform="matrix(0 -1.27672 .17087 0 2122.957 21785.178)"
+                      ></path>
+                      <path
+                        d="M16963.7 1313.51v72.57"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="2.2"
+                        transform="matrix(0 -1.27672 .17087 0 2122.957 21791.878)"
+                      ></path>
+                      <path
+                        d="M16963.7 1313.51v72.57"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="2.2"
+                        transform="matrix(0 -1.27672 .17087 0 2122.957 21798.578)"
+                      ></path>
+                      <path
+                        d="M17059 1395c4.1-7.95 9.8-9.02 13.3-8.78"
+                        fill="none"
+                        stroke="#eca19a"
+                        stroke-opacity=".5"
+                        stroke-width="1.07"
+                        transform="matrix(2.01367 0 0 1.7064 -31943.248 -2203.184)"
+                      ></path>
+                      <path
+                        d="M2797.69 2272.03V2314"
+                        fill="none"
+                        stroke="#eca19a"
+                        stroke-width="2.02"
+                        transform="matrix(1.07577 0 0 .89557 -672.954 -2000.504)"
+                      ></path>
+                      <path
+                        d="M2797.69 2272.03V2314"
+                        fill="none"
+                        stroke="#f9e4e2"
+                        stroke-width="2.02"
+                        transform="matrix(1.07577 0 0 .89557 -679.791 -2000.504)"
+                      ></path>
+                      <path
+                        d="M2797.69 2272.03V2314"
+                        fill="none"
+                        stroke="#eca19a"
+                        stroke-width="2.02"
+                        transform="matrix(1.07577 0 0 .89557 -628.954 -2000.484)"
+                      ></path>
+                      <path
+                        d="M2797.69 2272.03V2314"
+                        fill="none"
+                        stroke="#f9e4e2"
+                        stroke-width="2.02"
+                        transform="matrix(1.07577 0 0 .89557 -635.791 -2000.484)"
+                      ></path>
+                      <path
+                        d="M2786.29 2292.02l5.06 3.47"
+                        fill="none"
+                        stroke="#eca19a"
+                        stroke-width="2.02"
+                        transform="matrix(1.07577 0 0 .89557 -635.688 -2000.904)"
+                      ></path>
+                      <g
+                        transform="matrix(1.6556 0 0 1.10373 -25740.735 -1407.094)"
+                      >
+                        <path
+                          d="M16992.2 1312c.2 0 .4-.25.5-.61.1-.36 0-.75-.2-.97-4.7-4.89-18.7-19.68-22.1-23.23-.4-.46-1-.48-1.5-.03-3.5 3.5-18.4 18.33-23.3 23.25-.2.21-.3.61-.2.97 0 .37.3.62.5.62h46.3z"
+                          fill="#eca19a"
+                        ></path>
+                        <clipPath id="_clip1">
+                          <path
+                            d="M16992.2 1312c.2 0 .4-.25.5-.61.1-.36 0-.75-.2-.97-4.7-4.89-18.7-19.68-22.1-23.23-.4-.46-1-.48-1.5-.03-3.5 3.5-18.4 18.33-23.3 23.25-.2.21-.3.61-.2.97 0 .37.3.62.5.62h46.3z"
+                          ></path>
+                        </clipPath>
+                        <g clip-path="url(#_clip1)">
+                          <g opacity=".25">
+                            <path
+                              d="M2797.69 2272.03v29.96"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18792.714 -2159.35)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v29.96"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18792.714 -2141.2)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18790.3 342.35)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v20.99"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18790.3 364.55)"
+                            ></path>
+                            <path
+                              d="M2797.69 2243.01V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18790.3 388.55)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v4.15"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18787.88 -2159.35)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v11.36"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18787.88 -2150.2)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v21.61"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18787.88 -2128.6)"
+                            ></path>
+                            <path
+                              d="M2797.69 2309.8v4.2"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18785.467 -2159.35)"
+                            ></path>
+                            <path
+                              d="M2797.69 2289.99V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18785.467 -2170.15)"
+                            ></path>
+                            <path
+                              d="M2797.69 2289.99v19.81"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18785.467 -2186.5)"
+                            ></path>
+                          </g>
+                          <g opacity=".25">
+                            <path
+                              d="M2797.69 2272.03v29.96"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18783.014 -2181.15)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v29.96"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18783.014 -2163)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v20.99"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18780.6 342.75)"
+                            ></path>
+                            <path
+                              d="M2797.69 2243.01V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18780.6 366.75)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v11.36"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18778.18 -2172)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v21.61"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18778.18 -2150.4)"
+                            ></path>
+                            <path
+                              d="M2797.69 2309.8v4.2"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18775.767 -2181.15)"
+                            ></path>
+                            <path
+                              d="M2797.69 2289.99V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18775.767 -2191.95)"
+                            ></path>
+                            <path
+                              d="M2797.69 2289.99v19.81"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18775.767 -2208.3)"
+                            ></path>
+                          </g>
+                          <g opacity=".25">
+                            <path
+                              d="M2797.69 2272.03v29.96"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18773.314 -2153.05)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v29.96"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18773.314 -2134.9)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18770.9 348.65)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v20.99"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18770.9 370.85)"
+                            ></path>
+                            <path
+                              d="M2797.69 2243.01V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18770.9 394.85)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v4.15"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18768.48 -2153.05)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v11.36"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18768.48 -2143.9)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v21.61"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18768.48 -2122.3)"
+                            ></path>
+                            <path
+                              d="M2797.69 2309.8v4.2"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18766.067 -2153.05)"
+                            ></path>
+                            <path
+                              d="M2797.69 2289.99V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18766.067 -2163.85)"
+                            ></path>
+                            <path
+                              d="M2797.69 2289.99v19.81"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18766.067 -2180.2)"
+                            ></path>
+                          </g>
+                          <g opacity=".25">
+                            <path
+                              d="M2797.69 2272.03v29.96"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18802.314 -2153.05)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v29.96"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18802.314 -2134.9)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18799.9 348.65)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v20.99"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18799.9 370.85)"
+                            ></path>
+                            <path
+                              d="M2797.69 2243.01V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18799.9 394.85)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v4.15"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18797.48 -2153.05)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v11.36"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18797.48 -2143.9)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v21.61"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18797.48 -2122.3)"
+                            ></path>
+                            <path
+                              d="M2797.69 2309.8v4.2"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18795.067 -2153.05)"
+                            ></path>
+                            <path
+                              d="M2797.69 2289.99V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18795.067 -2163.85)"
+                            ></path>
+                            <path
+                              d="M2797.69 2289.99v19.81"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18795.067 -2180.2)"
+                            ></path>
+                          </g>
+                          <g opacity=".25">
+                            <path
+                              d="M2797.69 2272.03v29.96"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18811.914 -2162.15)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v29.96"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18811.914 -2144)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18809.5 339.55)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v20.99"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18809.5 361.75)"
+                            ></path>
+                            <path
+                              d="M2797.69 2243.01V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width="1.21"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 .4084 18809.5 385.75)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v4.15"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18807.08 -2162.15)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v11.36"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18807.08 -2153)"
+                            ></path>
+                            <path
+                              d="M2797.69 2272.03v21.61"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18807.08 -2131.4)"
+                            ></path>
+                            <path
+                              d="M2797.69 2309.8v4.2"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18804.667 -2162.15)"
+                            ></path>
+                            <path
+                              d="M2797.69 2289.99V2314"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18804.667 -2172.95)"
+                            ></path>
+                            <path
+                              d="M2797.69 2289.99v19.81"
+                              fill="none"
+                              stroke="#e57f78"
+                              stroke-width=".71"
+                              stroke-linecap="butt"
+                              transform="matrix(-.64978 0 0 1.50945 18804.667 -2189.3)"
+                            ></path>
+                          </g>
+                        </g>
+                      </g>
+                      <path
+                        d="M16963.7 1313.51v72.57"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.63"
+                        transform="matrix(1.27672 0 0 1.1698 -19298.22 -1445.654)"
+                      ></path>
+                      <path
+                        d="M16963.7 1313.51v72.57"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.63"
+                        transform="matrix(1.27672 0 0 1.1698 -19310.62 -1445.654)"
+                      ></path>
+                      <path
+                        fill="#eca19a"
+                        d="M16944 1287h50v25h-50z"
+                        transform="matrix(1.4 0 0 .80116 -21401.925 -959.28)"
+                      ></path>
+                      <path
+                        d="M2797.69 2272.03v29.96"
+                        fill="none"
+                        stroke="#e57f78"
+                        stroke-opacity=".25"
+                        stroke-width=".71"
+                        stroke-linecap="butt"
+                        transform="matrix(0 1.07577 1.66602 0 -1465.451 -2933.405)"
+                      ></path>
+                      <path
+                        d="M2797.69 2272.03v29.96"
+                        fill="none"
+                        stroke="#e57f78"
+                        stroke-opacity=".25"
+                        stroke-width=".71"
+                        stroke-linecap="butt"
+                        transform="matrix(0 1.07577 1.66602 0 -1445.451 -2933.405)"
+                      ></path>
+                      <path
+                        d="M2797.69 2272.03V2314"
+                        fill="none"
+                        stroke="#e57f78"
+                        stroke-opacity=".25"
+                        stroke-width="1.21"
+                        stroke-linecap="butt"
+                        transform="matrix(0 1.07577 .45075 0 1295.685 -2929.405)"
+                      ></path>
+                      <path
+                        d="M2797.69 2272.03v20.99"
+                        fill="none"
+                        stroke="#e57f78"
+                        stroke-opacity=".25"
+                        stroke-width="1.21"
+                        stroke-linecap="butt"
+                        transform="matrix(0 1.07577 .45075 0 1320.145 -2929.405)"
+                      ></path>
+                      <path
+                        d="M2797.69 2243.01V2314"
+                        fill="none"
+                        stroke="#e57f78"
+                        stroke-opacity=".25"
+                        stroke-width="1.21"
+                        stroke-linecap="butt"
+                        transform="matrix(0 1.07577 .45075 0 1346.685 -2929.405)"
+                      ></path>
+                      <path
+                        d="M2797.69 2272.03v4.15"
+                        fill="none"
+                        stroke="#e57f78"
+                        stroke-opacity=".25"
+                        stroke-width=".71"
+                        stroke-linecap="butt"
+                        transform="matrix(0 1.07577 1.66602 0 -1465.451 -2925.405)"
+                      ></path>
+                      <path
+                        d="M2797.69 2272.03v11.36"
+                        fill="none"
+                        stroke="#e57f78"
+                        stroke-opacity=".25"
+                        stroke-width=".71"
+                        stroke-linecap="butt"
+                        transform="matrix(0 1.07577 1.66602 0 -1455.451 -2925.405)"
+                      ></path>
+                      <path
+                        d="M2797.69 2272.03v21.61"
+                        fill="none"
+                        stroke="#e57f78"
+                        stroke-opacity=".25"
+                        stroke-width=".71"
+                        stroke-linecap="butt"
+                        transform="matrix(0 1.07577 1.66602 0 -1431.54 -2925.405)"
+                      ></path>
+                      <path
+                        d="M2797.69 2309.8v4.2"
+                        fill="none"
+                        stroke="#e57f78"
+                        stroke-opacity=".25"
+                        stroke-width=".71"
+                        stroke-linecap="butt"
+                        transform="matrix(0 1.07577 1.66602 0 -1465.451 -2921.405)"
+                      ></path>
+                      <path
+                        d="M2797.69 2289.99V2314"
+                        fill="none"
+                        stroke="#e57f78"
+                        stroke-opacity=".25"
+                        stroke-width=".71"
+                        stroke-linecap="butt"
+                        transform="matrix(0 1.07577 1.66602 0 -1477.451 -2921.405)"
+                      ></path>
+                      <path
+                        d="M2797.69 2289.99v19.81"
+                        fill="none"
+                        stroke="#e57f78"
+                        stroke-opacity=".25"
+                        stroke-width=".71"
+                        stroke-linecap="butt"
+                        transform="matrix(0 1.07577 1.66602 0 -1495.451 -2921.405)"
+                      ></path>
+                      <path
+                        d="M17059 1425s4.6-8.83 17-7"
+                        fill="none"
+                        stroke="#eca19a"
+                        stroke-opacity=".5"
+                        stroke-width=".83"
+                        transform="matrix(-2.53365 0 0 2.30412 45601.223 -3097.505)"
+                      ></path>
+                      <path
+                        d="M909.799 1585.92c1.129-1.7 3.115-2.74 5.252-2.74 2.138 0 4.123 1.04 5.252 2.74 2.391 3.6 4.697 7.08 4.697 7.08h-19.898s2.306-3.48 4.697-7.08z"
+                        fill="#da4c3f"
+                        transform="matrix(1.1922 0 0 1.27168 1271.105 -1953.974)"
+                      ></path>
+                      <g transform="matrix(.7948 0 0 .7948 1633.196 -1200.029)">
+                        <circle
+                          cx="917"
+                          cy="1575"
+                          r="6"
+                          fill="#eca19a"
+                        ></circle>
+                        <clipPath id="_clip2">
+                          <circle cx="917" cy="1575" r="6"></circle>
+                        </clipPath>
+                        <g clip-path="url(#_clip2)">
+                          <path
+                            fill="#da4c3f"
+                            d="M815 1555.53h16v11.474h-16z"
+                            transform="rotate(-45 496.885 1916.855) scale(1.25818)"
+                          ></path>
+                        </g>
+                      </g>
+                      <path
+                        d="M533.401 2554.29s-2.189 6.4-2.189 9.14c0 1.97.981 3.57 2.189 3.57 1.209 0 2.19-1.6 2.19-3.57 0-2.74-2.19-9.14-2.19-9.14z"
+                        fill="#da4c3f"
+                        transform="matrix(1.15631 2.0028 -1.22993 .7101 4882.543 -2829.105)"
+                      ></path>
+                      <path
+                        d="M2789.05 2296.69l-.17.8"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="2.02"
+                        transform="matrix(1.07577 0 0 .89557 -636.29 -2004.294)"
+                      ></path>
+                    </g>
+                  </g>
+                </svg>
+                <p class="text-xl text-center">
+                  Get a clear view of the day ahead.
+                </p>
+                <p class="font-light text-center">
+                  Tasks with upcoming due date will be shown here.
+                </p>
+              </div>
+              <div class="div-todo-list pb-8 flex flex-col">
+                <ul class="flex flex-col gap-4 self-start w-full">
+                  <template id="tmp-tasks-item">
+                    <li class="li-task-item flex gap-5 items-start disappear">
+                      <input type="hidden" class="hidden-task-item-id" />
+                      <div class="div-check-complete">
+                        <input
+                          class="chk-todolist-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
+                          type="checkbox"
+                          name=""
+                          id="chk-todolist-complete"
+                        />
+                      </div>
+                      <button
+                        class="button-todo-list-item flex-1 flex flex-col"
+                      >
+                        <p class="p-todo-title font-bold self-start">aasdasd</p>
+                        <p
+                          class="p-todo-description text-sm font-light self-start"
+                        >
+                          sdfsdfsdf
+                        </p>
+                      </button>
+                      <div
+                        class="div-check-completed-mark flex gap-5 items-start bg-todoist_green bg-opacity-80 rounded-lg w-full p-1 hidden"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          width="24px"
+                          fill="#8BC9C8"
+                        >
+                          <path d="M0 0h24v24H0V0z" fill="none" />
+                          <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"
+                          />
+                        </svg>
+                        <p class="font-bold">Done</p>
+                      </div>
+                      <p
+                        class="p-cant-subtasks self-center text-sm font-light text-slate-500"
+                      >
+                        4
+                      </p>
+                    </li>
+                  </template>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="div-add-todo-form">
+            <form
+              onsubmit="return false"
+              autocomplete="off"
+              class="form-register-todo flex flex-col justify-center items-center px-12 gap-4"
+            >
+              <div
+                class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3"
+              >
+                <select
+                  name="select-register-todo-project"
+                  id="select-register-todo-project"
+                  required
+                  class="py-[10px] pl-[10px] bg-white border-[1px] border-solid border-slate-300 rounded-[10px]"
+                >
+                  <option value="">--Choose a project--</option>
+                  <option value="1">
+                    Personal Tasks jhbjkh j bjh jh bh jh hh hg g
+                  </option>
+                  <option value="-1" class="italic border-slate-400 font-light">
+                    Create new Project
+                  </option>
+                </select>
+                <input
+                  id="input-register-todo-title"
+                  type="text"
+                  placeholder="☝️ e.g., Family Lunch on Sunday..."
+                  required
+                />
+                <textarea
+                  name="textarea-register-todo-description"
+                  id="textarea-register-todo-description"
+                  class="w-full overflow-hidden"
+                  rows="3"
+                  placeholder="📄 Description"
+                  required
+                ></textarea>
+
+                <input
+                  type="date"
+                  name="input-register-todo-date"
+                  list="dist-todo-popup-days"
+                  id="input-register-todo-date"
+                  class="self-start"
+                  required
+                />
+                <datalist id="dist-todo-popup-days"> </datalist>
+
+                <select
+                  name="select-register-todo-priority"
+                  id="select-register-todo-priority"
+                  class="w-[min-content] py-[10px] pl-[10px] bg-white border-[1px] border-solid border-slate-300 rounded-[10px]"
+                >
+                  <option value="4">⚪ No Priority</option>
+                  <option value="3">🟡 Low Priority</option>
+                  <option value="2">🟠 Medium Priority</option>
+                  <option value="1">🔴 High Priority</option>
+                </select>
+                <!-- <select name="select-register-todo-project" id="select-register-todo-project"></select> -->
+                <input
+                  id="input-register-todo-tag"
+                  type="text"
+                  placeholder="🏷 Label"
+                />
+              </div>
+              <div class="w-full flex justify-start gap-4">
+                <button
+                  id="button-form-register-todo-add"
+                  class="button-register-todo-add bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]"
+                >
+                  Add Task
+                </button>
+                <button
+                  type="button"
+                  id="button-form-register-todo-cancel"
+                  class="button-register-todo-cancel border-slate-300 border-solid border-[1px] h-8 px-[10px] rounded-[5px]"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-        <nav
-            class="div-menu-expanded bg-todoist_gray flex flex-col gap-5 left-0 top-0 bottom-0 h-full absolute  overflow-hidden max-w-0 opacity-0 transition-all duration-[0.6s] delay-[0.s]">
-            <ul id="up-menu-options-list" class="pl-9 pr-5 pt-8 flex flex-col gap-3">
-                <button type="button" class="flex items-center gap-1" id="button-menu-options-today">
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                        <g fill="#058527" fill-rule="nonzero">
-                            <path d="M10 14.5a2 2 0 104 0h5.5V18a1.5 1.5 0 01-1.5 1.5H6A1.5 1.5 0 014.5 18v-3.5H10z"
-                                opacity="0.1"></path>
-                            <path
-                                d="M8.062 4h7.876a2 2 0 011.94 1.515l2.062 8.246a2 2 0 01.06.485V18a2 2 0 01-2 2H6a2 2 0 01-2-2v-3.754a2 2 0 01.06-.485l2.06-8.246A2 2 0 018.061 4zm0 1a1 1 0 00-.97.757L5.03 14.004a1 1 0 00-.03.242V18a1 1 0 001 1h12a1 1 0 001-1v-3.754a1 1 0 00-.03-.242l-2.06-8.247A1 1 0 0015.94 5H8.061zM12 17.25A2.75 2.75 0 019.295 15H7a.5.5 0 110-1h2.75a.5.5 0 01.5.5 1.75 1.75 0 003.5 0 .5.5 0 01.5-.5H17a.5.5 0 110 1h-2.295A2.75 2.75 0 0112 17.25z">
-                            </path>
-                        </g>
-                    </svg>
-                    <p class="flex-1 text-left">Today</p>
-                    <p id="p-menu-today-count">4</p>
-                </button>
-                <button class="flex items-center gap-1" id="button-menu-options-upcoming">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <g fill="#692fc2" fill-rule="nonzero">
-                            <path d="M6 4.5h12A1.5 1.5 0 0119.5 6v2.5h-15V6A1.5 1.5 0 016 4.5z" opacity="0.1"></path>
-                            <path
-                                d="M6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2zm0 1a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V6a1 1 0 00-1-1H6zm10 12a1 1 0 110-2 1 1 0 010 2zm-4 0a1 1 0 110-2 1 1 0 010 2zm-4 0a1 1 0 110-2 1 1 0 010 2zm8-4a1 1 0 110-2 1 1 0 010 2zm-4 0a1 1 0 110-2 1 1 0 010 2zm-4 0a1 1 0 110-2 1 1 0 010 2zM7 8h10a.5.5 0 110 1H7a.5.5 0 010-1z">
-                            </path>
-                        </g>
-                    </svg>
-                    <p class="flex-1 text-left">Upcoming</p>
-                    <p id="p-menu-upcoming-count">3</p>
-                </button>
-                <button id="button-menu-custom" class="flex items-center gap-1">
-                    <svg width="24" height="24" fill="#eb8909" xmlns="http://www.w3.org/2000/svg">
-                        <path opacity="0.1" fill-rule="evenodd" clip-rule="evenodd"
-                            d="M13 6.5A1.5 1.5 0 0114.5 5h3A1.5 1.5 0 0119 6.5v3a1.5 1.5 0 01-1.5 1.5h-3A1.5 1.5 0 0113 9.5v-3zM6.5 13A1.5 1.5 0 005 14.5v3A1.5 1.5 0 006.5 19h3a1.5 1.5 0 001.5-1.5v-3A1.5 1.5 0 009.5 13h-3zm8 0a1.5 1.5 0 00-1.5 1.5v3a1.5 1.5 0 001.5 1.5h3a1.5 1.5 0 001.5-1.5v-3a1.5 1.5 0 00-1.5-1.5h-3zm-8-8A1.5 1.5 0 005 6.5v3A1.5 1.5 0 006.5 11h3A1.5 1.5 0 0011 9.5v-3A1.5 1.5 0 009.5 5h-3z"
-                            fill="#eb8909"></path>
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M17.5 6h-3a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5zm-3-1A1.5 1.5 0 0013 6.5v3a1.5 1.5 0 001.5 1.5h3A1.5 1.5 0 0019 9.5v-3A1.5 1.5 0 0017.5 5h-3zm-8 9h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5zm-1.5.5A1.5 1.5 0 016.5 13h3a1.5 1.5 0 011.5 1.5v3A1.5 1.5 0 019.5 19h-3A1.5 1.5 0 015 17.5v-3zm9.5-.5h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5zm-1.5.5a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5v3a1.5 1.5 0 01-1.5 1.5h-3a1.5 1.5 0 01-1.5-1.5v-3zM6.5 6h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5zM5 6.5A1.5 1.5 0 016.5 5h3A1.5 1.5 0 0111 6.5v3A1.5 1.5 0 019.5 11h-3A1.5 1.5 0 015 9.5v-3z"
-                            fill="#eb8909"></path>
-                    </svg>
-                    <p id="p-menu-custom-title" class="flex-1 text-left">Custom date</p>
-                    <p id="p-menu-custom-count"></p>
-                </button>
-                <div id="div-menu-custom" class="flex justify-between items-center p-2 bg-[#ececec] rounded-lg hidden">
-                    <input type="date" name="inputdate-menu-custom-date" id="inputdate-menu-custom-date"
-                        class="shadow-inner rounded-lg">
-                    <button id="button-menu-custom-date-close" type="button">
-                        <svg viewBox="0 0 24 24" class="icon_close" width="24" height="24">
-                            <path fill="#7d7d7d" fill-rule="nonzero"
-                                d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z">
-                            </path>
-                        </svg>
-                    </button>
-                </div>
-            </ul>
-            <div class="flex flex-col gap-3 pl-9 pr-5">
-                <div class="flex items-center">
-                    <p class="flex-1">Projects</p>
-                    <button id="button-menu-projects-add">
-                        <svg width="13" height="13">
-                            <path
-                                d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
-                                fill="currentColor" fill-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                </div>
-                <ul id="ul-menu-projectslist" class="flex flex-col gap-2">
-                    <template id="tmp-project-item">
-                        <li class="ul-menu-projectslist-li flex gap-1">
-                            <input type="hidden" class="hid-project-id">
-                            <svg width="24" height="24" viewBox="0 0 24 24" class="project_icon"
-                                style="color: rgb(184, 184, 184);">
-                                <path d="M12 7a5 5 0 110 10 5 5 0 010-10z" fill="currentColor"></path>
-                            </svg>
-                            <p class="p-project-name flex-1"></p>
-                            <p class="p-project-subtasks-count"></p>
-                        </li>
-                    </template>
-                    <!-- <li id="li-menu-project-1" class="flex gap-1">
+      </div>
+      <div
+        id="div-shade-bg"
+        class="hidden absolute left-0 top-0 w-full h-full bg-slate-900 bg-opacity-40 transition-all duration-[1s] delay-[0.s]"
+      ></div>
+      <nav
+        class="div-menu-expanded bg-todoist_gray flex flex-col gap-5 left-0 top-0 bottom-0 h-full absolute overflow-hidden max-w-0 opacity-0 transition-all duration-[0.6s] delay-[0.s]"
+      >
+        <ul
+          id="up-menu-options-list"
+          class="pl-9 pr-5 pt-8 flex flex-col gap-3"
+        >
+          <button
+            type="button"
+            class="flex items-center gap-1"
+            id="button-menu-options-today"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <g fill="#058527" fill-rule="nonzero">
+                <path
+                  d="M10 14.5a2 2 0 104 0h5.5V18a1.5 1.5 0 01-1.5 1.5H6A1.5 1.5 0 014.5 18v-3.5H10z"
+                  opacity="0.1"
+                ></path>
+                <path
+                  d="M8.062 4h7.876a2 2 0 011.94 1.515l2.062 8.246a2 2 0 01.06.485V18a2 2 0 01-2 2H6a2 2 0 01-2-2v-3.754a2 2 0 01.06-.485l2.06-8.246A2 2 0 018.061 4zm0 1a1 1 0 00-.97.757L5.03 14.004a1 1 0 00-.03.242V18a1 1 0 001 1h12a1 1 0 001-1v-3.754a1 1 0 00-.03-.242l-2.06-8.247A1 1 0 0015.94 5H8.061zM12 17.25A2.75 2.75 0 019.295 15H7a.5.5 0 110-1h2.75a.5.5 0 01.5.5 1.75 1.75 0 003.5 0 .5.5 0 01.5-.5H17a.5.5 0 110 1h-2.295A2.75 2.75 0 0112 17.25z"
+                ></path>
+              </g>
+            </svg>
+            <p class="flex-1 text-left">Today</p>
+            <p id="p-menu-today-count">4</p>
+          </button>
+          <button
+            class="flex items-center gap-1"
+            id="button-menu-options-upcoming"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g fill="#692fc2" fill-rule="nonzero">
+                <path
+                  d="M6 4.5h12A1.5 1.5 0 0119.5 6v2.5h-15V6A1.5 1.5 0 016 4.5z"
+                  opacity="0.1"
+                ></path>
+                <path
+                  d="M6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2zm0 1a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V6a1 1 0 00-1-1H6zm10 12a1 1 0 110-2 1 1 0 010 2zm-4 0a1 1 0 110-2 1 1 0 010 2zm-4 0a1 1 0 110-2 1 1 0 010 2zm8-4a1 1 0 110-2 1 1 0 010 2zm-4 0a1 1 0 110-2 1 1 0 010 2zm-4 0a1 1 0 110-2 1 1 0 010 2zM7 8h10a.5.5 0 110 1H7a.5.5 0 010-1z"
+                ></path>
+              </g>
+            </svg>
+            <p class="flex-1 text-left">Upcoming</p>
+            <p id="p-menu-upcoming-count">3</p>
+          </button>
+          <button id="button-menu-custom" class="flex items-center gap-1">
+            <svg
+              width="24"
+              height="24"
+              fill="#eb8909"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                opacity="0.1"
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M13 6.5A1.5 1.5 0 0114.5 5h3A1.5 1.5 0 0119 6.5v3a1.5 1.5 0 01-1.5 1.5h-3A1.5 1.5 0 0113 9.5v-3zM6.5 13A1.5 1.5 0 005 14.5v3A1.5 1.5 0 006.5 19h3a1.5 1.5 0 001.5-1.5v-3A1.5 1.5 0 009.5 13h-3zm8 0a1.5 1.5 0 00-1.5 1.5v3a1.5 1.5 0 001.5 1.5h3a1.5 1.5 0 001.5-1.5v-3a1.5 1.5 0 00-1.5-1.5h-3zm-8-8A1.5 1.5 0 005 6.5v3A1.5 1.5 0 006.5 11h3A1.5 1.5 0 0011 9.5v-3A1.5 1.5 0 009.5 5h-3z"
+                fill="#eb8909"
+              ></path>
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M17.5 6h-3a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5zm-3-1A1.5 1.5 0 0013 6.5v3a1.5 1.5 0 001.5 1.5h3A1.5 1.5 0 0019 9.5v-3A1.5 1.5 0 0017.5 5h-3zm-8 9h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5zm-1.5.5A1.5 1.5 0 016.5 13h3a1.5 1.5 0 011.5 1.5v3A1.5 1.5 0 019.5 19h-3A1.5 1.5 0 015 17.5v-3zm9.5-.5h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5zm-1.5.5a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5v3a1.5 1.5 0 01-1.5 1.5h-3a1.5 1.5 0 01-1.5-1.5v-3zM6.5 6h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5zM5 6.5A1.5 1.5 0 016.5 5h3A1.5 1.5 0 0111 6.5v3A1.5 1.5 0 019.5 11h-3A1.5 1.5 0 015 9.5v-3z"
+                fill="#eb8909"
+              ></path>
+            </svg>
+            <p id="p-menu-custom-title" class="flex-1 text-left">Custom date</p>
+            <p id="p-menu-custom-count"></p>
+          </button>
+          <div
+            id="div-menu-custom"
+            class="flex justify-between items-center p-2 bg-[#ececec] rounded-lg hidden"
+          >
+            <input
+              type="date"
+              name="inputdate-menu-custom-date"
+              id="inputdate-menu-custom-date"
+              class="shadow-inner rounded-lg"
+            />
+            <button id="button-menu-custom-date-close" type="button">
+              <svg
+                viewBox="0 0 24 24"
+                class="icon_close"
+                width="24"
+                height="24"
+              >
+                <path
+                  fill="#7d7d7d"
+                  fill-rule="nonzero"
+                  d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </ul>
+        <div class="flex flex-col gap-3 pl-9 pr-5">
+          <div class="flex items-center">
+            <p class="flex-1">Projects</p>
+            <button id="button-menu-projects-add">
+              <svg width="13" height="13">
+                <path
+                  d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <ul id="ul-menu-projectslist" class="flex flex-col gap-2">
+            <template id="tmp-project-item">
+              <li class="ul-menu-projectslist-li flex gap-1">
+                <input type="hidden" class="hid-project-id" />
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  class="project_icon"
+                  style="color: rgb(184, 184, 184)"
+                >
+                  <path
+                    d="M12 7a5 5 0 110 10 5 5 0 010-10z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+                <p class="p-project-name flex-1"></p>
+                <p class="p-project-subtasks-count"></p>
+              </li>
+            </template>
+            <!-- <li id="li-menu-project-1" class="flex gap-1">
                         <svg width="24" height="24" viewBox="0 0 24 24" class="project_icon"
                             style="color: rgb(184, 184, 184);">
                             <path d="M12 7a5 5 0 110 10 5 5 0 010-10z" fill="currentColor"></path>
@@ -596,156 +1280,287 @@
                         <p class="p-project-name flex-1">Welcome</p>
                         <p class="p-project-subtasks-count">4</p>
                     </li> -->
-                </ul>
-            </div>
-        </nav>
+          </ul>
+        </div>
+      </nav>
     </main>
     <footer class="w-full mt-5">
-        <div class="flex items-center justify-center gap-2 text-white p-1 text-sm bg-todoist_red">
-            <span>Created by <strong><a id="link-footer" target="_blank"
-                        href="https://github.com/pieroguerrero">pieroguerrero</a>
-                </strong></span>
-            <a href="https://github.com/pieroguerrero" target="_blank">
-                <svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
-                    <path
-                        d="M15,3C8.373,3,3,8.373,3,15c0,5.623,3.872,10.328,9.092,11.63C12.036,26.468,12,26.28,12,26.047v-2.051c-0.487,0-1.303,0-1.508,0c-0.821,0-1.551-0.353-1.905-1.009c-0.393-0.729-0.461-1.844-1.435-2.526c-0.289-0.227-0.069-0.486,0.264-0.451c0.615,0.174,1.125,0.596,1.605,1.222c0.478,0.627,0.703,0.769,1.596,0.769c0.433,0,1.081-0.025,1.691-0.121c0.328-0.833,0.895-1.6,1.588-1.962c-3.996-0.411-5.903-2.399-5.903-5.098c0-1.162,0.495-2.286,1.336-3.233C9.053,10.647,8.706,8.73,9.435,8c1.798,0,2.885,1.166,3.146,1.481C13.477,9.174,14.461,9,15.495,9c1.036,0,2.024,0.174,2.922,0.483C18.675,9.17,19.763,8,21.565,8c0.732,0.731,0.381,2.656,0.102,3.594c0.836,0.945,1.328,2.066,1.328,3.226c0,2.697-1.904,4.684-5.894,5.097C18.199,20.49,19,22.1,19,23.313v2.734c0,0.104-0.023,0.179-0.035,0.268C23.641,24.676,27,20.236,27,15C27,8.373,21.627,3,15,3z" />
-                </svg>
-            </a>
-        </div>
+      <div
+        class="flex items-center justify-center gap-2 text-white p-1 text-sm bg-todoist_red"
+      >
+        <span
+          >Created by
+          <strong
+            ><a
+              id="link-footer"
+              target="_blank"
+              href="https://github.com/pieroguerrero"
+              >pieroguerrero</a
+            >
+          </strong></span
+        >
+        <a href="https://github.com/pieroguerrero" target="_blank">
+          <svg
+            fill="#ffffff"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 30 30"
+            width="30px"
+            height="30px"
+          >
+            <path
+              d="M15,3C8.373,3,3,8.373,3,15c0,5.623,3.872,10.328,9.092,11.63C12.036,26.468,12,26.28,12,26.047v-2.051c-0.487,0-1.303,0-1.508,0c-0.821,0-1.551-0.353-1.905-1.009c-0.393-0.729-0.461-1.844-1.435-2.526c-0.289-0.227-0.069-0.486,0.264-0.451c0.615,0.174,1.125,0.596,1.605,1.222c0.478,0.627,0.703,0.769,1.596,0.769c0.433,0,1.081-0.025,1.691-0.121c0.328-0.833,0.895-1.6,1.588-1.962c-3.996-0.411-5.903-2.399-5.903-5.098c0-1.162,0.495-2.286,1.336-3.233C9.053,10.647,8.706,8.73,9.435,8c1.798,0,2.885,1.166,3.146,1.481C13.477,9.174,14.461,9,15.495,9c1.036,0,2.024,0.174,2.922,0.483C18.675,9.17,19.763,8,21.565,8c0.732,0.731,0.381,2.656,0.102,3.594c0.836,0.945,1.328,2.066,1.328,3.226c0,2.697-1.904,4.684-5.894,5.097C18.199,20.49,19,22.1,19,23.313v2.734c0,0.104-0.023,0.179-0.035,0.268C23.641,24.676,27,20.236,27,15C27,8.373,21.627,3,15,3z"
+            />
+          </svg>
+        </a>
+      </div>
     </footer>
-    <div id="div-popup-register-project"
-        class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-slate-900 bg-opacity-40">
-        <form id="form-popup-register-project" autocomplete="off" onsubmit="return false"
-            class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4">
-            <input type="hidden" id="hidden-popup-project-id" name="hidden-popup-project-id">
-            <div
-                class="px-6 py-[14px] border-b-[#dddd] border-b-[1px] rounded-tl-[10px] rounded-tr-[10px] bg-[#FAFAFA] border-solid flex items-center">
-                <p class="text-lg font-bold">Add Project</p>
-            </div>
-            <div class="px-6 flex flex-col gap-3">
-                <div class="flex flex-col gap-2">
-                    <label class="font-bold" for="input-register-project-name">Name</label>
-                    <input class="peer rounded-md border-[1px] border-solid shadow-inner text-[100%] p-1 pl-2"
-                        type="text" id="input-register-project-name" name="input-register-project-name"
-                        autocomplete="off" placeholder=" " required>
-                    <span class="relative peer-required:after:absolute peer-required:after:text-white peer-required:after:bg-bar-text peer-required:after:content-['required'] peer-required:after:text-xs peer-required:after:top-[-65px] peer-required:after:left-[215px] peer-required:after:py-[4px] peer-required:after:px-2
-                        peer-required:after:rounded-md"></span>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <label class="font-bold" for="textarea-register-project-description">Description</label>
-                    <textarea name="textarea-register-project-description" id="textarea-register-project-description"
-                        rows="3" placeholder=" " autocomplete="off"
-                        class="peer rounded-md border-[1px] border-solid shadow-inner text-[100%] p-1 pl-2"
-                        required></textarea>
-                    <span class="relative peer-required:after:absolute peer-required:after:text-white peer-required:after:bg-bar-text peer-required:after:content-['required'] peer-required:after:text-xs peer-required:after:top-[-65px] peer-required:after:left-[215px] peer-required:after:py-[4px] peer-required:after:px-2
-                        peer-required:after:rounded-md"></span>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <label class="font-bold" for="date-register-project-startdate">Start date</label>
-                    <input type="date" name="date-register-project-startdate" id="date-register-project-startdate"
-                        class="peer w-[min-content] rounded-md border-[1px] border-solid shadow-inner text-[100%] p-1 pl-2"
-                        required onkeydown="return false">
-                    <span class="relative peer-required:after:absolute peer-required:after:text-white peer-required:after:bg-bar-text peer-required:after:content-['required'] peer-required:after:text-xs peer-required:after:top-[-65px] peer-required:after:left-[215px] peer-required:after:py-[4px] peer-required:after:px-2
-                    peer-required:after:rounded-md"></span>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <label class="font-bold" for="date-register-project-endtdate">End date</label>
-                    <input type="date" name="date-register-project-endtdate" id="date-register-project-enddate"
-                        class="peer w-[min-content] rounded-md border-[1px] border-solid shadow-inner text-[100%] p-1 pl-2"
-                        required onkeydown="return false">
-                    <span class="relative peer-required:after:absolute peer-required:after:text-white peer-required:after:bg-bar-text peer-required:after:content-['required'] peer-required:after:text-xs peer-required:after:top-[-65px] peer-required:after:left-[215px] peer-required:after:py-[4px] peer-required:after:px-2
-                    peer-required:after:rounded-md"></span>
-                </div>
-
-            </div>
-            <div
-                class="px-6 py-4 border-t-[#dddd] border-t-[1px] rounded-bl-[10px] rounded-br-[10px] bg-[#FAFAFA] border-solid flex items-center justify-end gap-3">
-                <button id="button-form-register-project-cancel" type="button"
-                    class="button-register-todo-cancel border-slate-300 border-solid border-[1px] h-8 px-[10px] rounded-[5px]">Cancel</button>
-                <button id="button-form-register-project-add"
-                    class="button-register-todo-add bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]">Add</button>
-            </div>
-        </form>
-
+    <div
+      id="div-popup-register-project"
+      class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-slate-900 bg-opacity-40"
+    >
+      <form
+        id="form-popup-register-project"
+        autocomplete="off"
+        onsubmit="return false"
+        class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4"
+      >
+        <input
+          type="hidden"
+          id="hidden-popup-project-id"
+          name="hidden-popup-project-id"
+        />
+        <div
+          class="px-6 py-[14px] border-b-[#dddd] border-b-[1px] rounded-tl-[10px] rounded-tr-[10px] bg-[#FAFAFA] border-solid flex items-center"
+        >
+          <p class="text-lg font-bold">Add Project</p>
+        </div>
+        <div class="px-6 flex flex-col gap-3">
+          <div class="flex flex-col gap-2">
+            <label class="font-bold" for="input-register-project-name"
+              >Name</label
+            >
+            <input
+              class="peer rounded-md border-[1px] border-solid shadow-inner text-[100%] p-1 pl-2"
+              type="text"
+              id="input-register-project-name"
+              name="input-register-project-name"
+              autocomplete="off"
+              placeholder=" "
+              required
+            />
+            <span
+              class="relative peer-required:after:absolute peer-required:after:text-white peer-required:after:bg-bar-text peer-required:after:content-['required'] peer-required:after:text-xs peer-required:after:top-[-65px] peer-required:after:left-[215px] peer-required:after:py-[4px] peer-required:after:px-2 peer-required:after:rounded-md"
+            ></span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="font-bold" for="textarea-register-project-description"
+              >Description</label
+            >
+            <textarea
+              name="textarea-register-project-description"
+              id="textarea-register-project-description"
+              rows="3"
+              placeholder=" "
+              autocomplete="off"
+              class="peer rounded-md border-[1px] border-solid shadow-inner text-[100%] p-1 pl-2"
+              required
+            ></textarea>
+            <span
+              class="relative peer-required:after:absolute peer-required:after:text-white peer-required:after:bg-bar-text peer-required:after:content-['required'] peer-required:after:text-xs peer-required:after:top-[-65px] peer-required:after:left-[215px] peer-required:after:py-[4px] peer-required:after:px-2 peer-required:after:rounded-md"
+            ></span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="font-bold" for="date-register-project-startdate"
+              >Start date</label
+            >
+            <input
+              type="date"
+              name="date-register-project-startdate"
+              id="date-register-project-startdate"
+              class="peer w-[min-content] rounded-md border-[1px] border-solid shadow-inner text-[100%] p-1 pl-2"
+              required
+              onkeydown="return false"
+            />
+            <span
+              class="relative peer-required:after:absolute peer-required:after:text-white peer-required:after:bg-bar-text peer-required:after:content-['required'] peer-required:after:text-xs peer-required:after:top-[-65px] peer-required:after:left-[215px] peer-required:after:py-[4px] peer-required:after:px-2 peer-required:after:rounded-md"
+            ></span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="font-bold" for="date-register-project-endtdate"
+              >End date</label
+            >
+            <input
+              type="date"
+              name="date-register-project-endtdate"
+              id="date-register-project-enddate"
+              class="peer w-[min-content] rounded-md border-[1px] border-solid shadow-inner text-[100%] p-1 pl-2"
+              required
+              onkeydown="return false"
+            />
+            <span
+              class="relative peer-required:after:absolute peer-required:after:text-white peer-required:after:bg-bar-text peer-required:after:content-['required'] peer-required:after:text-xs peer-required:after:top-[-65px] peer-required:after:left-[215px] peer-required:after:py-[4px] peer-required:after:px-2 peer-required:after:rounded-md"
+            ></span>
+          </div>
+        </div>
+        <div
+          class="px-6 py-4 border-t-[#dddd] border-t-[1px] rounded-bl-[10px] rounded-br-[10px] bg-[#FAFAFA] border-solid flex items-center justify-end gap-3"
+        >
+          <button
+            id="button-form-register-project-cancel"
+            type="button"
+            class="button-register-todo-cancel border-slate-300 border-solid border-[1px] h-8 px-[10px] rounded-[5px]"
+          >
+            Cancel
+          </button>
+          <button
+            id="button-form-register-project-add"
+            class="button-register-todo-add bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]"
+          >
+            Add
+          </button>
+        </div>
+      </form>
     </div>
-    <div id="div-popup-edit-task"
-        class="absolute top-0 left-0 w-full h-full flex justify-center items-center sm:items-start bg-slate-900 bg-opacity-40 ">
-        <input type="hidden" class="hidden-popup-edit-task-id">
-        <div id="div-popup-edit-task-main"
-            class="rounded-[10px] bg-white w-[95%] sm:w-[360px] h-[90%] sm:h-[580px] flex flex-col gap-2 sm:mt-12">
-            <button type="button" id="button-popup-task-edit-close" class="flex justify-end pt-3 pr-3">
-                <svg viewBox="0 0 24 24" class="icon_close" width="24" height="24">
-                    <path fill="currentColor" fill-rule="nonzero"
-                        d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z">
-                    </path>
-                </svg>
-            </button>
-            <div class="h-full grid grid-rows-[auto_1fr] grid-cols-1 px-5 gap-4">
-                <div>
-                    <div id="div-popup-edit-task-fields-view" class="flex gap-5 items-start">
-                        <div class="div-popup-edit-task-check-complete">
-                            <input
-                                class="chk-popup-edit-task-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
-                                type="checkbox" name="" id="chk-popup-edit-task-complete">
-                        </div>
-                        <button type="button" id="button-popup-edit-task-save" class="flex-1 flex flex-col gap-3">
-                            <p class="p-popup-edit-task-title font-bold self-start">Aasdasd</p>
-                            <div class="flex gap-2 items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"
-                                    fill="#000000">
-                                    <path d="M0 0h24v24H0V0z" fill="none" />
-                                    <path
-                                        d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" />
-                                </svg>
-                                <p class="p-popup-edit-task-description text-sm font-light">Sdfsdfsdf</p>
-                            </div>
-                            <div class="flex gap-2 items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"
-                                    fill="#000000">
-                                    <path d="M0 0h24v24H0V0z" fill="none" />
-                                    <path
-                                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z" />
-                                </svg>
-                                <p class="p-popup-edit-task-project font-light">Personal Tasks</p>
-                            </div>
-                            <div class="flex gap-2 items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"
-                                    fill="#000000">
-                                    <path d="M0 0h24v24H0V0z" fill="none" />
-                                    <path
-                                        d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z" />
-                                </svg>
-                                <p class="p-popup-edit-task-duedate font-light">20/04/2022</p>
-                            </div>
-                            <div class="flex gap-2 items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"
-                                    fill="#000000">
-                                    <path d="M0 0h24v24H0V0z" fill="none" />
-                                    <path
-                                        d="M15.73 3H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27L15.73 3zM19 14.9L14.9 19H9.1L5 14.9V9.1L9.1 5h5.8L19 9.1v5.8z" />
-                                    <circle cx="12" cy="16" r="1" />
-                                    <path d="M11 7h2v7h-2z" />
-                                </svg>
-                                <p class="p-popup-edit-task-priority font-light">Priority 2</p>
-                            </div>
-                            <div class="flex gap-2 items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"
-                                    fill="#000000">
-                                    <path d="M0 0h24v24H0V0z" fill="none" />
-                                    <path
-                                        d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58s1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.23-1.06-.59-1.42zM13 20.01L4 11V4h7v-.01l9 9-7 7.02z" />
-                                    <circle cx="6.5" cy="6.5" r="1.5" />
-                                </svg>
-                                <p class="p-popup-edit-task-label font-light">varios</p>
-                            </div>
-                        </button>
-                    </div>
-                    <form id="form-popup-edit-task-fields-edit" autocomplete="off" onsubmit="return false"
-                        class="rounded-[10px] bg-white w-full flex flex-col gap-4 items-center">
-
-                        <div
-                            class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3">
-                            <!-- <select name="select-popup-edit-task-project" id="select-popup-edit-task-project" required
+    <div
+      id="div-popup-edit-task"
+      class="absolute top-0 left-0 w-full h-full flex justify-center items-center sm:items-start bg-slate-900 bg-opacity-40"
+    >
+      <input type="hidden" class="hidden-popup-edit-task-id" />
+      <div
+        id="div-popup-edit-task-main"
+        class="rounded-[10px] bg-white w-[95%] sm:w-[360px] h-[90%] sm:h-[580px] flex flex-col gap-2 sm:mt-12"
+      >
+        <button
+          type="button"
+          id="button-popup-task-edit-close"
+          class="flex justify-end pt-3 pr-3"
+        >
+          <svg viewBox="0 0 24 24" class="icon_close" width="24" height="24">
+            <path
+              fill="currentColor"
+              fill-rule="nonzero"
+              d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z"
+            ></path>
+          </svg>
+        </button>
+        <div class="h-full grid grid-rows-[auto_1fr] grid-cols-1 px-5 gap-4">
+          <div>
+            <div
+              id="div-popup-edit-task-fields-view"
+              class="flex gap-5 items-start"
+            >
+              <div class="div-popup-edit-task-check-complete">
+                <input
+                  class="chk-popup-edit-task-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
+                  type="checkbox"
+                  name=""
+                  id="chk-popup-edit-task-complete"
+                />
+              </div>
+              <button
+                type="button"
+                id="button-popup-edit-task-save"
+                class="flex-1 flex flex-col gap-3"
+              >
+                <p class="p-popup-edit-task-title font-bold self-start">
+                  Aasdasd
+                </p>
+                <div class="flex gap-2 items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="18px"
+                    viewBox="0 0 24 24"
+                    width="18px"
+                    fill="#000000"
+                  >
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path
+                      d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"
+                    />
+                  </svg>
+                  <p class="p-popup-edit-task-description text-sm font-light">
+                    Sdfsdfsdf
+                  </p>
+                </div>
+                <div class="flex gap-2 items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="18px"
+                    viewBox="0 0 24 24"
+                    width="18px"
+                    fill="#000000"
+                  >
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path
+                      d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"
+                    />
+                  </svg>
+                  <p class="p-popup-edit-task-project font-light">
+                    Personal Tasks
+                  </p>
+                </div>
+                <div class="flex gap-2 items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="18px"
+                    viewBox="0 0 24 24"
+                    width="18px"
+                    fill="#000000"
+                  >
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path
+                      d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"
+                    />
+                  </svg>
+                  <p class="p-popup-edit-task-duedate font-light">20/04/2022</p>
+                </div>
+                <div class="flex gap-2 items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="18px"
+                    viewBox="0 0 24 24"
+                    width="18px"
+                    fill="#000000"
+                  >
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path
+                      d="M15.73 3H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27L15.73 3zM19 14.9L14.9 19H9.1L5 14.9V9.1L9.1 5h5.8L19 9.1v5.8z"
+                    />
+                    <circle cx="12" cy="16" r="1" />
+                    <path d="M11 7h2v7h-2z" />
+                  </svg>
+                  <p class="p-popup-edit-task-priority font-light">
+                    Priority 2
+                  </p>
+                </div>
+                <div class="flex gap-2 items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="18px"
+                    viewBox="0 0 24 24"
+                    width="18px"
+                    fill="#000000"
+                  >
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path
+                      d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58s1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.23-1.06-.59-1.42zM13 20.01L4 11V4h7v-.01l9 9-7 7.02z"
+                    />
+                    <circle cx="6.5" cy="6.5" r="1.5" />
+                  </svg>
+                  <p class="p-popup-edit-task-label font-light">varios</p>
+                </div>
+              </button>
+            </div>
+            <form
+              id="form-popup-edit-task-fields-edit"
+              autocomplete="off"
+              onsubmit="return false"
+              class="rounded-[10px] bg-white w-full flex flex-col gap-4 items-center"
+            >
+              <div
+                class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3"
+              >
+                <!-- <select name="select-popup-edit-task-project" id="select-popup-edit-task-project" required
                                 class="py-[10px] pl-[10px] bg-white border-[1px] border-solid border-slate-300 rounded-[10px]">
                                 <option value="">--Choose a project--</option>
                                 <option value="1">Personal Tasks</option>
@@ -753,282 +1568,302 @@
                                 </option>
                             </select> -->
 
-
-                            <div class="flex gap-2 items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"
-                                    fill="#000000">
-                                    <path d="M0 0h24v24H0V0z" fill="none" />
-                                    <path
-                                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z" />
-                                </svg>
-                                <p class="p-popup-edit-task-project-readonly font-bold"></p>
-                            </div>
-
-
-                            <input id="input-popup-edit-task-title" type="text"
-                                placeholder="☝️ e.g., Family Lunch on Sunday..." required>
-                            <textarea name="textarea-popup-edit-task-description"
-                                id="textarea-popup-edit-task-description" class="w-full overflow-hidden" rows="2"
-                                placeholder="📄 Description" required></textarea>
-
-
-                            <input type="date" name="input-popup-edit-task-date" list="dist-popup-edit-task-days"
-                                id="input-popup-edit-task-date" class="self-start" required>
-                            <datalist id="dist-popup-edit-task-days">
-                            </datalist>
-
-                            <select name="select-popup-edit-task-priority" id="select-popup-edit-task-priority"
-                                class="w-[min-content] py-[10px] pl-[10px] bg-white border-[1px] border-solid border-slate-300 rounded-[10px]">
-                                <option value="4">⚪ No Priority</option>
-                                <option value="3">🟡 Low Priority</option>
-                                <option value="2">🟠 Medium Priority</option>
-                                <option value="1">🔴 High Priority</option>
-                            </select>
-                            <!-- <select name="select-register-todo-project" id="select-register-todo-project"></select> -->
-                            <input id="input-popup-edit-task-tag" type="text" placeholder="🏷 Label">
-                        </div>
-                        <div class="w-full flex justify-start gap-4">
-                            <button id="button-form-popup-edit-task-save"
-                                class="button-form-popup-edit-task-save bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]">Save</button>
-                            <button type="button" id="button-form-popup-edit-task-cancel"
-                                class="button-form-popup-edit-task-cancel border-slate-300 border-solid border-[1px] h-8 px-[10px] rounded-[5px]">Cancel</button>
-                        </div>
-                    </form>
+                <div class="flex gap-2 items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="18px"
+                    viewBox="0 0 24 24"
+                    width="18px"
+                    fill="#000000"
+                  >
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path
+                      d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"
+                    />
+                  </svg>
+                  <p class="p-popup-edit-task-project-readonly font-bold"></p>
                 </div>
-                <div id="div-popup-edit-task-tabs" class="h-full">
-                    <!-- Tabs -->
-                    <ul id="ul-popup-edit-task-tabs" class="inline-flex pt-2 px-1 w-full border-b">
-                        <li
-                            class="bg-white px-4 text-gray-800 font-semibold py-2 rounded-t border-t border-r border-l -mb-px">
-                            <a id="default-tab" href="#div-popup-edi-task-contents-first">Sub-tasks</a>
-                        </li>
-                        <li class="px-4 text-gray-800 font-semibold py-2 rounded-t">
-                            <a href="#div-popup-edi-task-contents-second">Notes</a>
-                        </li>
-                    </ul>
-                    <!-- Tab Contents -->
-                    <div id="div-popup-edi-task-contents" class="max-h-full">
-                        <div id="div-popup-edi-task-contents-first" class="py-4 flex flex-col gap-5">
-                            <ul id="ul-popup-edi-task-contents-subtaskslist"
-                                class="flex w-full flex-col gap-4 max-h-[160px] sm:max-h-[180px] overflow-y-auto self-start">
-                                <template id="tmp-popup-subtask-item">
-                                    <li class="li-popup-edit-task-subtask-item flex gap-5 items-center self-start">
-                                        <input type="hidden" class="hidden-tab-subtask-item-id">
-                                        <div class="div-tab-subtask-check-complete">
-                                            <input
-                                                class="chk-tab-subtask-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
-                                                type="checkbox" name="chk-tab-subtask-complete"
-                                                id="chk-tab-subtask-complete">
-                                        </div>
-                                        <button type="button" id="button-subtask-tab-list-item"
-                                            class="flex-1 flex flex-col">
-                                            <p class="p-subtask-tab-title font-bold">aasdasd</p>
-                                            <p class="p-subtask-tab-description text-sm font-light">sdfsdfsdf</p>
-                                        </button>
-                                    </li>
-                                </template>
-                            </ul>
-                            <div>
-                                <div class="w-full  pl-4">
-                                    <button type="button" id="button-popup-edi-task-contents-add-subtask"
-                                        class="flex items-center gap-2">
-                                        <svg width="13" height="13">
-                                            <path
-                                                d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
-                                                fill="#DB4C3F" fill-rule="evenodd"></path>
-                                        </svg>
-                                        <p class="font-light">Add Sub-task</p>
-                                    </button>
-                                </div>
 
-                                <form id="form-popup-create-subtask" autocomplete="off" onsubmit="return false"
-                                    class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4">
-                                    <div
-                                        class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3">
-                                        <input id="input-popup-create-subtask-title" type="text"
-                                            placeholder="☝️ e.g., Family Lunch on Sunday..." required>
-                                        <textarea name="textarea-popup-create-subtask-description"
-                                            id="textarea-popup-edit-task-description" class="w-full overflow-hidden"
-                                            rows="2" placeholder="📄 Description" required></textarea>
+                <input
+                  id="input-popup-edit-task-title"
+                  type="text"
+                  placeholder="☝️ e.g., Family Lunch on Sunday..."
+                  required
+                />
+                <textarea
+                  name="textarea-popup-edit-task-description"
+                  id="textarea-popup-edit-task-description"
+                  class="w-full overflow-hidden"
+                  rows="2"
+                  placeholder="📄 Description"
+                  required
+                ></textarea>
 
+                <input
+                  type="date"
+                  name="input-popup-edit-task-date"
+                  list="dist-popup-edit-task-days"
+                  id="input-popup-edit-task-date"
+                  class="self-start"
+                  required
+                />
+                <datalist id="dist-popup-edit-task-days"> </datalist>
 
-                                        <input type="date" name="input-popup-create-subtask-date"
-                                            list="dist-popup-create-subtask-days" id="input-popup-edit-task-date"
-                                            class="self-start" required>
-                                        <datalist id="dist-popup-create-subtask-days">
-                                        </datalist>
-                                    </div>
-                                    <div class="w-full flex justify-start gap-4">
-                                        <button id="button-form-create-subtask-add"
-                                            class="button-form-create-subtask-add bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]">Add</button>
-                                        <button type="button" id="button-form-create-subtask-cancel"
-                                            class="button-form-create-subtask-cancel border-slate-300 border-solid border-[1px] h-8 px-[10px] rounded-[5px]">Cancel</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div id="div-popup-edi-task-contents-second"
-                            class="hidden pt-4 max-h-full flex flex-col justify-end">
-                            <div class="flex flex-col items-center w-full">
-                                <div id="div-popup-note-empty" class="flex flex-col gap-3 items-center">
-                                    <!-- <svg class="h-[100px]" data-svgs-path="theme_todoist/task_comments.svg"
-                                        xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" stroke-linecap="round"
-                                        stroke-linejoin="round" stroke-miterlimit="1.5" clip-rule="evenodd"
-                                        viewBox="0 0 220 200">
-                                        <g transform="translate(-2550 -740)">
-                                            <g id="TaskComments">
-                                                <path fill="none" d="M1800-100h300v300h-300z"
-                                                    transform="matrix(.73333 0 0 .66667 1230 806.667)"></path>
-                                                <g transform="translate(-180.016 -875.42)">
-                                                    <g id="TaskCommentsA">
-                                                        <path fill="#f9e4e2"
-                                                            d="M2920 3494h-40c1.07 7.5 2.81 26.35 0 35h20l5 10 5-10h10c2.09-10.98 1.83-22.74 0-35z"
-                                                            transform="matrix(1.3419 0 -.1491 1.3419 -505.166 -3059.6)">
-                                                        </path>
-                                                        <path fill="#fae5e3" stroke="#fff" stroke-width="1.63"
-                                                            d="M15739.5 990.429c7 1.038 14.3.248 21.4.334"
-                                                            transform="matrix(1.41211 -.0411 .02507 1.02017 -19400.4 1284.71)">
-                                                        </path>
-                                                        <path fill="#fae5e3" stroke="#fff" stroke-width="1.63"
-                                                            d="M15739.5 990.429c7 1.038 14.3.248 21.4.334"
-                                                            transform="matrix(1.41237 -.02664 .01233 1.02048 -19391.7 1062.83)">
-                                                        </path>
-                                                        <path fill="#eca19a" stroke="#eca19a" stroke-width="3.16"
-                                                            d="M2850 3514l-2.84-15.28h-90.15L2760 3514c4.6 26 8.19 52.15 0 80h90c7.33-24.72 4.55-52.12 0-80z"
-                                                            transform="matrix(.74894 0 -.13916 .65532 1208.59 -601.671)">
-                                                        </path>
-                                                        <path fill="#fff" fill-opacity=".523" stroke="#e57f78"
-                                                            stroke-opacity=".523" stroke-width="2.91"
-                                                            d="M16642.6 1390h104.4"
-                                                            transform="matrix(.53973 0 0 .80708 -6191.27 580.634)">
-                                                        </path>
-                                                        <path fill="none" stroke="#f9e4e2" stroke-linecap="butt"
-                                                            stroke-linejoin="miter" stroke-width="11.001"
-                                                            d="M2799.9 1719.881l10.068 14.175 26.33-20.877"></path>
-                                                        <path fill="#fff" stroke="#f9e4e2" stroke-width="2.29"
-                                                            d="M2920 3494h-40c1.07 7.5 1.78 24.21 0 35h20l5 10 5-10h10c2.09-10.98 1.83-22.74 0-35z"
-                                                            transform="matrix(.92309 0 -.10257 .92309 434.481 -1521.06)">
-                                                        </path>
-                                                        <path fill="#fff" stroke="#f9e4e2" stroke-width="2.02"
-                                                            d="M15739.5 990.429c7 1.038 14.3.248 21.4.334"
-                                                            transform="matrix(1.094 -.02973 .02372 .87278 -14501.8 1321.65)">
-                                                        </path>
-                                                        <path fill="#fff" stroke="#f9e4e2" stroke-width="2.02"
-                                                            d="M15739.5 990.429c7 1.038 14.3.248 21.4.334"
-                                                            transform="matrix(1.094 -.02973 .02372 .87278 -14501.8 1327.07)">
-                                                        </path>
-                                                        <path fill="none" stroke="#da4c3f" stroke-width="2.001"
-                                                            d="M2903.821 1741.11c-7.984-10.408-11.76-18.63-20.822-16.865-3.416.662-6.353 2.717-9.223 4.585-5.345 3.46-9.099 6.118-14.817 9.02">
-                                                        </path>
-                                                        <path fill="none" stroke="#da4c3f" stroke-width="2.001"
-                                                            d="M2876.851 1738.223c2.051-1.129 4.906-2.897 7.327-2.815 5.618.19 10.72 13.272 14.626 19.21">
-                                                        </path>
-                                                        <g
-                                                            transform="matrix(.52087 -.01125 -.04444 .49114 1556.3 23.085)">
-                                                            <path fill="#fff"
-                                                                d="M2843.93 3578.3c-1.2-7.46-2.67-15.03-4.28-22.72l-93.39-1.58c1.74 34.73-11.28 61.21-6.26 100l24.83.29 5.79 24.06 14.67-22.24L2840 3654c4.69-17.12 6.24-32.97 6.26-51.88">
-                                                            </path>
-                                                            <clipPath id="_clip1">
-                                                                <path
-                                                                    d="M2843.93 3578.3c-1.2-7.46-2.67-15.03-4.28-22.72l-93.39-1.58c1.74 34.73-11.28 61.21-6.26 100l24.83.29 5.79 24.06 14.67-22.24L2840 3654c4.69-17.12 6.24-32.97 6.26-51.88">
-                                                                </path>
-                                                            </clipPath>
-                                                            <g clip-path="url(#_clip1)">
-                                                                <path fill="#f9e4e2"
-                                                                    d="M2852.69 3588.68c25.27-2.68 16.64 23.19 48.32 25.19l3.86 5.86-10.87 24.17c-11.89-1.5-22.65-2.15-22.65-2.15s-7.33-23.62-33.81-25.27l-10.53-10.13"
-                                                                    transform="matrix(1.63217 -.2528 .4754 1.97699 -3615.82 -2818.34)">
-                                                                </path>
-                                                            </g>
-                                                            <path fill="none" stroke="#eca19a" stroke-width="4.18"
-                                                                d="M2843.93 3578.3c-1.2-7.46-2.67-15.03-4.28-22.72l-93.39-1.58c1.74 34.73-11.28 61.21-6.26 100l24.83.29 5.79 24.06 14.67-22.24L2840 3654c4.69-17.12 6.24-32.97 6.26-51.88">
-                                                            </path>
-                                                        </g>
-                                                        <path fill="none" stroke="#eca19a" stroke-width="1.75"
-                                                            d="M15739.5 990.429c7 1.038 14.3.248 21.4.334"
-                                                            transform="matrix(1.36056 -.03813 .02575 .87272 -18602.9 1496.02)">
-                                                        </path>
-                                                        <path fill="none" stroke="#eca19a" stroke-width="1.75"
-                                                            d="M15739.5 990.429c7 1.038 14.3.248 21.4.334"
-                                                            transform="matrix(1.36056 -.03813 .02575 .87272 -18603 1501.43)">
-                                                        </path>
-                                                        <path fill="none" stroke="#da4c3f" stroke-width="4.18"
-                                                            d="M2787.12 3554.8l-40.86-.8c.59 11.67-.5 22.42-2 33.01"
-                                                            transform="matrix(.52087 -.01125 -.04444 .49114 1556.3 23.085)">
-                                                        </path>
-                                                        <path fill="none" stroke="#da4c3f" stroke-width="2.001"
-                                                            d="M2897.977 1753.267c-2.004 1.515-5.197 1.528-7.504.968-6.953-1.691-12.376-6.783-18.85-9.52-6.482-2.735-11.763-1.129-7.874 2.72 6.723 6.672 31.788 26.795 48.296 34.03 4.27 1.87 13.444 5.987 20.454 9.141M2896.342 1750.397c.867 1.588 2.46 4.359 3.234 5.535M2896.243 1726.305c5.31-.93 7.907 2.588 10.371 6.392 1.454 2.244 4.307 6.944 5.56 9.005">
-                                                        </path>
-                                                        <path fill="none" stroke="#da4c3f" stroke-width="2.001"
-                                                            d="M2905.587 1726.64c2.2.123 4.77 1.654 6.03 3.432.76 1.074 4.955 8.964 7.354 12.94">
-                                                        </path>
-                                                        <path fill="none" stroke="#da4c3f" stroke-width="2.61"
-                                                            d="M2991.47 3539.47c8.89.44 11.94 19.06 14.88 27.49 4.52 12.96 10.83 21.44 20.91 27.39"
-                                                            transform="matrix(.74198 -.12277 .12775 .77208 243.061 -630.181)">
-                                                        </path>
-                                                        <path fill="none" stroke="#da4c3f" stroke-width="2.001"
-                                                            d="M2886.982 1736.933c-2.109 4.14-2.262 9.052-3.493 13.482">
-                                                        </path>
-                                                        <path fill="none" stroke="#da4c3f" stroke-width="3.15"
-                                                            d="M2920.23 3609.25c-1.75 3.41-2.91 7.1-4.83 10.41"
-                                                            transform="matrix(.57738 -.09553 .11114 .67175 804.692 -402.96)">
-                                                        </path>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </svg> -->
-                                    <p class="font-light text-center p-3">Add relevant notes to describre and track your
-                                        progress.</p>
-                                </div>
-                                <ul id="ul-popup-note-list"
-                                    class="flex-1 w-full flex flex-col gap-4 max-h-[130px] overflow-y-auto self-start">
-                                    <template id="tmp-popup-note-item">
-                                        <li class="li-popup-note-list-item flex gap-5 items-start">
-                                            <input type="hidden" class="hidden-tab-note-item-id">
+                <select
+                  name="select-popup-edit-task-priority"
+                  id="select-popup-edit-task-priority"
+                  class="w-[min-content] py-[10px] pl-[10px] bg-white border-[1px] border-solid border-slate-300 rounded-[10px]"
+                >
+                  <option value="4">⚪ No Priority</option>
+                  <option value="3">🟡 Low Priority</option>
+                  <option value="2">🟠 Medium Priority</option>
+                  <option value="1">🔴 High Priority</option>
+                </select>
+                <!-- <select name="select-register-todo-project" id="select-register-todo-project"></select> -->
+                <input
+                  id="input-popup-edit-task-tag"
+                  type="text"
+                  placeholder="🏷 Label"
+                />
+              </div>
+              <div class="w-full flex justify-start gap-4">
+                <button
+                  id="button-form-popup-edit-task-save"
+                  class="button-form-popup-edit-task-save bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]"
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  id="button-form-popup-edit-task-cancel"
+                  class="button-form-popup-edit-task-cancel border-slate-300 border-solid border-[1px] h-8 px-[10px] rounded-[5px]"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+          <div id="div-popup-edit-task-tabs" class="h-full">
+            <!-- Tabs -->
+            <ul
+              id="ul-popup-edit-task-tabs"
+              class="inline-flex pt-2 px-1 w-full border-b"
+            >
+              <li
+                class="bg-white px-4 text-gray-800 font-semibold py-2 rounded-t border-t border-r border-l -mb-px"
+              >
+                <a id="default-tab" href="#div-popup-edi-task-contents-first"
+                  >Sub-tasks</a
+                >
+              </li>
+              <li class="px-4 text-gray-800 font-semibold py-2 rounded-t">
+                <a href="#div-popup-edi-task-contents-second">Notes</a>
+              </li>
+            </ul>
+            <!-- Tab Contents -->
+            <div id="div-popup-edi-task-contents" class="max-h-full">
+              <div
+                id="div-popup-edi-task-contents-first"
+                class="py-4 flex flex-col gap-5"
+              >
+                <ul
+                  id="ul-popup-edi-task-contents-subtaskslist"
+                  class="flex w-full flex-col gap-4 max-h-[160px] sm:max-h-[180px] overflow-y-auto self-start"
+                >
+                  <template id="tmp-popup-subtask-item">
+                    <li
+                      class="li-popup-edit-task-subtask-item flex gap-5 items-center self-start"
+                    >
+                      <input type="hidden" class="hidden-tab-subtask-item-id" />
+                      <div class="div-tab-subtask-check-complete">
+                        <input
+                          class="chk-tab-subtask-complete rounded-[50%] h-[22px] w-[22px] bg-white border-solid border-[1px] border-slate-400 cursor-pointer appearance-none checked:bg-black checked:border-[3px]"
+                          type="checkbox"
+                          name="chk-tab-subtask-complete"
+                          id="chk-tab-subtask-complete"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        id="button-subtask-tab-list-item"
+                        class="flex-1 flex flex-col"
+                      >
+                        <p class="p-subtask-tab-title font-bold">aasdasd</p>
+                        <p class="p-subtask-tab-description text-sm font-light">
+                          sdfsdfsdf
+                        </p>
+                      </button>
+                    </li>
+                  </template>
+                </ul>
+                <div>
+                  <div class="w-full pl-4">
+                    <button
+                      type="button"
+                      id="button-popup-edi-task-contents-add-subtask"
+                      class="flex items-center gap-2"
+                    >
+                      <svg width="13" height="13">
+                        <path
+                          d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
+                          fill="#DB4C3F"
+                          fill-rule="evenodd"
+                        ></path>
+                      </svg>
+                      <p class="font-light">Add Sub-task</p>
+                    </button>
+                  </div>
 
-                                            <button type="button" class="btn-tab-note-complete">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    aria-hidden="true" class="comments_actions_icon">
-                                                    <g fill="none" fill-rule="evenodd">
-                                                        <path d="M0 0h24v24H0z"></path>
-                                                        <rect width="14" height="1" x="5" y="6" fill="currentColor"
-                                                            rx=".5"></rect>
-                                                        <path fill="currentColor" d="M10 9h1v8h-1V9zm3 0h1v8h-1V9z">
-                                                        </path>
-                                                        <path stroke="currentColor"
-                                                            d="M17.5 6.5h-11V18A1.5 1.5 0 0 0 8 19.5h8a1.5 1.5 0 0 0 1.5-1.5V6.5zm-9 0h7V5A1.5 1.5 0 0 0 14 3.5h-4A1.5 1.5 0 0 0 8.5 5v1.5z">
-                                                        </path>
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                            <div id="button-note-tab-list-item" class="flex-1 flex flex-col">
-                                                <p class="p-note-tab-description text-left">sdfs df sdf</p>
-                                                <p class="p-note-tab-date font-light text-sm italic">12/11/2021</p>
-                                            </div>
-                                        </li>
-                                    </template>
-                                </ul>
-                            </div>
-                            <form id="form-popup-subtask-note" autocomplete="off" onsubmit="return false"
-                                class="rounded-[10px] bg-white w-full flex items-center gap-2 mt-4 justify-center">
-                                <div
-                                    class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3">
-                                    <textarea name="texarea-popup-subtask-note-comment"
-                                        id="texarea-popup-subtask-note-comment" rows="1"
-                                        placeholder="Comment"></textarea>
-                                </div>
-                                <div class="w-full flex">
-                                    <button id="button-popup-subtask-note-add"
-                                        class="button-form-popup-edit-task-save bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]">Add</button>
-                                </div>
-                            </form>
-                        </div>
+                  <form
+                    id="form-popup-create-subtask"
+                    autocomplete="off"
+                    onsubmit="return false"
+                    class="rounded-[10px] bg-white w-[95%] flex flex-col gap-4"
+                  >
+                    <div
+                      class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3"
+                    >
+                      <input
+                        id="input-popup-create-subtask-title"
+                        type="text"
+                        placeholder="☝️ e.g., Family Lunch on Sunday..."
+                        required
+                      />
+                      <textarea
+                        name="textarea-popup-create-subtask-description"
+                        id="textarea-popup-edit-task-description"
+                        class="w-full overflow-hidden"
+                        rows="2"
+                        placeholder="📄 Description"
+                        required
+                      ></textarea>
+
+                      <input
+                        type="date"
+                        name="input-popup-create-subtask-date"
+                        list="dist-popup-create-subtask-days"
+                        id="input-popup-edit-task-date"
+                        class="self-start"
+                        required
+                      />
+                      <datalist id="dist-popup-create-subtask-days"> </datalist>
                     </div>
+                    <div class="w-full flex justify-start gap-4">
+                      <button
+                        id="button-form-create-subtask-add"
+                        class="button-form-create-subtask-add bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]"
+                      >
+                        Add
+                      </button>
+                      <button
+                        type="button"
+                        id="button-form-create-subtask-cancel"
+                        class="button-form-create-subtask-cancel border-slate-300 border-solid border-[1px] h-8 px-[10px] rounded-[5px]"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
                 </div>
+              </div>
+              <div
+                id="div-popup-edi-task-contents-second"
+                class="hidden pt-4 max-h-full flex flex-col justify-end"
+              >
+                <div class="flex flex-col items-center w-full">
+                  <div
+                    id="div-popup-note-empty"
+                    class="flex flex-col gap-3 items-center"
+                  >
+                    <p class="font-light text-center p-3">
+                      Add relevant notes to describre and track your progress.
+                    </p>
+                  </div>
+                  <ul
+                    id="ul-popup-note-list"
+                    class="flex-1 w-full flex flex-col gap-4 max-h-[130px] overflow-y-auto self-start"
+                  >
+                    <template id="tmp-popup-note-item">
+                      <li
+                        class="li-popup-note-list-item flex gap-5 items-start"
+                      >
+                        <input type="hidden" class="hidden-tab-note-item-id" />
+
+                        <button type="button" class="btn-tab-note-complete">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            aria-hidden="true"
+                            class="comments_actions_icon"
+                          >
+                            <g fill="none" fill-rule="evenodd">
+                              <path d="M0 0h24v24H0z"></path>
+                              <rect
+                                width="14"
+                                height="1"
+                                x="5"
+                                y="6"
+                                fill="currentColor"
+                                rx=".5"
+                              ></rect>
+                              <path
+                                fill="currentColor"
+                                d="M10 9h1v8h-1V9zm3 0h1v8h-1V9z"
+                              ></path>
+                              <path
+                                stroke="currentColor"
+                                d="M17.5 6.5h-11V18A1.5 1.5 0 0 0 8 19.5h8a1.5 1.5 0 0 0 1.5-1.5V6.5zm-9 0h7V5A1.5 1.5 0 0 0 14 3.5h-4A1.5 1.5 0 0 0 8.5 5v1.5z"
+                              ></path>
+                            </g>
+                          </svg>
+                        </button>
+                        <div
+                          id="button-note-tab-list-item"
+                          class="flex-1 flex flex-col"
+                        >
+                          <p class="p-note-tab-description text-left">
+                            sdfs df sdf
+                          </p>
+                          <p class="p-note-tab-date font-light text-sm italic">
+                            12/11/2021
+                          </p>
+                        </div>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+                <form
+                  id="form-popup-subtask-note"
+                  autocomplete="off"
+                  onsubmit="return false"
+                  class="rounded-[10px] bg-white w-full flex items-center gap-2 mt-4 justify-center"
+                >
+                  <div
+                    class="w-full border-[1px] border-slate-300 rounded-[10px] border-solid px-2 py-[10px] flex flex-col gap-3"
+                  >
+                    <textarea
+                      name="texarea-popup-subtask-note-comment"
+                      id="texarea-popup-subtask-note-comment"
+                      rows="1"
+                      placeholder="Comment"
+                    ></textarea>
+                  </div>
+                  <div class="w-full flex">
+                    <button
+                      id="button-popup-subtask-note-add"
+                      class="button-form-popup-edit-task-save bg-todoist_red border-todoist_red border-solid border-[1px] text-white h-8 px-[10px] rounded-[5px]"
+                    >
+                      Add
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
     <script src="./bundle.js"></script>
-</body>
-
+  </body>
 </html>
