@@ -8,6 +8,7 @@ import {
   signInWithPopup,
   signOut,
   getAdditionalUserInfo,
+  UserCredential,
 } from "firebase/auth";
 import {
   createNewUser,
@@ -184,6 +185,20 @@ const header = (function () {
       //pubsub.notify(it's headers loading time)
     },
     onClickHamburguerMenu: onClickHamburguerMenu,
+    /**
+     *
+     * @param {string} strUserDisplayName
+     * @param {string} strPhotoURL
+     */
+    configureUserAvatar(strUserDisplayName, strPhotoURL) {
+      const buttonUserMenuOut = document.getElementById(
+        "button-user-signin-menu-out"
+      );
+      buttonUserMenuOut.onclick = onSignOutClick;
+
+      prepareUserAvatarUI();
+      setUserInformationAvatar(strUserDisplayName, strPhotoURL);
+    },
   };
 })();
 

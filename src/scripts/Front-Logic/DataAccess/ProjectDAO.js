@@ -2,6 +2,19 @@
 
 import { shapeProject } from "../Model/Project";
 import { Project } from "../Model/Project";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+  doc,
+  serverTimestamp,
+} from "firebase/firestore";
 
 /**
  *

@@ -8,8 +8,12 @@ import { popUpProject } from "./scripts/Front/popUpProject";
 import "./styles.css";
 import { getFirebaseConfig } from "./scripts/Services/firebase-config";
 import { initializeApp } from "firebase/app";
+import { PopUpSignIn } from "./scripts/Front/popupSignIn";
 
 const strUserId = "1";
+
+const firebaseAppConfig = getFirebaseConfig();
+initializeApp(firebaseAppConfig);
 
 //#region subscriptions from business objects
 
@@ -24,5 +28,6 @@ header.onPageLoad(strUserId);
 mainLanding.onPageLoad(strUserId);
 popUpProject.close();
 
-const firebaseAppConfig = getFirebaseConfig();
-initializeApp(firebaseAppConfig);
+//#region PopUpsignIn
+PopUpSignIn.load();
+//#endregion
