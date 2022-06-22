@@ -29,13 +29,14 @@ const mainLandingAddTaskPoUp = (function () {
     if (this.value === "-1") {
       popUpProject.load(
         "-1",
+        strOWnerUserIdkeep,
         () =>
           (divAddTask.querySelector("#select-register-todo-project").value = "")
       );
     }
   };
 
-  const loadProjectsDropDownList = function () {
+  const loadProjectsDropDownList = async function () {
     const selProjectsList = divAddTask.querySelector(
       "#select-register-todo-project"
     );
@@ -47,7 +48,7 @@ const mainLandingAddTaskPoUp = (function () {
     fragment.appendChild(opChooseProject);
 
     const arrProjectsFiltered =
-      mainLandingAddTaskPoUp_Controller.loadProjectsDropDownList(
+      await mainLandingAddTaskPoUp_Controller.loadProjectsDropDownList(
         strOWnerUserIdkeep
       );
 

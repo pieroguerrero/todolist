@@ -18,16 +18,16 @@ initializeApp(firebaseAppConfig);
 //#region subscriptions from business objects
 
 popUpProject_Controller.subscribeEvents(strUserId);
-mainLandingWelcome_Controller.createDefatultProject();
 menuTray_Controller.subscribeEvents(strUserId);
 mainLandingAddTaskPoUp_Controller.subscribeEvents(strUserId);
 
 //#endregion
-
 header.onPageLoad(strUserId);
 mainLanding.onPageLoad(strUserId);
-popUpProject.close();
 
 //#region PopUpsignIn
 PopUpSignIn.load();
+
 //#endregion
+
+popUpProject.close();

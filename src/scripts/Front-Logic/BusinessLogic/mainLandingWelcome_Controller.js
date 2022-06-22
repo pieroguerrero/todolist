@@ -33,15 +33,15 @@ const mainLandingWelcome_Controller = (function () {
      * @param {string} strCurrentUserId
      * @param {Date} dtDate
      * @param {string} strProjectId
-     * @returns {{
+     * @returns {Promise<{
      * strTaskId: string,
      * strTaskName: string,
      * strDescription: string,
      * intCantSubTasks:number,
      * intStatusId:number
-     * }[]}
+     * }[]>}
      */
-    getTasksListbyDate: function (
+    getTasksListbyDate: async function (
       strCurrentUserId,
       dtDate,
       strProjectId,
@@ -51,7 +51,7 @@ const mainLandingWelcome_Controller = (function () {
       let arrAllTasks;
 
       if (strProjectId === "-1") {
-        arrAllTasks = createTodoDAO().dbSelectByDate(
+        arrAllTasks = await createTodoDAO().dbSelectByDate(
           dtDate,
           booPunctualDate ? dtDate : null,
           strCurrentUserId

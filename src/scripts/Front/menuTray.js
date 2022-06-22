@@ -15,7 +15,7 @@ const menuTray = (function () {
   let strOWnerUserIdkeep = "";
 
   const onClickAddProject = function () {
-    popUpProject.load("-1");
+    popUpProject.load("-1", strOWnerUserIdkeep, null);
   };
 
   /**
@@ -94,13 +94,17 @@ const menuTray = (function () {
     ulProjectsList.appendChild(fragment);
   };
 
-  const loadProjectSection = function () {
+  /**
+   *
+   * @param {string} strCurrentUserId
+   */
+  const loadProjectSection = function (strCurrentUserId) {
     const btnAddProject = divMenuExpanded.querySelector(
       "#button-menu-projects-add"
     );
     btnAddProject.onclick = onClickAddProject.bind(btnAddProject);
 
-    loadProjectsList();
+    loadProjectsList(strCurrentUserId);
   };
 
   const removeSelectionStyle = function () {
@@ -139,7 +143,7 @@ const menuTray = (function () {
     }
   };
 
-  const onChangeCustomDate = function (divCustomDate, btnCustomDate) {
+  const onChangeCustomDate = async function (divCustomDate, btnCustomDate) {
     divCustomDate.classList.add("hidden");
     btnCustomDate.classList.remove("hidden");
 
@@ -161,13 +165,15 @@ const menuTray = (function () {
       dtCustomDate,
       "dd/MM/yyyy"
     );
-    btnCustomDate.querySelector("#p-menu-custom-count").textContent =
-      menuTray_Controller.calculateQttyOfTasks(
+
+    btnCustomDate.querySelector("#p-menu-custom-count").textContent = (
+      await menuTray_Controller.calculateQttyOfTasks(
         "-1",
         dtCustomDate,
         dtCustomDate,
         strOWnerUserIdkeep
-      );
+      )
+    ).toString();
 
     //TODO: load tasks list
 
@@ -244,7 +250,7 @@ const menuTray = (function () {
     header.onClickHamburguerMenu();
   };
 
-  const loadTodayOption = function () {
+  const loadTodayOption = async function () {
     const dtDateFilter = new Date();
     const strProjectIdFilter = "-1";
 
@@ -253,14 +259,14 @@ const menuTray = (function () {
     );
 
     const pQtty = btnOptionToday.querySelector("#p-menu-today-count");
-    pQtty.textContent = menuTray_Controller
-      .calculateQttyOfTasks(
+    pQtty.textContent = (
+      await menuTray_Controller.calculateQttyOfTasks(
         strProjectIdFilter,
         dtDateFilter,
         dtDateFilter,
         strOWnerUserIdkeep
       )
-      .toString();
+    ).toString();
 
     btnOptionToday.onclick = onClickOptionLoad.bind(
       btnOptionToday,
@@ -273,7 +279,7 @@ const menuTray = (function () {
     );
   };
 
-  const loadUpcomingOption = function () {
+  const loadUpcomingOption = async function () {
     const dtDateFilter = new Date();
     const strProjectIdFilter = "-1";
 
@@ -282,14 +288,14 @@ const menuTray = (function () {
     );
 
     const pQtty = btnOptionUpcoming.querySelector("#p-menu-upcoming-count");
-    pQtty.textContent = menuTray_Controller
-      .calculateQttyOfTasks(
+    pQtty.textContent = (
+      await menuTray_Controller.calculateQttyOfTasks(
         strProjectIdFilter,
         dtDateFilter,
         null,
         strOWnerUserIdkeep
       )
-      .toString();
+    ).toString();
 
     btnOptionUpcoming.onclick = onClickOptionLoad.bind(
       btnOptionUpcoming,
@@ -310,10 +316,14 @@ const menuTray = (function () {
     loadCustomDateOption();
   };
 
-  const loadProjectsList = function () {
-    const strCurrentUserId = "1";
-    const arrSimpleProjecstList =
-      menuTray_Controller.getProjectsList(strCurrentUserId);
+  /**
+   *
+   * @param {string} strCurrentUserId
+   */
+  const loadProjectsList = async (strCurrentUserId) => {
+    const arrSimpleProjecstList = await menuTray_Controller.getProjectsList(
+      strCurrentUserId
+    );
     renderProjectsList(arrSimpleProjecstList);
   };
 
@@ -335,7 +345,7 @@ const menuTray = (function () {
       }
 
       loadOptionsSection();
-      loadProjectSection();
+      loadProjectSection(strOWnerUserId);
     },
     loadProjectsList,
     isOpen: function () {

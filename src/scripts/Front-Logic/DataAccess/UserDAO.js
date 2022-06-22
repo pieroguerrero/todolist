@@ -23,7 +23,7 @@ import {
  * @param {string} strName
  * @returns {Promise<void>}
  */
-const registerUser = async (strId, strEmail, strName) => {
+const registerUser = (strId, strEmail, strName) => {
   const response = setDoc(doc(getFirestore(), "users", strId), {
     strEmail,
     strName,

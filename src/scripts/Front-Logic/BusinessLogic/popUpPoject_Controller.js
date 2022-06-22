@@ -19,14 +19,16 @@ const popUpProject_Controller = (function () {
      * @param {string} strDescription
      * @param {Date} dtStartDate
      * @param {Date} dtEndDate
-     * @returns { {strResult:string, strResultId:string} }
+     * @param {string} strUserOwnerId
+     * @returns { Promise<{strResult:string, strResultId:string}> }
      */
-    saveProject: function (
+    saveProject: async function (
       strId,
       strName,
       strDescription,
       dtStartDate,
-      dtEndDate
+      dtEndDate,
+      strUserOwnerId
     ) {
       let strResultId = "",
         strResult = "error";
@@ -34,27 +36,27 @@ const popUpProject_Controller = (function () {
       const objProjectDAO = createProjectDAO();
 
       if (strId === "-1") {
-        strResultId = objProjectDAO.dbInsert(
+        strResultId = await objProjectDAO.dbInsert(
           strName,
           strDescription,
           dtStartDate,
           dtEndDate,
           STATUS.PENDING.id,
-          "1",
-          "1"
+          strUserOwnerId,
+          strUserOwnerId
         );
         if (strResultId.length > 0) {
           strResult = "The Project was created successfully.";
         }
       } else if (strId && strId.length > 0) {
-        strResultId = objProjectDAO.dbUpdate(
+        strResultId = await objProjectDAO.dbUpdate(
           strId,
           strName,
           strDescription,
           dtStartDate,
           dtEndDate,
           STATUS.PENDING.id,
-          "1"
+          strUserOwnerId
         );
         if (strResultId.length > 0) {
           strResult = "The Project was updated successfully.";

@@ -15,8 +15,9 @@ const popUpProject = (function () {
   /**
    *
    * @param {string} strProjectID - If -1 it will register a new Project, otherwise will update the correspondant Project based on the Project ID.
+   * @param {string} strUserOwnerId
    */
-  const saveProject = function (strProjectID) {
+  const saveProject = async function (strProjectID, strUserOwnerId) {
     const frmPopUpProject = divPopUpProject.querySelector(
       "#form-popup-register-project"
     );
@@ -41,17 +42,18 @@ const popUpProject = (function () {
         ),
       };
 
-      const objResult = popUpProject_Controller.saveProject(
+      const objResult = await popUpProject_Controller.saveProject(
         objProjectUI.strId,
         objProjectUI.strName,
         objProjectUI.strDescription,
         objProjectUI.dtStartDate,
-        objProjectUI.dtEndDate
+        objProjectUI.dtEndDate,
+        strUserOwnerId
       );
 
       if (objResult.strResult !== "error") {
         if (menuTray.isOpen()) {
-          menuTray.loadProjectsList();
+          menuTray.loadProjectsList(strUserOwnerId);
         } else if (mainLandingAddTaskPoUp.isOpen()) {
           mainLandingAddTaskPoUp.loadProjectsList();
         }
@@ -85,9 +87,10 @@ const popUpProject = (function () {
     /**
      *
      * @param {string} strProjectID If -1 it will load the PopUp in registration mode, otherwise will use the Project Id passed to load the correspondant Project data.
-     * @param {Function} fnCancelLaterExecution - To be
+     * @param {Function} fnCancelLaterExecution
+     * @param {string} strUserOwnerId
      */
-    load: function (strProjectID, fnCancelLaterExecution = null) {
+    load: function (strProjectID, strUserOwnerId, fnCancelLaterExecution) {
       divPopUpProject.classList.remove("hidden");
 
       const btnCancel = divPopUpProject.querySelector(
@@ -98,7 +101,7 @@ const popUpProject = (function () {
       const btnAdd = divPopUpProject.querySelector(
         "#button-form-register-project-add"
       );
-      btnAdd.onclick = saveProject.bind(null, strProjectID);
+      btnAdd.onclick = saveProject.bind(null, strProjectID, strUserOwnerId);
       btnAdd.textContent = strProjectID === "-1" ? "Add" : "Update";
     },
     close: close,

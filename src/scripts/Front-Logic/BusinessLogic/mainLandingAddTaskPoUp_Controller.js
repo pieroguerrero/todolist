@@ -60,10 +60,10 @@ const mainLandingAddTaskPoUp_Controller = (function () {
      * @param {string} strCurrentUserId
      * @returns
      */
-    loadProjectsDropDownList: function (strCurrentUserId) {
+    loadProjectsDropDownList: async function (strCurrentUserId) {
       const objProjectDAO = createProjectDAO();
 
-      const arrProjects = objProjectDAO.dbSelectAll(strCurrentUserId);
+      const arrProjects = await objProjectDAO.dbSelectAll(strCurrentUserId);
 
       const arrProjectsFiltered = arrProjects.map((objProject) => ({
         strId: objProject.getId(),

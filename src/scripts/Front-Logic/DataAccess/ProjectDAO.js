@@ -14,24 +14,27 @@ import {
   updateDoc,
   doc,
   serverTimestamp,
+  where,
+  getDocs,
+  DocumentData,
+  SnapshotOptions,
+  QueryDocumentSnapshot,
 } from "firebase/firestore";
 
 /**
  *
- * @param {string} strId
- * @param {number} intStatusId
- * @param {string} strTitle
- * @param {string} strDescription
- * @param {Date} dtStartDate
- * @param {Date} dtEndDate
- * @param {string} strUserOwnerId
- * @param {string} strUserCreatorId
- * @param {Date} dtCreatedOn
- * @param {string[]} arrToDoIds
+ * @param {Object} projectLite
+ * @param {number} projectLite.intStatusId
+ * @param {string} projectLite.strTitle
+ * @param {string} projectLite.strDescription
+ * @param {Date} projectLite.dtStartDate
+ * @param {Date | null} projectLite.dtEndDate
+ * @param {string} projectLite.strUserOwnerId
+ * @param {string} projectLite.strUserCreatorId
+ * @param {Date} projectLite.dtCreatedOn
  * @returns
  */
-const adapt = (
-  strId,
+const adaptProject = ({
   intStatusId,
   strTitle,
   strDescription,
@@ -40,10 +43,8 @@ const adapt = (
   strUserOwnerId,
   strUserCreatorId,
   dtCreatedOn,
-  arrToDoIds
-) => {
+}) => {
   return {
-    strId,
     intStatusId,
     strTitle,
     strDescription,
@@ -52,8 +53,37 @@ const adapt = (
     strUserOwnerId,
     strUserCreatorId,
     dtCreatedOn,
-    arrToDoIds,
   };
+};
+
+/**
+ *
+ * @param {Project} objProject
+ * @returns {DocumentData}
+ */
+const toFirestore = (objProject) => {
+  return {};
+};
+
+/**
+ * More information about the converters at: https://firebase.google.com/docs/reference/node/firebase.firestore.FirestoreDataConverter
+ * @param {string} strDocId
+ * @param { DocumentData} docData
+ * @returns {Project}
+ */
+const fromFirestore = (strDocId, docData) => {
+  return shapeProject(
+    strDocId,
+    docData.strTitle,
+    docData.strDescription,
+    docData.dtStartDate,
+    docData.dtEndDate,
+    docData.intStatusId,
+    docData.strUserOwnerId,
+    docData.strUserCreatorId,
+    docData.dtCreatedOn,
+    []
+  );
 };
 
 /**
@@ -65,9 +95,9 @@ const adapt = (
  * @param {number} intStatusId
  * @param {string} strUserOwnerId
  * @param {string} strUserCreatorId
- * @returns {string} The Id of the recently registered Project, otherwhise returns -1.
+ * @returns {Promise<string>} The Id of the recently registered Project, otherwhise returns -1.
  */
-function dbInsert(
+async function dbInsert(
   strTitle,
   strDescription,
   dtStartDate,
@@ -76,30 +106,29 @@ function dbInsert(
   strUserOwnerId,
   strUserCreatorId
 ) {
-  const objProjectData = {
-    strId: Number(Date.now() + (Math.random() * 100000).toFixed()).toString(),
-    intStatusId: intStatusId,
-    strTitle: strTitle,
-    strDescription: strDescription,
-    dtStartDate: dtStartDate,
-    dtEndDate: dtEndDate,
-    strUserOwnerId: strUserOwnerId,
-    strUserCreatorId: strUserCreatorId,
+  const objProjectData = adaptProject({
+    intStatusId,
+    strTitle,
+    strDescription,
+    dtStartDate,
+    dtEndDate,
+    strUserOwnerId,
+    strUserCreatorId,
     dtCreatedOn: new Date(),
-    arrToDoIds: [],
-  };
+  });
 
-  localStorage.setItem(
-    "project-" + objProjectData.strId,
-    JSON.stringify(objProjectData)
-  );
+  let docRef;
 
-  const projectsListRaw = localStorage.getItem("projects-list");
-  const arrProjectsList = projectsListRaw ? JSON.parse(projectsListRaw) : [];
-  arrProjectsList.push(objProjectData.strId);
-  localStorage.setItem("projects-list", JSON.stringify(arrProjectsList));
+  try {
+    docRef = await addDoc(
+      collection(getFirestore(), "users", strUserOwnerId, "projects"),
+      objProjectData
+    );
+  } catch (error) {
+    console.error("ProjectDAO.dbInsert:", error);
+  }
 
-  return objProjectData.strId;
+  return docRef?.id ?? "";
 }
 
 /**
@@ -184,13 +213,49 @@ function dbInsertDefaultProject(
  * @param {string} strId
  * @param {string} strTitle
  * @param {string} strDescription
+ * @param {number} intStatusId
+ * @param {string} strUserOwnerId
+ * @param {string} strUserCreatorId
+ * @returns {Promise<void>}
+ */
+function fbInsertDefaultProject(
+  strId,
+  strTitle,
+  strDescription,
+  intStatusId,
+  strUserOwnerId,
+  strUserCreatorId
+) {
+  const objProjectData = adaptProject({
+    intStatusId,
+    strTitle,
+    strDescription,
+    dtStartDate: new Date(),
+    dtEndDate: null,
+    strUserOwnerId,
+    strUserCreatorId,
+    dtCreatedOn: new Date(),
+  });
+
+  const response = setDoc(
+    doc(getFirestore(), "users", strUserOwnerId, "projects", strId),
+    objProjectData
+  );
+  return response;
+}
+
+/**
+ *
+ * @param {string} strId
+ * @param {string} strTitle
+ * @param {string} strDescription
  * @param {Date} dtStartDate
  * @param {Date} dtEndDate
  * @param {number} intStatusId
  * @param {string} strUserOwnerId
- * @returns {string} The Id of the recently updated Project, otherwhise returns -1.
+ * @returns {Promise<string>} The Id of the recently updated Project, otherwhise returns -1.
  */
-function dbUpdate(
+async function dbUpdate(
   strId,
   strTitle,
   strDescription,
@@ -199,27 +264,33 @@ function dbUpdate(
   intStatusId,
   strUserOwnerId
 ) {
-  const objProject = dbSelect(strId, strUserOwnerId);
-
   const objProjectData = {
-    strId: strId,
     intStatusId: intStatusId,
     strTitle: strTitle,
     strDescription: strDescription,
     dtStartDate: dtStartDate,
     dtEndDate: dtEndDate,
-    strUserOwnerId: strUserOwnerId,
-    strUserCreatorId: objProject?.getUserCreatorId(),
-    dtCreatedOn: objProject?.getCreationDate(),
-    arrToDoIds: objProject?.getToDosIdList(),
   };
 
-  localStorage.setItem(
-    "project-" + objProjectData.strId,
-    JSON.stringify(objProjectData)
-  );
+  let strResultId = "";
 
-  return objProjectData.strId;
+  try {
+    const docRef = doc(
+      getFirestore(),
+      "users",
+      strUserOwnerId,
+      "projects",
+      strId
+    );
+
+    await updateDoc(docRef, { objProjectData });
+
+    strResultId = strId;
+  } catch (error) {
+    console.error("ProjectDAO.dbUpdate:", error);
+  }
+
+  return strResultId;
 }
 /**
  *
@@ -254,25 +325,28 @@ function dbSelect(strProjectId, strOWnerUserId) {
 
 /**
  * @param {string} strOWnerUserId
- * @returns {Project[]}
+ * @returns {Promise<Project[]>}
  */
-function dbSelectAll(strOWnerUserId) {
-  const arrProjectsId = JSON.parse(localStorage.getItem("projects-list"));
+async function dbSelectAll(strOWnerUserId) {
+  let querySnapshot;
 
-  const arrProjects = arrProjectsId.map((projectId) =>
-    dbSelect(projectId, strOWnerUserId)
-  );
-  return arrProjects;
+  try {
+    const projectsRef = collection(
+      getFirestore(),
+      "users",
+      strOWnerUserId,
+      "projects"
+    );
+    const queryDoc = query(projectsRef, where("intStatusId", "not-in", [2, 4]));
+    querySnapshot = await getDocs(queryDoc);
+
+    return querySnapshot.docs.map((doc) => fromFirestore(doc.id, doc.data()));
+  } catch (error) {
+    console.error("ProjectDAO.dbSelectAll:", error);
+  }
+
+  return [];
 }
-
-// const objData = {
-//   dbInsert: null,
-//   dbUpdate: null,
-//   dbSelect: null,
-//   dbSelectAll: null,
-//   dbInsertDefaultProject: null,
-//   dbAddTodoIdToProject: null,
-// };
 
 export function createProjectDAO() {
   return {
@@ -282,5 +356,6 @@ export function createProjectDAO() {
     dbUpdate,
     dbInsertDefaultProject,
     dbAddTodoIdToProject,
+    fbInsertDefaultProject,
   };
 }

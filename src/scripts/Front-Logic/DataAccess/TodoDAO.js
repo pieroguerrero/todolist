@@ -307,10 +307,10 @@ function dbSelectByProject(strProjectId) {
  * @param {Date} dtStartDate
  * @param {Date} dtEndDate
  * @param {string} strOWnerUserId
- * @returns {Todo[]}
+ * @returns {Promise<Todo[]>}
  */
-function dbSelectByDate(dtStartDate, dtEndDate, strOWnerUserId) {
-  const arrProjects = createProjectDAO().dbSelectAll(strOWnerUserId);
+async function dbSelectByDate(dtStartDate, dtEndDate, strOWnerUserId) {
+  const arrProjects = await createProjectDAO().dbSelectAll(strOWnerUserId);
 
   const arrAllTasks = arrProjects.reduce(
     /**

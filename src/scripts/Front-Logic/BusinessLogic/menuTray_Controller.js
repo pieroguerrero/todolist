@@ -38,11 +38,10 @@ const menuTray_Controller = (function () {
     /**
      *
      * @param {string} strOWnerUserId
-     * @returns {Object[]}
+     * @returns {Promise<Object[]>}
      */
-    getProjectsList: function (strOWnerUserId) {
-      const arrProjects = createProjectDAO().dbSelectAll(strOWnerUserId);
-      //const objTodoDAO = createTodoDAO();
+    getProjectsList: async (strOWnerUserId) => {
+      const arrProjects = await createProjectDAO().dbSelectAll(strOWnerUserId);
 
       const arrProjectsFiltered = arrProjects.map((objProject) => ({
         strId: objProject.getId(),
@@ -64,19 +63,19 @@ const menuTray_Controller = (function () {
      * @param {string} strCurrentUserId
      * @returns
      */
-    calculateQttyOfTasks: function (
+    calculateQttyOfTasks: async function (
       strProjectId,
       dtStartDate,
       dtEndDate,
       strCurrentUserId
     ) {
-      const dblQtty = createTodoDAO().dbSelectByDate(
+      const arrTodo = await createTodoDAO().dbSelectByDate(
         dtStartDate,
         dtEndDate,
         strCurrentUserId
-      ).length;
+      );
 
-      return dblQtty;
+      return arrTodo.length;
     },
   };
 })();

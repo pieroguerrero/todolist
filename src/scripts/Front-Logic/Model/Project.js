@@ -81,23 +81,7 @@ const projectActions = {
  * @param {string} strUserCreatorId
  * @param {Date} dtCreatedOn
  * @param {number[]} arrToDoIds
- * @returns {{
- * getId: function(): string,
- * getStatusId: function(): number,
- * getTitle: function(): string,
- * getDescription: function(): string,
- * getStartDate: function(): Date,
- * getEndDate: function(): Date,
- * getUserOwnerId: function(): string,
- * getUserCreatorId: function(): string,
- * getCreationDate: function(): Date,
- * getToDosIdList: function(): string[],
- * setTitle: function(string):void,
- * setDescription: function(string):void,
- * setStartDate: function(Date):void,
- * setEndDate: function(Date):void,
- * setStatusId: function(number):void
- * }}
+ * @returns {Project}
  */
 
 export function shapeProject(
