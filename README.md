@@ -66,7 +66,7 @@ Clone this project by doing:
 ```
 $ git clone https://github.com/pieroguerrero/todolist.git
 ```
-Then go to the folder you cloned the code and execure:
+Then go to the folder you cloned the code and execute:
 ```
 $ npm install
 ```
